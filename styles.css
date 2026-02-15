@@ -107,10 +107,7 @@ body{font-family:var(--bf);background:var(--w);color:var(--bk);overflow-x:hidden
 .verse-bracket{color:var(--gold);font-size:1.3em;}
 .verse-ref{font-family:var(--bf);font-size:.68rem;color:var(--g400);margin-top:.3rem;letter-spacing:1px;}
 
-.hero-scroll{position:absolute;bottom:35px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--g400);font-size:.7rem;z-index:2;cursor:pointer;}
-.scroll-mouse{width:22px;height:34px;border:2px solid var(--g400);border-radius:11px;position:relative;}
-.scroll-mouse::after{content:'';width:3px;height:7px;background:var(--b500);border-radius:2px;position:absolute;top:5px;left:50%;transform:translateX(-50%);animation:scAnim 2s infinite;}
-@keyframes scAnim{0%{opacity:1;transform:translateX(-50%) translateY(0);}100%{opacity:0;transform:translateX(-50%) translateY(14px);}}
+/* hero scroll removed */
 
 /* === COMMON === */
 .section-page{padding:100px 2rem 60px;min-height:100vh;}
@@ -133,6 +130,15 @@ body{font-family:var(--bf);background:var(--w);color:var(--bk);overflow-x:hidden
 .cc-body p{color:var(--g600);line-height:2.2;margin-bottom:1rem;font-size:.92rem;}
 .cc-body p:last-child{margin-bottom:0;}
 .cc-body p strong{color:var(--b800);}
+
+/* References */
+.references-card{border:2px solid var(--b200);background:linear-gradient(135deg,var(--b50),var(--w));}
+.cc-icon-ref{background:linear-gradient(135deg,var(--b600),var(--b800))!important;color:var(--w)!important;}
+.ref-list{list-style:none;padding:0;margin:.5rem 0 0;}
+.ref-list li{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;margin-bottom:8px;background:var(--w);border:1px solid var(--g200);border-radius:10px;font-size:.85rem;color:var(--g600);line-height:1.9;transition:var(--ease);}
+.ref-list li:hover{border-color:var(--b300);background:var(--b50);}
+.ref-list li i{color:var(--b500);margin-top:6px;flex-shrink:0;font-size:.7rem;}
+.ref-list li strong{color:var(--b800);}
 
 .info-cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
 .info-card-v2{background:var(--w);border:1px solid var(--g200);border-radius:14px;padding:1.5rem;text-align:center;transition:var(--ease);box-shadow:var(--sh1);}
