@@ -133,8 +133,8 @@ body{font-family:var(--bf);background:var(--w);color:var(--bk);overflow-x:hidden
 .evc-expand-btn{background:none;border:1px solid var(--b300);color:var(--b600);padding:6px 18px;border-radius:20px;cursor:pointer;font-family:var(--bf);font-size:.78rem;font-weight:600;transition:var(--ease);display:inline-flex;align-items:center;gap:5px;margin:8px 0;}
 .evc-expand-btn:hover{background:var(--b600);color:var(--w);border-color:var(--b600);}
 .evc-detail{margin-top:1rem;border-top:1px solid var(--b200);padding-top:1.2rem;}
-.iftar-banner{margin-bottom:1.2rem;border-radius:12px;overflow:hidden;}
-.iftar-banner img{width:100%;height:auto;border-radius:12px;box-shadow:var(--sh2);}
+.iftar-banner{margin-bottom:1.2rem;border-radius:12px;overflow:hidden;max-height:400px;display:flex;align-items:center;justify-content:center;}
+.iftar-banner img{width:100%;height:auto;max-height:400px;object-fit:contain;border-radius:12px;box-shadow:var(--sh2);}
 .iftar-content{text-align:center;padding:1rem;}
 .iftar-bismillah{font-family:var(--hf);font-size:1.3rem;color:var(--b800);margin-bottom:.8rem;}
 .iftar-hadith{font-family:var(--hf);font-size:.95rem;color:var(--gold-d);margin-bottom:1rem;font-style:italic;line-height:2;}
