@@ -27,9 +27,9 @@ function navigateTo(pageId) {
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
     
-    // Show/hide footer
+    // Show footer on all pages
     const footer = document.getElementById('siteFooter');
-    footer.style.display = pageId === 'home' ? 'none' : 'block';
+    footer.style.display = 'block';
     
     // Trigger fade animations
     setTimeout(() => initFadeAnimations(), 150);
@@ -38,8 +38,8 @@ function navigateTo(pageId) {
     closeMobile();
 }
 
-// Hide footer initially (home page)
-document.getElementById('siteFooter').style.display = 'none';
+// Show footer on load
+document.getElementById('siteFooter').style.display = 'block';
 
 // === NAVBAR SCROLL ===
 window.addEventListener('scroll', () => {
@@ -72,6 +72,19 @@ function closeModal() {
 document.getElementById('personModal').addEventListener('click', function(e) {
     if (e.target === this) closeModal();
 });
+
+// === TOGGLE EVENT DETAIL ===
+function toggleEventDetail(btn) {
+    const detail = btn.nextElementSibling;
+    if (detail.style.display === 'none') {
+        detail.style.display = 'block';
+        detail.style.animation = 'modIn .4s ease';
+        btn.innerHTML = '<i class="fas fa-chevron-up"></i> إخفاء الإعلان';
+    } else {
+        detail.style.display = 'none';
+        btn.innerHTML = '<i class="fas fa-chevron-down"></i> اقرأ الإعلان كاملاً';
+    }
+}
 
 // === FORM SUBMIT ===
 function handleSubmit(e) {
@@ -211,4 +224,47 @@ document.querySelectorAll('.t-person').forEach(card => {
     card.addEventListener('mouseenter', function() {
         this.style.transition = 'all .3s cubic-bezier(.34,1.56,.64,1)';
     });
+});
+
+// === TOUCH SUPPORT FOR TREE ===
+if (treeW) {
+    let touchStartX, touchStartY, touchScrollL, touchScrollT;
+    
+    treeW.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].pageX - treeW.offsetLeft;
+        touchStartY = e.touches[0].pageY - treeW.offsetTop;
+        touchScrollL = treeW.scrollLeft;
+        touchScrollT = treeW.scrollTop;
+    }, { passive: true });
+    
+    treeW.addEventListener('touchmove', (e) => {
+        const x = e.touches[0].pageX - treeW.offsetLeft;
+        const y = e.touches[0].pageY - treeW.offsetTop;
+        treeW.scrollLeft = touchScrollL - (x - touchStartX);
+        treeW.scrollTop = touchScrollT - (y - touchStartY);
+    }, { passive: true });
+}
+
+// === HANDLE RESIZE ===
+let resizeTimer;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+        initFadeAnimations();
+    }, 250);
+});
+
+// === VIEWPORT HEIGHT FIX FOR MOBILE ===
+function setVH() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+setVH();
+window.addEventListener('resize', setVH);
+
+// === CLOSE MOBILE MENU ON SCROLL ===
+window.addEventListener('scroll', () => {
+    if (document.getElementById('mobileMenu').classList.contains('open')) {
+        closeMobile();
+    }
 });
