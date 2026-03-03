@@ -220,6 +220,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
 }
 
 .nav-brand {
@@ -240,14 +241,20 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .nav-brand:hover .nav-logo { transform: scale(1.05); }
 
-/* Nav Actions (Theme Toggle + Hamburger) - Always visible on ALL devices */
+/* Nav Actions - Theme toggle on far left, hamburger on right */
 .nav-actions-mobile {
     display: flex;
     align-items: center;
     gap: 10px;
     z-index: 100;
 }
+
+/* Theme Toggle - Fixed to far LEFT of navbar */
 .theme-toggle-mobile {
+    position: absolute;
+    left: 24px;
+    top: 50%;
+    transform: translateY(-50%);
     width: 44px;
     height: 44px;
     border-radius: 50%;
@@ -257,20 +264,20 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     color: var(--text-secondary);
     background: var(--bg-alt);
     border: 1px solid var(--border);
-    transition: var(--transition);
+    transition: all var(--transition);
     font-size: 1.15rem;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
+    z-index: 101;
 }
 .theme-toggle-mobile:hover {
     background: var(--accent);
     color: #fff;
     border-color: var(--accent);
-    transform: rotate(180deg);
 }
 .theme-toggle-mobile:active {
-    transform: scale(0.9);
+    transform: translateY(-50%) scale(0.9);
 }
 [data-theme="dark"] .theme-toggle-mobile {
     background: var(--bg-card);
@@ -1149,10 +1156,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     width: 100px;
     height: 100px;
     object-fit: contain;
-    filter: drop-shadow(0 2px 10px rgba(0,0,0,0.3));
+    filter: brightness(0) invert(1) drop-shadow(0 2px 15px rgba(255,255,255,0.2));
     transition: var(--transition);
 }
-.footer-brand:hover .footer-logo { transform: scale(1.05); }
+.footer-brand:hover .footer-logo { transform: scale(1.05); filter: brightness(0) invert(1) drop-shadow(0 4px 20px rgba(212,168,83,0.4)); }
 .footer-brand-text {
     font-family: var(--font-heading);
     font-size: 1.5rem;
@@ -1292,6 +1299,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         width: 42px;
         height: 42px;
         font-size: 1.1rem;
+        left: 16px;
     }
     .nav-menu {
         position: fixed;
@@ -1389,7 +1397,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     .content-block { padding: 16px 12px; }
     .page-title { font-size: 1.5rem; }
     .nav-logo { height: calc(var(--nav-height) - 16px); width: auto; min-width: 80px; max-width: 120px; }
-    .theme-toggle-mobile { width: 36px; height: 36px; font-size: 0.9rem; }
+    .theme-toggle-mobile { width: 36px; height: 36px; font-size: 0.9rem; left: 12px; }
     .footer-logo { width: 60px; height: 60px; }
     .preloader-logo { width: 120px; height: 120px; }
     .preloader-text { font-size: 1.5rem; }
