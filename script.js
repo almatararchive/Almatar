@@ -1,270 +1,333 @@
-/* =========================================
-   عائلة المطر - الأحساء | السكريبت الرئيسي
-   ========================================= */
+/* ============================================
+   AL MATAR FAMILY - PREMIUM JAVASCRIPT
+   ============================================ */
 
-// === PRELOADER ===
+// ── State ──
+let currentPage = 'home';
+let treeScale = 1;
+let fontSizeLevel = 0;
+
+// ── Preloader ──
 window.addEventListener('load', () => {
     setTimeout(() => {
         document.getElementById('preloader').classList.add('hidden');
-    }, 2200);
+        initReveal();
+        showToast('أهلاً بكم في موقع عائلة المطر');
+    }, 1800);
 });
 
-// === PAGE NAVIGATION ===
+// ── Navigation ──
 function navigateTo(pageId) {
+    if (currentPage === pageId && pageId !== 'home') return;
+    
     // Hide all pages
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.page').forEach(p => {
+        p.classList.remove('active');
+        p.style.animation = '';
+    });
     
     // Show target page
     const target = document.getElementById('page-' + pageId);
-    if (target) target.classList.add('active');
+    if (target) {
+        target.classList.add('active');
+        target.style.animation = 'fadeIn 0.4s ease';
+    }
     
-    // Update nav active state
-    document.querySelectorAll('.nav-links button').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.getAttribute('data-page') === pageId) btn.classList.add('active');
-    });
+    // Update nav links
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    const activeLink = document.querySelector(`.nav-link[data-page="${pageId}"]`);
+    if (activeLink) activeLink.classList.add('active');
+    
+    // Close mobile menu
+    document.getElementById('navMenu').classList.remove('active');
+    document.getElementById('navToggle').classList.remove('active');
+    document.body.style.overflow = '';
     
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
     
-    // Show footer on all pages
-    const footer = document.getElementById('siteFooter');
-    footer.style.display = 'block';
+    currentPage = pageId;
     
-    // Trigger fade animations
-    setTimeout(() => initFadeAnimations(), 150);
+    // Save last visited page
+    localStorage.setItem('lastPage', pageId);
     
-    // Close mobile menu
-    closeMobile();
+    // Re-init reveal animations
+    setTimeout(initReveal, 100);
 }
 
-// Show footer on load
-document.getElementById('siteFooter').style.display = 'block';
-
-// === NAVBAR SCROLL ===
-window.addEventListener('scroll', () => {
-    const navbar = document.getElementById('navbar');
-    const backTop = document.getElementById('backTop');
-    
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
-    backTop.classList.toggle('visible', window.scrollY > 350);
+// ── Mobile Menu ──
+document.getElementById('navToggle').addEventListener('click', () => {
+    const menu = document.getElementById('navMenu');
+    const toggle = document.getElementById('navToggle');
+    menu.classList.toggle('active');
+    toggle.classList.toggle('active');
+    document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
 });
 
-// === MOBILE MENU ===
-function toggleMobile() {
-    document.getElementById('mobileMenu').classList.toggle('open');
-}
-function closeMobile() {
-    document.getElementById('mobileMenu').classList.remove('open');
+// Close menu on outside click
+document.addEventListener('click', (e) => {
+    const menu = document.getElementById('navMenu');
+    const toggle = document.getElementById('navToggle');
+    if (menu.classList.contains('active') && !menu.contains(e.target) && !toggle.contains(e.target)) {
+        menu.classList.remove('active');
+        toggle.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+// ── Scroll Effects ──
+window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    
+    // Navbar
+    document.getElementById('navbar').classList.toggle('scrolled', scrollY > 50);
+    
+    // Back to top
+    const btt = document.getElementById('backToTop');
+    const fc = document.getElementById('fontControls');
+    if (scrollY > 400) {
+        btt.classList.add('visible');
+        fc.classList.add('visible');
+    } else {
+        btt.classList.remove('visible');
+        fc.classList.remove('visible');
+    }
+    
+    // Reading progress
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
+    document.getElementById('readingProgress').style.width = progress + '%';
+    
+    // Reveal elements
+    revealElements();
+});
+
+document.getElementById('backToTop').addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ── Scroll Reveal ──
+function initReveal() {
+    document.querySelectorAll('.reveal-up').forEach(el => {
+        el.classList.remove('revealed');
+    });
+    setTimeout(revealElements, 50);
 }
 
-// === MODAL ===
-function showPersonModal(name, desc) {
-    document.getElementById('modalName').textContent = name;
-    document.getElementById('modalDesc').textContent = desc;
-    document.getElementById('personModal').classList.add('open');
+function revealElements() {
+    document.querySelectorAll('.reveal-up:not(.revealed)').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 60) {
+            el.classList.add('revealed');
+        }
+    });
+}
+
+// ── Dark Mode ──
+const themeToggle = document.getElementById('themeToggle');
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+updateThemeIcon(savedTheme);
+
+themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    updateThemeIcon(next);
+    showToast(next === 'dark' ? 'تم تفعيل الوضع الليلي 🌙' : 'تم تفعيل الوضع النهاري ☀️');
+});
+
+function updateThemeIcon(theme) {
+    const icon = themeToggle.querySelector('i');
+    icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+}
+
+// ── Toast Notifications ──
+function showToast(message, duration = 3000) {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    container.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.classList.add('toast-out');
+        setTimeout(() => toast.remove(), 300);
+    }, duration);
+}
+
+// ── Lightbox ──
+function openLightbox(src) {
+    const lb = document.getElementById('lightbox');
+    document.getElementById('lightboxImg').src = src;
+    lb.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
-function closeModal() {
-    document.getElementById('personModal').classList.remove('open');
+
+function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
     document.body.style.overflow = '';
 }
-document.getElementById('personModal').addEventListener('click', function(e) {
-    if (e.target === this) closeModal();
+
+document.getElementById('lightbox').addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) closeLightbox();
 });
 
-// === TOGGLE EVENT DETAIL ===
-function toggleEventDetail(btn) {
-    const detail = btn.nextElementSibling;
-    if (detail.style.display === 'none') {
-        detail.style.display = 'block';
-        detail.style.animation = 'modIn .4s ease';
-        btn.innerHTML = '<i class="fas fa-chevron-up"></i> إخفاء الإعلان';
-    } else {
-        detail.style.display = 'none';
-        btn.innerHTML = '<i class="fas fa-chevron-down"></i> اقرأ الإعلان كاملاً';
-    }
-}
-
-// === FORM SUBMIT ===
-function handleSubmit(e) {
-    e.preventDefault();
-    const btn = document.getElementById('submitBtn');
-    btn.innerHTML = '<i class="fas fa-check-circle"></i> تم الإرسال بنجاح!';
-    btn.style.background = 'linear-gradient(135deg, #059669, #047857)';
-    setTimeout(() => {
-        btn.innerHTML = '<i class="fas fa-paper-plane"></i> إرسال الرسالة';
-        btn.style.background = '';
-        e.target.reset();
-    }, 3000);
-}
-
-// === GALLERY FILTER ===
-function filterGallery(cat, btn) {
-    document.querySelectorAll('.gt-tab').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    
-    document.querySelectorAll('.g-card').forEach(card => {
-        const show = cat === 'all' || card.getAttribute('data-cat') === cat;
-        card.style.display = show ? 'block' : 'none';
-        if (show) card.style.animation = 'modIn .4s ease';
-    });
-}
-
-// === EVENTS TAB FILTER ===
-function switchEvTab(type, btn) {
-    document.querySelectorAll('.ev-tab').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    
-    document.querySelectorAll('.ev-card').forEach(card => {
-        const cardType = card.getAttribute('data-type');
-        const show = type === 'all' || cardType === type || cardType === 'all';
-        card.style.display = show ? 'flex' : 'none';
-        if (show) card.style.animation = 'modIn .4s ease';
-    });
-}
-
-// === TREE ZOOM ===
-let treeZoom = 1;
-function zoomTree(factor) {
-    treeZoom *= factor;
-    treeZoom = Math.max(0.35, Math.min(1.6, treeZoom));
-    const canvas = document.getElementById('treeCanvas');
-    if (canvas) canvas.style.transform = `scale(${treeZoom})`;
-}
-function resetTreeZoom() {
-    treeZoom = 1;
-    const canvas = document.getElementById('treeCanvas');
-    if (canvas) canvas.style.transform = 'scale(1)';
-}
-
-// === FADE-IN ANIMATIONS ===
-function initFadeAnimations() {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry, idx) => {
-            if (entry.isIntersecting) {
-                setTimeout(() => entry.target.classList.add('visible'), idx * 80);
-            }
-        });
-    }, { threshold: 0.08 });
-    
-    document.querySelectorAll('.fade-in:not(.visible)').forEach(el => observer.observe(el));
-}
-initFadeAnimations();
-
-// === HERO PARTICLES ===
-function createParticles() {
-    const container = document.getElementById('heroParticles');
-    if (!container) return;
-    
-    const colors = [
-        'rgba(37,99,235,.06)',
-        'rgba(30,64,175,.05)',
-        'rgba(59,130,246,.05)',
-        'rgba(96,165,250,.04)',
-        'rgba(184,134,11,.03)'
-    ];
-    
-    for (let i = 0; i < 18; i++) {
-        const p = document.createElement('div');
-        p.className = 'particle';
-        const size = Math.random() * 130 + 25;
-        p.style.cssText = `
-            width:${size}px;height:${size}px;
-            background:${colors[Math.floor(Math.random() * colors.length)]};
-            top:${Math.random() * 100}%;left:${Math.random() * 100}%;
-            animation-delay:${Math.random() * 10}s;
-            animation-duration:${Math.random() * 15 + 15}s;
-        `;
-        container.appendChild(p);
-    }
-}
-createParticles();
-
-// === KEYBOARD SHORTCUTS ===
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeModal();
-        closeMobile();
-    }
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
 });
 
-// === TREE DRAG SCROLL ===
-const treeW = document.getElementById('treeWrapper');
-if (treeW) {
-    let isDown = false, startX, startY, scrollL, scrollT;
+// ── Event Detail Toggle ──
+function toggleEventDetail(id) {
+    const detail = document.getElementById(id);
+    if (detail) {
+        detail.classList.toggle('active');
+    }
+}
+
+// ── Events Filter ──
+function filterEvents(type) {
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
     
-    treeW.addEventListener('mousedown', (e) => {
-        if (e.target.closest('.t-person')) return;
-        isDown = true;
-        treeW.style.cursor = 'grabbing';
-        startX = e.pageX - treeW.offsetLeft;
-        startY = e.pageY - treeW.offsetTop;
-        scrollL = treeW.scrollLeft;
-        scrollT = treeW.scrollTop;
+    document.querySelectorAll('.event-card').forEach(card => {
+        if (type === 'all' || card.dataset.type === type) {
+            card.style.display = '';
+            card.style.animation = 'fadeIn 0.4s ease';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+// ── Countdown Timer ──
+function updateCountdown() {
+    const target = new Date('2026-02-20T18:00:00');
+    const now = new Date();
+    const diff = target - now;
+    
+    if (diff <= 0) {
+        document.getElementById('countDays').textContent = '٠';
+        document.getElementById('countHours').textContent = '٠';
+        document.getElementById('countMinutes').textContent = '٠';
+        document.getElementById('countSeconds').textContent = '٠';
+        return;
+    }
+    
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    const toArabic = (n) => n.toString().replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+    
+    document.getElementById('countDays').textContent = toArabic(days);
+    document.getElementById('countHours').textContent = toArabic(hours);
+    document.getElementById('countMinutes').textContent = toArabic(minutes);
+    document.getElementById('countSeconds').textContent = toArabic(seconds);
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ── Family Tree Controls ──
+function zoomTree(delta) {
+    treeScale = Math.max(0.3, Math.min(2, treeScale + delta));
+    document.getElementById('treeCanvas').style.transform = `scale(${treeScale})`;
+}
+
+function resetTree() {
+    treeScale = 1;
+    document.getElementById('treeCanvas').style.transform = 'scale(1)';
+}
+
+// Tree Drag
+const treeViewport = document.getElementById('treeViewport');
+if (treeViewport) {
+    let isDragging = false;
+    let startX, startY, scrollLeft, scrollTop;
+    
+    treeViewport.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.pageX - treeViewport.offsetLeft;
+        startY = e.pageY - treeViewport.offsetTop;
+        scrollLeft = treeViewport.scrollLeft;
+        scrollTop = treeViewport.scrollTop;
     });
     
-    treeW.addEventListener('mouseleave', () => { isDown = false; treeW.style.cursor = 'grab'; });
-    treeW.addEventListener('mouseup', () => { isDown = false; treeW.style.cursor = 'grab'; });
-    
-    treeW.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
+    treeViewport.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
         e.preventDefault();
-        const x = e.pageX - treeW.offsetLeft;
-        const y = e.pageY - treeW.offsetTop;
-        treeW.scrollLeft = scrollL - (x - startX) * 1.5;
-        treeW.scrollTop = scrollT - (y - startY) * 1.5;
+        const x = e.pageX - treeViewport.offsetLeft;
+        const y = e.pageY - treeViewport.offsetTop;
+        treeViewport.scrollLeft = scrollLeft - (x - startX);
+        treeViewport.scrollTop = scrollTop - (y - startY);
     });
     
-    treeW.style.cursor = 'grab';
-}
-
-// === SMOOTH HOVER ===
-document.querySelectorAll('.t-person').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transition = 'all .3s cubic-bezier(.34,1.56,.64,1)';
-    });
-});
-
-// === TOUCH SUPPORT FOR TREE ===
-if (treeW) {
-    let touchStartX, touchStartY, touchScrollL, touchScrollT;
+    document.addEventListener('mouseup', () => { isDragging = false; });
     
-    treeW.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].pageX - treeW.offsetLeft;
-        touchStartY = e.touches[0].pageY - treeW.offsetTop;
-        touchScrollL = treeW.scrollLeft;
-        touchScrollT = treeW.scrollTop;
+    // Touch support
+    treeViewport.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        startX = e.touches[0].pageX - treeViewport.offsetLeft;
+        startY = e.touches[0].pageY - treeViewport.offsetTop;
+        scrollLeft = treeViewport.scrollLeft;
+        scrollTop = treeViewport.scrollTop;
     }, { passive: true });
     
-    treeW.addEventListener('touchmove', (e) => {
-        const x = e.touches[0].pageX - treeW.offsetLeft;
-        const y = e.touches[0].pageY - treeW.offsetTop;
-        treeW.scrollLeft = touchScrollL - (x - touchStartX);
-        treeW.scrollTop = touchScrollT - (y - touchStartY);
+    treeViewport.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        const x = e.touches[0].pageX - treeViewport.offsetLeft;
+        const y = e.touches[0].pageY - treeViewport.offsetTop;
+        treeViewport.scrollLeft = scrollLeft - (x - startX);
+        treeViewport.scrollTop = scrollTop - (y - startY);
     }, { passive: true });
+    
+    treeViewport.addEventListener('touchend', () => { isDragging = false; }, { passive: true });
 }
 
-// === HANDLE RESIZE ===
-let resizeTimer;
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-        initFadeAnimations();
-    }, 250);
-});
-
-// === VIEWPORT HEIGHT FIX FOR MOBILE ===
-function setVH() {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
+// ── Font Size Control ──
+function changeFontSize(direction) {
+    fontSizeLevel = Math.max(-3, Math.min(5, fontSizeLevel + direction));
+    document.documentElement.style.fontSize = (16 + fontSizeLevel) + 'px';
+    showToast(direction > 0 ? 'تم تكبير الخط' : 'تم تصغير الخط');
 }
-setVH();
-window.addEventListener('resize', setVH);
 
-// === CLOSE MOBILE MENU ON SCROLL ===
-window.addEventListener('scroll', () => {
-    if (document.getElementById('mobileMenu').classList.contains('open')) {
-        closeMobile();
+// ── Contact Form ──
+function handleContact(e) {
+    e.preventDefault();
+    showToast('تم إرسال رسالتك بنجاح! ✅');
+    e.target.reset();
+}
+
+// ── Keyboard Shortcuts ──
+document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    
+    const shortcuts = {
+        '1': 'home', '2': 'about', '3': 'tree',
+        '4': 'notable', '5': 'events', '6': 'gallery', '7': 'contact'
+    };
+    
+    if (shortcuts[e.key]) {
+        e.preventDefault();
+        navigateTo(shortcuts[e.key]);
     }
+    
+    if (e.key === 'd' || e.key === 'D' || e.key === 'ي') {
+        themeToggle.click();
+    }
+});
+
+// ── Restore Last Page ──
+const lastPage = localStorage.getItem('lastPage');
+if (lastPage && lastPage !== 'home') {
+    // Uncomment below to auto-restore:
+    // navigateTo(lastPage);
+}
+
+// ── Initialize ──
+document.addEventListener('DOMContentLoaded', () => {
+    initReveal();
+    revealElements();
 });
