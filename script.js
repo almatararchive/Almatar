@@ -345,7 +345,7 @@ document.addEventListener('keydown', (e) => {
     
     const shortcuts = {
         '1': 'home', '2': 'about', '3': 'tree',
-        '4': 'notable', '5': 'events', '6': 'gallery', '7': 'contact'
+        '4': 'notable', '5': 'deceased', '6': 'events', '7': 'gallery', '8': 'contact'
     };
     
     if (shortcuts[e.key]) {
