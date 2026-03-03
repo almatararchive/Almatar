@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" data-theme="light">
 <head>
-    <meta name="google-site-verification" content="rUh8ykv_vIzU685Or2IQuoZ0yGBAgkvGj_S1K0MEL9k" />
+    <meta name="google-site-verification" content="rUh8ykv_vIzU685Or2IQuoZ0yGBAgkvGj_S1K0MEL9k" /> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="description" content="الموقع الرسمي لعائلة المطر - بلدة الفضول، محافظة الأحساء. شجرة العائلة، الأخبار، المناسبات، والمزيد.">
@@ -49,11 +49,19 @@
         <div class="nav-container">
             <a class="nav-brand" href="#" onclick="navigateTo('home')">
                 <img src="images/familylogo.png" alt="شعار عائلة المطر" class="nav-logo">
-                <span class="nav-brand-text">المَطَرِ</span>
+                <div class="nav-brand-info">
+                    <span class="nav-brand-text">المَطَرِ</span>
+                    <span class="nav-brand-sub">الأحساء</span>
+                </div>
             </a>
-            <button class="nav-toggle" id="navToggle" aria-label="القائمة">
-                <span></span><span></span><span></span>
-            </button>
+            <div class="nav-actions-mobile">
+                <button class="theme-toggle-mobile" id="themeToggleMobile" title="تبديل الوضع" aria-label="تبديل الوضع الليلي">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="nav-toggle" id="navToggle" aria-label="القائمة">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
             <div class="nav-menu" id="navMenu">
                 <a href="#" class="nav-link active" data-page="home" onclick="navigateTo('home')">
                     <i class="fas fa-home"></i> الرئيسية
@@ -98,7 +106,10 @@
                 </div>
             </div>
             <div class="hero-content">
-                <img src="images/familylogo.png" alt="شعار عائلة المطر" class="hero-logo reveal-up">
+                <div class="hero-logo-wrapper reveal-up">
+                    <div class="hero-logo-glow"></div>
+                    <img src="images/familylogo.png" alt="شعار عائلة المطر" class="hero-logo">
+                </div>
                 <h1 class="hero-title reveal-up">عَائِلَةُ المَطَرِ</h1>
                 <p class="hero-location reveal-up">الأحساء ─ بلدة الفضول</p>
                 <div class="hero-divider reveal-up">
@@ -673,8 +684,10 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <img src="images/familylogo.png" alt="شعار عائلة المطر" class="footer-logo">
-                    <div class="footer-brand-text">عائلة المَطَرِ</div>
-                    <p>الأحساء - بلدة الفضول</p>
+                    <div>
+                        <div class="footer-brand-text">عائلة المَطَرِ</div>
+                        <p>الأحساء - بلدة الفضول</p>
+                    </div>
                 </div>
                 <div class="footer-links">
                     <a href="#" onclick="navigateTo('home')">الرئيسية</a>
