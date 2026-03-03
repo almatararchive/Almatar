@@ -1,936 +1,703 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-theme="light">
 <head>
-     <meta name="google-site-verification" content="rUh8ykv_vIzU685Or2IQuoZ0yGBAgkvGj_S1K0MEL9k" />
+    <meta name="google-site-verification" content="rUh8ykv_vIzU685Or2IQuoZ0yGBAgkvGj_S1K0MEL9k" />
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عائلة المطر - الأحساء | الموقع الرسمي</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Aref+Ruqaa:wght@400;700&family=Scheherazade+New:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="الموقع الرسمي لعائلة المطر - بلدة الفضول، محافظة الأحساء. شجرة العائلة، الأخبار، المناسبات، والمزيد.">
+    <meta name="keywords" content="عائلة المطر, الأحساء, بلدة الفضول, شجرة العائلة, المطر">
+    <meta name="author" content="أسرة المطر">
+    <meta name="theme-color" content="#1e3a5f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta property="og:title" content="عائلة المطر - الأحساء">
+    <meta property="og:description" content="الموقع الرسمي لعائلة المطر في بلدة الفضول بمحافظة الأحساء">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="images/familylogo.png" type="image/png">
+    <link rel="apple-touch-icon" href="images/familylogo.png">
+    <title>عائلة المطر | الأحساء</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress" id="readingProgress"></div>
 
-    <!-- PRELOADER -->
+    <!-- Preloader -->
     <div class="preloader" id="preloader">
         <div class="preloader-content">
-            <div class="preloader-ornament">
-                <span></span><span></span><span></span>
-            </div>
-            <div class="preloader-calligraphy">عَائِلَةُ المَطَرِ</div>
-            <div class="preloader-sub">الأحساء - المملكة العربية السعودية</div>
-            <div class="preloader-bar"><div class="fill"></div></div>
+            <img src="images/familylogo.png" alt="شعار عائلة المطر" class="preloader-logo">
+            <div class="preloader-text">عَائِلَةُ المَطَرِ</div>
+            <div class="preloader-bar"><div class="preloader-bar-fill"></div></div>
         </div>
     </div>
 
-    <!-- NAVBAR -->
+    <!-- Toast Notification -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img src="" alt="" class="lightbox-img" id="lightboxImg">
+    </div>
+
+    <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <div class="nav-logo" onclick="navigateTo('home')">
-                <div class="logo-icon">
-                    <span class="logo-thuluth">المَطَرِ</span>
-                </div>
-                <div class="logo-details">
-                    <span class="logo-text">عائلة المَطَرِ</span>
-                    <span class="logo-sub">الأحساء - بلدة الفضول</span>
-                </div>
+            <a class="nav-brand" href="#" onclick="navigateTo('home')">
+                <img src="images/familylogo.png" alt="شعار عائلة المطر" class="nav-logo">
+                <span class="nav-brand-text">المَطَرِ</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="القائمة">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-menu" id="navMenu">
+                <a href="#" class="nav-link active" data-page="home" onclick="navigateTo('home')">
+                    <i class="fas fa-home"></i> الرئيسية
+                </a>
+                <a href="#" class="nav-link" data-page="about" onclick="navigateTo('about')">
+                    <i class="fas fa-book-open"></i> عن العائلة
+                </a>
+                <a href="#" class="nav-link" data-page="tree" onclick="navigateTo('tree')">
+                    <i class="fas fa-sitemap"></i> شجرة العائلة
+                </a>
+                <a href="#" class="nav-link" data-page="notable" onclick="navigateTo('notable')">
+                    <i class="fas fa-star"></i> ذكراهم
+                </a>
+                <a href="#" class="nav-link" data-page="events" onclick="navigateTo('events')">
+                    <i class="fas fa-calendar-alt"></i> المناسبات
+                </a>
+                <a href="#" class="nav-link" data-page="gallery" onclick="navigateTo('gallery')">
+                    <i class="fas fa-images"></i> الألبوم
+                </a>
+                <a href="#" class="nav-link" data-page="contact" onclick="navigateTo('contact')">
+                    <i class="fas fa-envelope"></i> تواصل
+                </a>
+                <button class="theme-toggle" id="themeToggle" title="تبديل الوضع" aria-label="تبديل الوضع الليلي">
+                    <i class="fas fa-moon"></i>
+                </button>
             </div>
-            <ul class="nav-links">
-                <li><button onclick="navigateTo('home')" class="active" data-page="home"><i class="fas fa-home"></i> الرئيسية</button></li>
-                <li><button onclick="navigateTo('about')" data-page="about"><i class="fas fa-scroll"></i> عن العائلة</button></li>
-                <li><button onclick="navigateTo('tree')" data-page="tree"><i class="fas fa-sitemap"></i> شجرة العائلة</button></li>
-                <li><button onclick="navigateTo('figures')" data-page="figures"><i class="fas fa-star"></i> أشخاص حقٌّ علينا ذكرهم</button></li>
-                <li><button onclick="navigateTo('deceased')" data-page="deceased"><i class="fas fa-moon"></i> الراحلون</button></li>
-                <li><button onclick="navigateTo('events')" data-page="events"><i class="fas fa-calendar-alt"></i> المناسبات</button></li>
-                <li><button onclick="navigateTo('gallery')" data-page="gallery"><i class="fas fa-images"></i> الصور</button></li>
-                <li><button onclick="navigateTo('contact')" data-page="contact"><i class="fas fa-envelope"></i> تواصل</button></li>
-            </ul>
-            <button class="mobile-toggle" onclick="toggleMobile()"><i class="fas fa-bars"></i></button>
         </div>
     </nav>
 
-    <!-- MOBILE MENU -->
-    <div class="mobile-menu" id="mobileMenu">
-        <button onclick="navigateTo('home');closeMobile()"><i class="fas fa-home"></i> الرئيسية</button>
-        <button onclick="navigateTo('about');closeMobile()"><i class="fas fa-scroll"></i> عن العائلة</button>
-        <button onclick="navigateTo('tree');closeMobile()"><i class="fas fa-sitemap"></i> شجرة العائلة</button>
-        <button onclick="navigateTo('figures');closeMobile()"><i class="fas fa-star"></i> أشخاص حقٌّ علينا ذكرهم</button>
-        <button onclick="navigateTo('deceased');closeMobile()"><i class="fas fa-moon"></i> الراحلون</button>
-        <button onclick="navigateTo('events');closeMobile()"><i class="fas fa-calendar-alt"></i> المناسبات</button>
-        <button onclick="navigateTo('gallery');closeMobile()"><i class="fas fa-images"></i> الصور</button>
-        <button onclick="navigateTo('contact');closeMobile()"><i class="fas fa-envelope"></i> تواصل</button>
-    </div>
-
-    <!-- ======================== PAGE: HOME ======================== -->
-    <div class="page active" id="page-home">
-
-        <!-- HERO SECTION -->
-        <section class="hero">
-            <div class="hero-particles" id="heroParticles"></div>
-            <div class="hero-geometric"></div>
-            <div class="hex-decoration hex-1"></div>
-            <div class="hex-decoration hex-2"></div>
-            <div class="hex-decoration hex-3"></div>
+    <!-- ==================== HOME ==================== -->
+    <section class="page active" id="page-home">
+        <div class="hero">
+            <div class="hero-bg-elements">
+                <div class="hex-grid">
+                    <div class="hex hex-1"></div>
+                    <div class="hex hex-2"></div>
+                    <div class="hex hex-3"></div>
+                    <div class="hex hex-4"></div>
+                    <div class="hex hex-5"></div>
+                    <div class="hex hex-6"></div>
+                    <div class="hex hex-7"></div>
+                </div>
+            </div>
             <div class="hero-content">
-
-                <div class="hero-badge">
-                    <i class="fas fa-mosque"></i>
-                    <span>الأحساء - بلدة الفضول</span>
+                <img src="images/familylogo.png" alt="شعار عائلة المطر" class="hero-logo reveal-up">
+                <h1 class="hero-title reveal-up">عَائِلَةُ المَطَرِ</h1>
+                <p class="hero-location reveal-up">الأحساء ─ بلدة الفضول</p>
+                <div class="hero-divider reveal-up">
+                    <span class="hex-icon"><i class="fas fa-mosque"></i></span>
                 </div>
-
-                <div class="hero-ornament-top">
-                    <div class="orn-line"></div>
-                    <div class="orn-diamond"><i class="fas fa-diamond"></i></div>
-                    <div class="orn-line"></div>
+                <div class="hero-buttons reveal-up">
+                    <button class="btn btn-primary" onclick="navigateTo('about')">
+                        <i class="fas fa-book-open"></i> عن العائلة
+                    </button>
+                    <button class="btn btn-outline" onclick="navigateTo('tree')">
+                        <i class="fas fa-sitemap"></i> شجرة العائلة
+                    </button>
                 </div>
-
-                <h1 class="hero-thuluth">عَائِلَةُ المَطَرِ</h1>
-
-                <div class="hero-ornament-bottom">
-                    <div class="orn-line"></div>
-                    <div class="orn-diamond"><i class="fas fa-diamond"></i></div>
-                    <div class="orn-line"></div>
-                </div>
-
-                <p class="hero-tagline">أسرة عربية عريقة من أرض الأحساء الخضراء</p>
-                <p class="hero-location"><i class="fas fa-map-marker-alt"></i> الأحساء - بلدة الفضول</p>
-
-                <div class="hero-cta">
-                    <button class="btn btn-primary" onclick="navigateTo('tree')"><i class="fas fa-sitemap"></i> شجرة العائلة</button>
-                    <button class="btn btn-outline" onclick="navigateTo('about')"><i class="fas fa-book-open"></i> تاريخ العائلة</button>
-                </div>
-
-                <div class="hero-stats-row">
-                    <div class="hero-stat-item">
-                        <div class="hsi-value">الأحساء</div>
-                        <div class="hsi-label">الموطن</div>
-                    </div>
-                </div>
-
-                <div class="hero-verse">
-                    <div class="verse-inner">
-                        <span class="verse-bracket">﴿</span>
-                        وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا ۚ إِنَّ أَكْرَمَكُمْ عِندَ اللَّهِ أَتْقَاكُمْ
-                        <span class="verse-bracket">﴾</span>
-                    </div>
-                    <div class="verse-ref">سورة الحجرات - الآية ١٣</div>
-                </div>
-
             </div>
-        </section>
+            <div class="hero-verse reveal-up">
+                <span class="verse-decoration">﴿</span>
+                وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا إِنَّ أَكْرَمَكُمْ عِندَ اللَّهِ أَتْقَاكُمْ
+                <span class="verse-decoration">﴾</span>
+            </div>
+        </div>
 
-        <!-- HOME: Latest News & Events -->
-        <section class="home-info-section home-info-alt">
-            <div class="section-container">
-                <div class="home-section-header fade-in">
-                    <div class="hex-icon"><i class="fas fa-newspaper"></i></div>
-                    <h2>آخر الأخبار والمناسبات</h2>
-                    <div class="header-ornament"><span></span><span></span><span></span></div>
+        <!-- Countdown to Next Event -->
+        <div class="home-section">
+            <div class="container">
+                <div class="countdown-banner reveal-up">
+                    <div class="countdown-label">
+                        <i class="fas fa-calendar-star"></i>
+                        الإفطار الجماعي القادم
+                    </div>
+                    <div class="countdown-timer" id="countdownTimer">
+                        <div class="countdown-unit">
+                            <span class="countdown-number" id="countDays">--</span>
+                            <span class="countdown-text">يوم</span>
+                        </div>
+                        <div class="countdown-sep">:</div>
+                        <div class="countdown-unit">
+                            <span class="countdown-number" id="countHours">--</span>
+                            <span class="countdown-text">ساعة</span>
+                        </div>
+                        <div class="countdown-sep">:</div>
+                        <div class="countdown-unit">
+                            <span class="countdown-number" id="countMinutes">--</span>
+                            <span class="countdown-text">دقيقة</span>
+                        </div>
+                        <div class="countdown-sep">:</div>
+                        <div class="countdown-unit">
+                            <span class="countdown-number" id="countSeconds">--</span>
+                            <span class="countdown-text">ثانية</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="home-events-feed fade-in">
+            </div>
+        </div>
 
-                    <div class="hef-card hef-featured" onclick="navigateTo('events')">
-                        <div class="hef-badge"><i class="fas fa-moon"></i> رمضان</div>
-                        <div class="hef-content">
-                            <h3>إفطار العائلة الجماعي السنوي</h3>
-                            <p>"وعلى صلة الرحم تجتمعُ القلوب" — لقاء سنوي على مائدة الإفطار في حسينية المطر</p>
-                            <div class="hef-meta">
+        <!-- Latest News & Events -->
+        <div class="home-section">
+            <div class="container">
+                <h2 class="section-title reveal-up">
+                    <span class="title-icon"><i class="fas fa-newspaper"></i></span>
+                    آخر الأخبار والمناسبات
+                </h2>
+
+                <div class="news-grid">
+                    <!-- Iftar Event -->
+                    <div class="news-card featured reveal-up">
+                        <div class="news-badge">مناسبة قادمة</div>
+                        <div class="news-card-img">
+                            <img src="images/iftar-banner.jpg" alt="إفطار عائلة المطر" loading="lazy" onclick="openLightbox(this.src)">
+                        </div>
+                        <div class="news-card-body">
+                            <h3>إفطار العائلة الجماعي</h3>
+                            <div class="news-meta">
                                 <span><i class="fas fa-calendar"></i> ٢٠ فبراير ٢٠٢٦</span>
-                                <span><i class="fas fa-location-dot"></i> حسينية المطر</span>
+                                <span><i class="fas fa-map-marker-alt"></i> حسينية المطر</span>
                             </div>
-                        </div>
-                        <div class="hef-arrow"><i class="fas fa-arrow-left"></i></div>
-                    </div>
-
-                    <div class="hef-card" onclick="navigateTo('events')">
-                        <div class="hef-badge hef-badge-news"><i class="fas fa-globe"></i> جديد</div>
-                        <div class="hef-content">
-                            <h3>إطلاق الموقع الرسمي لأسرة المطر</h3>
-                            <p>منصة رقمية تجمع أخبار ومناسبات وتاريخ الأسرة في مكان واحد</p>
-                            <div class="hef-meta">
-                                <span><i class="fas fa-clock"></i> ٢٠٢٥</span>
-                            </div>
-                        </div>
-                        <div class="hef-arrow"><i class="fas fa-arrow-left"></i></div>
-                    </div>
-
-                    <div class="hef-card" onclick="navigateTo('events')">
-                        <div class="hef-badge hef-badge-announce"><i class="fas fa-bell"></i> إعلان</div>
-                        <div class="hef-content">
-                            <h3>تحديث شجرة العائلة</h3>
-                            <p>نعمل على تحديث الشجرة وإضافة جميع الأسماء — تواصلوا معنا</p>
-                            <div class="hef-meta">
-                                <span><i class="fas fa-envelope"></i> تواصلوا معنا</span>
-                            </div>
-                        </div>
-                        <div class="hef-arrow"><i class="fas fa-arrow-left"></i></div>
-                    </div>
-
-                </div>
-                <div class="hef-more fade-in">
-                    <button class="btn btn-outline" onclick="navigateTo('events')"><i class="fas fa-calendar-alt"></i> جميع المناسبات والأخبار</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- HOME: Quick Navigation Cards -->
-        <section class="home-info-section">
-            <div class="section-container">
-                <div class="home-section-header fade-in">
-                    <div class="hex-icon"><i class="fas fa-compass"></i></div>
-                    <h2>استكشف الموقع</h2>
-                    <div class="header-ornament"><span></span><span></span><span></span></div>
-                </div>
-                <div class="home-quick-nav fade-in">
-                    <div class="hqn-card" onclick="navigateTo('about')">
-                        <div class="hqn-icon"><i class="fas fa-scroll"></i></div>
-                        <h3>عن العائلة</h3>
-                        <p>تاريخ وجذور أسرة المطر في الأحساء</p>
-                        <span class="hqn-arrow"><i class="fas fa-arrow-left"></i></span>
-                    </div>
-                    <div class="hqn-card" onclick="navigateTo('tree')">
-                        <div class="hqn-icon"><i class="fas fa-sitemap"></i></div>
-                        <h3>شجرة العائلة</h3>
-                        <p>تسلسل النسب والشجرة التفصيلية</p>
-                        <span class="hqn-arrow"><i class="fas fa-arrow-left"></i></span>
-                    </div>
-                    <div class="hqn-card" onclick="navigateTo('figures')">
-                        <div class="hqn-icon"><i class="fas fa-star"></i></div>
-                        <h3>أشخاص حقٌّ علينا ذكرهم</h3>
-                        <p>شخصيات بارزة في تاريخ الأسرة</p>
-                        <span class="hqn-arrow"><i class="fas fa-arrow-left"></i></span>
-                    </div>
-                    <div class="hqn-card" onclick="navigateTo('gallery')">
-                        <div class="hqn-icon"><i class="fas fa-images"></i></div>
-                        <h3>ألبوم الصور</h3>
-                        <p>لحظات ومناسبات عائلية نعتز بها</p>
-                        <span class="hqn-arrow"><i class="fas fa-arrow-left"></i></span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </div>
-
-    <!-- ======================== PAGE: ABOUT ======================== -->
-    <div class="page" id="page-about">
-        <div class="section-page">
-            <div class="section-container">
-                <div class="page-header fade-in">
-                    <div class="page-icon"><i class="fas fa-scroll"></i></div>
-                    <h1>عَنْ عَائِلَةِ المَطَرِ</h1>
-                    <p>تاريخ عريق يمتد لقرون في أرض الأحساء الخضراء</p>
-                    <div class="header-ornament">
-                        <span></span><span></span><span></span>
-                    </div>
-                </div>
-
-                <div class="about-grid">
-                    <div class="about-main fade-in">
-
-                        <div class="content-card">
-                            <div class="cc-header">
-                                <div class="cc-icon"><i class="fas fa-feather-pointed"></i></div>
-                                <h2>التعريف والنسب</h2>
-                            </div>
-                            <div class="cc-body">
-                                <p style="text-align:center;color:var(--g400);font-size:1rem;padding:2rem 0;"><i class="fas fa-hourglass-half" style="display:block;font-size:2rem;color:var(--b300);margin-bottom:1rem;"></i> سيُضاف لاحقاً بإذن الله</p>
-                            </div>
-                        </div>
-
-                        <div class="content-card">
-                            <div class="cc-header">
-                                <div class="cc-icon"><i class="fas fa-mosque"></i></div>
-                                <h2>بلدة الفضول - الجذور</h2>
-                            </div>
-                            <div class="cc-body">
-                                <p>بلدة الفضول هي إحدى البلدات التاريخية في محافظة الأحساء، تقع في الحزام الشرقي للواحة الزراعية. سُميت نسبة إلى <strong>الفضل بن ربيعة</strong> الذي حكم المنطقة. تعتبر هذه البلدة الموطن الأصلي لأسرة المطر، ومنها انطلقوا إلى مختلف المناطق.</p>
-                                <p>تقع بلدة الفضول في قلب واحة الأحساء، وتتميز بتاريخها العريق وارتباطها الوثيق بالحضارة العيونية التي حكمت شرق الجزيرة العربية. وقد عُرف أهلها بالعلم والتجارة والزراعة وخاصة زراعة النخيل التي تشتهر بها الأحساء.</p>
-                            </div>
-                        </div>
-
-                        <div class="content-card">
-                            <div class="cc-header">
-                                <div class="cc-icon"><i class="fas fa-book-open"></i></div>
-                                <h2>المكانة العلمية والدينية</h2>
-                            </div>
-                            <div class="cc-body">
-                                <p>تكتسب العائلة في الأوساط المحلية وصف <strong>"البيت العلمي"</strong>؛ وذلك نظراً للدور المحوري الذي لعبته تاريخياً في الحركة العلمية الدينية في الأحساء. تميزت العائلة بتخريج طبقات متعاقبة من الفقهاء وطلبة العلم والخطباء الذين أثروا المكتبة الأحسائية.</p>
-                                <p>تولت العائلة لقرون مهمة <strong>إمامة الجماعة</strong> والخطابة وإدارة الوقف في المسجد الجامع ببلدة الفضول، بالإضافة إلى تأسيس ورعاية الحسينيات، مما جعلها مرجعاً شرعياً واجتماعياً للأهالي. كما عُرفت العائلة باهتمامها المبكر بالتعليم التقليدي (الكتاتيب) قبل ظهور التعليم النظامي.</p>
-                            </div>
-                        </div>
-
-                        <div class="content-card">
-                            <div class="cc-header">
-                                <div class="cc-icon"><i class="fas fa-users"></i></div>
-                                <h2>الوجاهة الاجتماعية</h2>
-                            </div>
-                            <div class="cc-body">
-                                <p>تحتفظ العائلة بمكانة <strong>"الوجاهة"</strong> الاجتماعية، والتي تتجسد في عدة جوانب: <strong>مجلس العائلة (الديوانية)</strong> الذي يُعد مؤسسة اجتماعية مصغرة يتم فيها تداول شؤون البلدة واستقبال الوفود الرسمية والقبلية.</p>
-                                <p>يرجع أهالي المنطقة لكبار السن في العائلة <strong>للتحكيم العرفي</strong> في الخلافات الأسرية أو المالية.</p>
-                            </div>
-                        </div>
-
-                        <div class="content-card">
-                            <div class="cc-header">
-                                <div class="cc-icon"><i class="fas fa-coins"></i></div>
-                                <h2>البنية الاقتصادية</h2>
-                            </div>
-                            <div class="cc-body">
-                                <p><strong>الحقبة القديمة (الاقتصاد الزراعي):</strong> كانت العائلة تُعد من كبار الملاك العقاريين في الواحة الشرقية، حيث تظهر وثائق المبايعات القديمة تملكهم لمساحات شاسعة من مزارع النخيل (الضواحي) وحقول الأرز الحساوي. استغلت العائلة هذه الملاءة المالية في إنشاء <strong>الأوقاف الخيرية</strong> (أوقاف النخيل) التي لا تزال أصول بعضها موجودة أو مسجلة في المحاكم.</p>
-                            </div>
-                        </div>
-
-                        <div class="content-card">
-                            <div class="cc-header">
-                                <div class="cc-icon"><i class="fas fa-map-location-dot"></i></div>
-                                <h2>أماكن التواجد</h2>
-                            </div>
-                            <div class="cc-body">
-                                <p>تتواجد أسرة المطر في عدة مناطق ضمن محافظة الأحساء، وأصلهم من <strong>بلدة الفضول</strong> تحديداً، كما يتواجدون في <strong>بلدة الساباط</strong> و<strong>الهفوف</strong> وغيرها من مناطق الأحساء. كما هاجر بعضهم إلى جنوب العراق واستقروا في <strong>البصرة</strong> و<strong>النجف</strong>. وأدت التحولات الاقتصادية إلى نشوء تفرعات استقرت في حواضر أخرى أبرزها <strong>الدمام والخبر</strong> بحكم العمل في قطاع النفط.</p>
-                            </div>
-                        </div>
-
-                        <div class="content-card">
-                            <div class="cc-header">
-                                <div class="cc-icon"><i class="fas fa-palm-tree"></i></div>
-                                <h2>واحة الأحساء</h2>
-                            </div>
-                            <div class="cc-body">
-                                <p>تقع الأحساء في المنطقة الشرقية من المملكة العربية السعودية، وهي أكبر واحة نخيل في العالم، مسجلة في قائمة <strong>التراث العالمي لليونسكو</strong> عام ٢٠١٨م. تضم أكثر من <strong>٣ ملايين نخلة</strong> وعشرات العيون الطبيعية التي كانت تروي أراضيها.</p>
-                                <p>عُرفت الأحساء تاريخياً باسم <strong>"هجر"</strong>، وكانت مركزاً تجارياً وحضارياً مهماً في شرق الجزيرة العربية. وقد ارتبطت أسرة المطر بهذه الأرض ارتباطاً وثيقاً عبر الأجيال.</p>
-                            </div>
-                        </div>
-
-                        <!-- المراجع والمصادر -->
-                        <div class="content-card references-card">
-                            <div class="cc-header">
-                                <div class="cc-icon cc-icon-ref"><i class="fas fa-book"></i></div>
-                                <h2>المراجع والمصادر التوثيقية</h2>
-                            </div>
-                            <div class="cc-body">
-                                <p>تم استقاء المعلومات الواردة في هذا الموقع من مصادر تاريخية وأنسابية موثقة، أبرزها:</p>
-                                <ul class="ref-list">
-                                    <li><i class="fas fa-bookmark"></i> <strong>كتاب "أعلام الهجر"</strong> - موسوعة في تراجم علماء الأحساء، وثّق الجانب العلمي للعائلة ووصفها بـ"بيت علم وصلاح".</li>
-                                    <li><i class="fas fa-bookmark"></i> <strong>كتاب "معجم الأسر الأحسائية"</strong> - ورد فيه ذكر اسم العائلة صراحةً عند الحديث عن سكان بلدة الفضول مع تفصيل أصولهم وتفرعاتهم.</li>
-                                    <li><i class="fas fa-bookmark"></i> <strong>كتاب "تحفة المستفيد بتاريخ الأحساء في القديم والجديد"</strong> - المرجع الأول لتاريخ قرى الأحساء وتوزيعها الجغرافي.</li>
-                                    <li><i class="fas fa-bookmark"></i> <strong>كتاب "مطلع البدرين في تراجم علماء القطيف والأحساء والبحرين"</strong> - وثّق سير الأدباء والشعراء الذين برزوا من العائلة.</li>
-                                    <li><i class="fas fa-bookmark"></i> <strong>كتاب "كنز الأنساب ومجمع الآداب"</strong> - لتتبع الأصول القبلية لعائلات المنطقة الشرقية.</li>
-                                    <li><i class="fas fa-bookmark"></i> <strong>سجلات المحكمة الكبرى بالأحساء</strong> - الوثائق الوقفية التي تحمل اسم العائلة وتعود لقرون خلت.</li>
-                                    <li><i class="fas fa-bookmark"></i> <strong>سجلات الجمعيات الأهلية والخيرية ببلدة الفضول</strong> - توثق الدور المعاصر للعائلة.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- العمود الأيسر - البطاقات -->
-                    <div class="about-sidebar fade-in">
-
-                        <div class="info-cards-grid">
-                            <div class="info-card-v2">
-                                <div class="icv2-icon"><i class="fas fa-map-marker-alt"></i></div>
-                                <div class="icv2-value">الفضول</div>
-                                <div class="icv2-label">البلدة الأصلية</div>
-                            </div>
-                        </div>
-
-                        <div class="lineage-card">
-                            <div class="cc-header">
-                                <div class="cc-icon"><i class="fas fa-dna"></i></div>
-                                <h2>سلسلة النسب</h2>
-                            </div>
-                            <div class="lineage-chain">
-                                <div class="lc-item lc-active">
-                                    <div class="lc-dot"></div>
-                                    <div class="lc-line"></div>
-                                    <span>عائلة المَطَر</span>
-                                </div>
-                                <div class="lc-item">
-                                    <div class="lc-dot"></div>
-                                    <div class="lc-line"></div>
-                                    <span>سيتم الإضافة</span>
-                                </div>
-                                <div class="lc-item">
-                                    <div class="lc-dot"></div>
-                                    <div class="lc-line"></div>
-                                    <span>سيتم الإضافة</span>
-                                </div>
-                                <div class="lc-item">
-                                    <div class="lc-dot"></div>
-                                    <div class="lc-line"></div>
-                                    <span>سيتم الإضافة</span>
-                                </div>
-                                <div class="lc-item">
-                                    <div class="lc-dot"></div>
-                                    <div class="lc-line"></div>
-                                    <span>سيتم الإضافة</span>
-                                </div>
-                                <div class="lc-item">
-                                    <div class="lc-dot"></div>
-                                    <div class="lc-line"></div>
-                                    <span>سيتم الإضافة</span>
-                                </div>
-                                <div class="lc-item">
-                                    <div class="lc-dot"></div>
-                                    <span>سيتم الإضافة</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="geo-card">
-                            <div class="cc-header">
-                                <div class="cc-icon"><i class="fas fa-globe-asia"></i></div>
-                                <h2>التوزع الجغرافي</h2>
-                            </div>
-                            <div class="geo-list">
-                                <div class="geo-item-v2 geo-main">
-                                    <div class="geo-marker"><i class="fas fa-location-dot"></i></div>
-                                    <div class="geo-info">
-                                        <strong>الأحساء</strong>
-                                        <span>الأصل من الفضول تحديداً، ومتواجدون في الساباط والهفوف</span>
-                                    </div>
-                                </div>
-                                <div class="geo-item-v2">
-                                    <div class="geo-marker"><i class="fas fa-location-dot"></i></div>
-                                    <div class="geo-info">
-                                        <strong>الدمام والخبر</strong>
-                                        <span>بحكم العمل في قطاع النفط</span>
-                                    </div>
-                                </div>
-                                <div class="geo-item-v2">
-                                    <div class="geo-marker"><i class="fas fa-location-dot"></i></div>
-                                    <div class="geo-info">
-                                        <strong>البصرة</strong>
-                                        <span>جنوب العراق</span>
-                                    </div>
-                                </div>
-                                <div class="geo-item-v2">
-                                    <div class="geo-marker"><i class="fas fa-location-dot"></i></div>
-                                    <div class="geo-info">
-                                        <strong>النجف</strong>
-                                        <span>العراق</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ======================== PAGE: TREE ======================== -->
-    <div class="page" id="page-tree">
-        <div class="section-page">
-            <div class="section-container">
-                <div class="page-header fade-in">
-                    <div class="page-icon"><i class="fas fa-sitemap"></i></div>
-                    <h1>شَجَرَةُ عَائِلَةِ المَطَرِ</h1>
-                    <p>تسلسل نسب عائلة المطر والشجرة التفصيلية</p>
-                    <div class="header-ornament"><span></span><span></span><span></span></div>
-                </div>
-
-                <!-- النسب العام -->
-                <div class="tree-section-title fade-in">
-                    <div class="tst-badge"><i class="fas fa-crown"></i> النسب والأصول</div>
-                    <p>تسلسل نسب عائلة المطر</p>
-                </div>
-
-                <div class="ancestry-flow fade-in">
-                    <div class="af-node af-placeholder">
-                        <div class="af-icon"><i class="fas fa-hourglass-half"></i></div>
-                        <div class="af-name">سيُضاف لاحقاً</div>
-                        <div class="af-sub">سيتم تحديث سلسلة النسب الكاملة قريباً بإذن الله</div>
-                    </div>
-                </div>
-
-                <!-- الشجرة التفصيلية -->
-                <div class="tree-section-title fade-in" style="margin-top:4rem;">
-                    <div class="tst-badge"><i class="fas fa-sitemap"></i> شجرة العائلة التفصيلية</div>
-                    <p>يمكن التمرير والتكبير والتصغير لاستعراض الشجرة كاملة</p>
-                </div>
-
-                <div class="tree-toolbar fade-in">
-                    <button class="tt-btn" onclick="zoomTree(1.15)" title="تكبير"><i class="fas fa-search-plus"></i></button>
-                    <button class="tt-btn" onclick="zoomTree(0.85)" title="تصغير"><i class="fas fa-search-minus"></i></button>
-                    <button class="tt-btn" onclick="resetTreeZoom()" title="إعادة تعيين"><i class="fas fa-expand"></i></button>
-                </div>
-
-                <div class="tree-viewport fade-in" id="treeWrapper">
-                    <div class="tree-canvas" id="treeCanvas">
-                        
-                        <div class="t-level">
-                            <div class="t-person t-founder" onclick="showPersonModal('الجد الأعلى لأسرة المطر','المؤسس الأول لأسرة المطر في بلدة الفضول بالأحساء.')">
-                                <div class="t-avatar t-av-founder"><i class="fas fa-star"></i></div>
-                                <div class="t-name">الجد الأعلى</div>
-                                <div class="t-role">مؤسس أسرة المطر</div>
-                            </div>
-                        </div>
-
-                        <div class="t-vline t-vline-main"></div>
-                        <div class="t-hline" id="mainBranchLine"></div>
-
-                        <div class="t-level t-level-branches" id="gen1">
-                            
-                            <div class="t-branch">
-                                <div class="t-vline"></div>
-                                <div class="t-person t-gen1 t-empty">
-                                    <div class="t-avatar"><i class="fas fa-user"></i></div>
-                                    <div class="t-name">—</div>
-                                    <div class="t-role">الابن</div>
-                                </div>
-                                <div class="t-vline t-vline-sm"></div>
-                                <div class="t-children">
-                                    <div class="t-person t-gen2 t-empty"><div class="t-avatar t-av-sm"><i class="fas fa-user"></i></div><div class="t-name">—</div></div>
-                                    <div class="t-person t-gen2 t-empty"><div class="t-avatar t-av-sm"><i class="fas fa-user"></i></div><div class="t-name">—</div></div>
-                                    <div class="t-person t-gen2 t-empty"><div class="t-avatar t-av-sm"><i class="fas fa-user"></i></div><div class="t-name">—</div></div>
-                                </div>
-                            </div>
-
-                            <div class="t-branch">
-                                <div class="t-vline"></div>
-                                <div class="t-person t-gen1 t-empty">
-                                    <div class="t-avatar"><i class="fas fa-user"></i></div>
-                                    <div class="t-name">—</div>
-                                    <div class="t-role">الابن</div>
-                                </div>
-                                <div class="t-vline t-vline-sm"></div>
-                                <div class="t-children">
-                                    <div class="t-person t-gen2 t-empty"><div class="t-avatar t-av-sm"><i class="fas fa-user"></i></div><div class="t-name">—</div></div>
-                                    <div class="t-person t-gen2 t-empty"><div class="t-avatar t-av-sm"><i class="fas fa-user"></i></div><div class="t-name">—</div></div>
-                                    <div class="t-person t-gen2 t-empty"><div class="t-avatar t-av-sm"><i class="fas fa-user"></i></div><div class="t-name">—</div></div>
-                                </div>
-                            </div>
-
-                            <div class="t-branch">
-                                <div class="t-vline"></div>
-                                <div class="t-person t-gen1 t-empty">
-                                    <div class="t-avatar"><i class="fas fa-user"></i></div>
-                                    <div class="t-name">—</div>
-                                    <div class="t-role">الابن</div>
-                                </div>
-                                <div class="t-vline t-vline-sm"></div>
-                                <div class="t-children">
-                                    <div class="t-person t-gen2 t-empty"><div class="t-avatar t-av-sm"><i class="fas fa-user"></i></div><div class="t-name">—</div></div>
-                                    <div class="t-person t-gen2 t-empty"><div class="t-avatar t-av-sm"><i class="fas fa-user"></i></div><div class="t-name">—</div></div>
-                                </div>
-                            </div>
-
-                            <div class="t-branch">
-                                <div class="t-vline"></div>
-                                <div class="t-person t-gen1 t-empty">
-                                    <div class="t-avatar"><i class="fas fa-user"></i></div>
-                                    <div class="t-name">—</div>
-                                    <div class="t-role">الابن</div>
-                                </div>
-                                <div class="t-vline t-vline-sm"></div>
-                                <div class="t-children">
-                                    <div class="t-person t-gen2 t-empty"><div class="t-avatar t-av-sm"><i class="fas fa-user"></i></div><div class="t-name">—</div></div>
-                                    <div class="t-person t-gen2 t-empty"><div class="t-avatar t-av-sm"><i class="fas fa-user"></i></div><div class="t-name">—</div></div>
-                                    <div class="t-person t-gen2 t-empty"><div class="t-avatar t-av-sm"><i class="fas fa-user"></i></div><div class="t-name">—</div></div>
-                                </div>
-                            </div>
-
-                            <div class="t-branch">
-                                <div class="t-vline"></div>
-                                <div class="t-person t-gen1 t-empty">
-                                    <div class="t-avatar"><i class="fas fa-user"></i></div>
-                                    <div class="t-name">—</div>
-                                    <div class="t-role">الابن</div>
-                                </div>
-                                <div class="t-vline t-vline-sm"></div>
-                                <div class="t-children">
-                                    <div class="t-person t-gen2 t-empty"><div class="t-avatar t-av-sm"><i class="fas fa-user"></i></div><div class="t-name">—</div></div>
-                                    <div class="t-person t-gen2 t-empty"><div class="t-avatar t-av-sm"><i class="fas fa-user"></i></div><div class="t-name">—</div></div>
-                                </div>
-                            </div>
-
-                            <div class="t-branch">
-                                <div class="t-vline"></div>
-                                <div class="t-person t-gen1 t-empty">
-                                    <div class="t-avatar"><i class="fas fa-user"></i></div>
-                                    <div class="t-name">—</div>
-                                    <div class="t-role">الابن</div>
-                                </div>
-                                <div class="t-vline t-vline-sm"></div>
-                                <div class="t-children">
-                                    <div class="t-person t-gen2 t-empty"><div class="t-avatar t-av-sm"><i class="fas fa-user"></i></div><div class="t-name">—</div></div>
-                                    <div class="t-person t-gen2 t-empty"><div class="t-avatar t-av-sm"><i class="fas fa-user"></i></div><div class="t-name">—</div></div>
-                                    <div class="t-person t-gen2 t-empty"><div class="t-avatar t-av-sm"><i class="fas fa-user"></i></div><div class="t-name">—</div></div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tree-note fade-in">
-                    <i class="fas fa-info-circle"></i>
-                    سيتم تحديث الأسماء قريباً بإذن الله • يمكن التكبير والتصغير والتمرير لعرض الشجرة كاملة
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ======================== PAGE: FIGURES ======================== -->
-    <div class="page" id="page-figures">
-        <div class="section-page">
-            <div class="section-container">
-                <div class="page-header fade-in">
-                    <div class="page-icon"><i class="fas fa-star"></i></div>
-                    <h1>أشْخَاصٌ حَقٌّ عَلَيْنَا ذِكْرُهُمْ</h1>
-                    <p>شخصيات بارزة أسهمت في خدمة المجتمع والوطن عبر التاريخ</p>
-                    <div class="header-ornament"><span></span><span></span><span></span></div>
-                </div>
-
-                <!-- الأشخاص الحاليون -->
-                <div class="figures-label fade-in">
-                    <div class="fl-badge fl-current"><i class="fas fa-users"></i> الحاليون</div>
-                </div>
-
-                <div class="figures-grid fade-in">
-                    <div class="figure-card figure-empty">
-                        <div class="fc-avatar"><i class="fas fa-user-plus"></i></div>
-                        <h3>سيتم الإضافة</h3>
-                        <div class="fc-role">قريباً بإذن الله</div>
-                        <p>سيتم إضافة الأشخاص البارزين الحاليين هنا</p>
-                    </div>
-                    <div class="figure-card figure-empty">
-                        <div class="fc-avatar"><i class="fas fa-user-plus"></i></div>
-                        <h3>سيتم الإضافة</h3>
-                        <div class="fc-role">قريباً بإذن الله</div>
-                        <p>سيتم إضافة الأشخاص البارزين الحاليين هنا</p>
-                    </div>
-                    <div class="figure-card figure-empty">
-                        <div class="fc-avatar"><i class="fas fa-user-plus"></i></div>
-                        <h3>سيتم الإضافة</h3>
-                        <div class="fc-role">قريباً بإذن الله</div>
-                        <p>سيتم إضافة الأشخاص البارزين الحاليين هنا</p>
-                    </div>
-                </div>
-
-                <!-- السابقون -->
-                <div class="figures-label fade-in" style="margin-top:3rem;">
-                    <div class="fl-badge"><i class="fas fa-scroll"></i> السابقون</div>
-                </div>
-
-                <div class="figures-grid fade-in">
-                    <div class="figure-card figure-empty">
-                        <div class="fc-avatar"><i class="fas fa-user-plus"></i></div>
-                        <h3>سيتم الإضافة لاحقاً</h3>
-                        <div class="fc-role">قريباً بإذن الله</div>
-                        <p>سيتم إضافة الأشخاص البارزين السابقين هنا</p>
-                    </div>
-                    <div class="figure-card figure-empty">
-                        <div class="fc-avatar"><i class="fas fa-user-plus"></i></div>
-                        <h3>سيتم الإضافة لاحقاً</h3>
-                        <div class="fc-role">قريباً بإذن الله</div>
-                        <p>سيتم إضافة الأشخاص البارزين السابقين هنا</p>
-                    </div>
-                    <div class="figure-card figure-empty">
-                        <div class="fc-avatar"><i class="fas fa-user-plus"></i></div>
-                        <h3>سيتم الإضافة لاحقاً</h3>
-                        <div class="fc-role">قريباً بإذن الله</div>
-                        <p>سيتم إضافة الأشخاص البارزين السابقين هنا</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ======================== PAGE: DECEASED ======================== -->
-    <div class="page" id="page-deceased">
-        <div class="section-page">
-            <div class="section-container">
-                <div class="page-header fade-in">
-                    <div class="page-icon"><i class="fas fa-moon"></i></div>
-                    <h1>الرَّاحِلُونَ - رَحِمَهُمُ اللهُ</h1>
-                    <p>نسأل الله لهم الرحمة والمغفرة وأن يسكنهم فسيح جناته</p>
-                    <div class="header-ornament"><span></span><span></span><span></span></div>
-                </div>
-
-                <div class="quran-block fade-in">
-                    <div class="qb-decoration"><i class="fas fa-star"></i></div>
-                    <p class="qb-verse">﴿ كُلُّ نَفْسٍ ذَائِقَةُ الْمَوْتِ ۗ وَإِنَّمَا تُوَفَّوْنَ أُجُورَكُمْ يَوْمَ الْقِيَامَةِ ﴾</p>
-                    <p class="qb-ref">سورة آل عمران - الآية ١٨٥</p>
-                </div>
-
-                <div class="deceased-grid fade-in">
-                    <div class="deceased-card dc-empty"><div class="dc-icon"><i class="fas fa-star-and-crescent"></i></div><div class="dc-info"><h4>سيتم الإضافة</h4><p>سيتم إضافة أسماء الراحلين من أسرة المطر هنا قريباً بإذن الله</p><span class="dc-prayer">اللهم اغفر لموتانا وموتى المسلمين</span></div></div>
-                    <div class="deceased-card dc-empty"><div class="dc-icon"><i class="fas fa-star-and-crescent"></i></div><div class="dc-info"><h4>سيتم الإضافة</h4><p>سيتم إضافة أسماء الراحلين من أسرة المطر هنا قريباً بإذن الله</p><span class="dc-prayer">اللهم اغفر لموتانا وموتى المسلمين</span></div></div>
-                    <div class="deceased-card dc-empty"><div class="dc-icon"><i class="fas fa-star-and-crescent"></i></div><div class="dc-info"><h4>سيتم الإضافة</h4><p>سيتم إضافة أسماء الراحلين من أسرة المطر هنا قريباً بإذن الله</p><span class="dc-prayer">اللهم اغفر لموتانا وموتى المسلمين</span></div></div>
-                    <div class="deceased-card dc-empty"><div class="dc-icon"><i class="fas fa-star-and-crescent"></i></div><div class="dc-info"><h4>سيتم الإضافة</h4><p>سيتم إضافة أسماء الراحلين من أسرة المطر هنا قريباً بإذن الله</p><span class="dc-prayer">اللهم اغفر لموتانا وموتى المسلمين</span></div></div>
-                    <div class="deceased-card dc-empty"><div class="dc-icon"><i class="fas fa-star-and-crescent"></i></div><div class="dc-info"><h4>سيتم الإضافة</h4><p>سيتم إضافة أسماء الراحلين من أسرة المطر هنا قريباً بإذن الله</p><span class="dc-prayer">اللهم اغفر لموتانا وموتى المسلمين</span></div></div>
-                    <div class="deceased-card dc-empty"><div class="dc-icon"><i class="fas fa-star-and-crescent"></i></div><div class="dc-info"><h4>سيتم الإضافة</h4><p>سيتم إضافة أسماء الراحلين من أسرة المطر هنا قريباً بإذن الله</p><span class="dc-prayer">اللهم اغفر لموتانا وموتى المسلمين</span></div></div>
-                </div>
-
-                <div class="dua-block fade-in">
-                    <div class="dua-inner">
-                        <i class="fas fa-hands-praying"></i>
-                        <p>نسأل الله أن يتغمد موتانا وموتى المسلمين بواسع رحمته ومغفرته وأن يسكنهم فسيح جناته ويجمعنا بهم في الفردوس الأعلى</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ======================== PAGE: EVENTS ======================== -->
-    <div class="page" id="page-events">
-        <div class="section-page">
-            <div class="section-container">
-                <div class="page-header fade-in">
-                    <div class="page-icon"><i class="fas fa-calendar-alt"></i></div>
-                    <h1>المُنَاسَبَاتُ وَالأخْبَار</h1>
-                    <p>آخر مناسبات وأخبار عائلة المطر</p>
-                    <div class="header-ornament"><span></span><span></span><span></span></div>
-                </div>
-
-                <div class="ticker-bar fade-in">
-                    <div class="tb-label"><i class="fas fa-bolt"></i> آخر الأخبار</div>
-                    <div class="tb-content">
-                        <div class="tb-scroll">
-                            <span>مرحباً بكم في الموقع الرسمي لأسرة المطر - الأحساء</span>
-                            <span class="tb-dot">◆</span>
-                            <span>يتم تحديث الأخبار والمناسبات أولاً بأول</span>
-                            <span class="tb-dot">◆</span>
-                            <span>ترقبوا آخر الأخبار والمناسبات القادمة</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="ev-tabs fade-in">
-                    <button class="ev-tab active" onclick="switchEvTab('all',this)"><i class="fas fa-th-large"></i> الكل</button>
-                    <button class="ev-tab" onclick="switchEvTab('events',this)"><i class="fas fa-calendar-check"></i> المناسبات</button>
-                    <button class="ev-tab" onclick="switchEvTab('news',this)"><i class="fas fa-newspaper"></i> الأخبار</button>
-                    <button class="ev-tab" onclick="switchEvTab('announce',this)"><i class="fas fa-bullhorn"></i> الإعلانات</button>
-                </div>
-
-                <div class="ev-publish fade-in">
-                    <div class="evp-icon"><i class="fas fa-bullhorn"></i></div>
-                    <div class="evp-text">
-                        <h3>آخر المناسبات والأخبار</h3>
-                        <p>يتم تحديث هذا القسم أولاً بأول بمناسبات وأخبار العائلة</p>
-                    </div>
-                </div>
-
-                <div class="ev-feed fade-in">
-
-                    <!-- بطاقة إفطار رمضان مع إعلان قابل للتوسيع -->
-                    <div class="ev-card ev-card-featured" data-type="events">
-                        <div class="evc-badge evc-event"><i class="fas fa-calendar-check"></i> مناسبة</div>
-                        <div class="evc-side">
-                            <div class="evc-icon"><i class="fas fa-moon"></i></div>
-                            <span>رمضان</span>
-                        </div>
-                        <div class="evc-body">
-                            <h3>إفطار العائلة الجماعي السنوي</h3>
-                            <div class="evc-preview">
-                                <p>"وعلى صلة الرحم تجتمعُ القلوب" — انطلاقاً من قول نبينا الكريم ﷺ</p>
-                            </div>
-                            <button class="evc-expand-btn" onclick="toggleEventDetail(this)"><i class="fas fa-chevron-down"></i> اقرأ الإعلان كاملاً</button>
-                            <div class="evc-detail" style="display:none;">
-                                <div class="iftar-banner">
-                                    <img src="images/iftar-banner.jpg" alt="دعوة إفطار عائلة المطر" onerror="this.style.display='none'">
-                                </div>
-                                <div class="iftar-content">
-                                    <div class="iftar-bismillah">بسم الله الرحمن الرحيم</div>
-                                    <p class="iftar-hadith">((ومن وصل فيه رحمه وصله الله يوم يلقاه))</p>
+                            <p>إفطار جماعي يجمع أفراد أسرة المطر في شهر رمضان المبارك، تقليد سنوي يعزز التواصل والترابط الأسري.</p>
+                            <button class="btn btn-sm" onclick="toggleEventDetail('iftarDetail')">
+                                <i class="fas fa-eye"></i> عرض الدعوة كاملة
+                            </button>
+                            <div class="event-detail" id="iftarDetail">
+                                <div class="event-detail-content">
+                                    <p class="event-poetry">"وعلى صلة الرحم تجتمعُ القلوب .."</p>
+                                    <p>انطلاقاً من قول نبينا الكريم ﷺ</p>
+                                    <p class="event-hadith">«ومن وصل فيه رحمه وصله الله يوم يلقاه»</p>
                                     <p>وفي رحاب شهر الجود والإحسان، يسعدنا أن نجدد معكم أواصر المحبة والوفاء.</p>
-                                    <p>يتشرف أبناء العم بدعوتكم لحضور <strong>لقائنا السنوي على مائدة الإفطار</strong>، لنرسم معاً أجمل ذكريات الإخاء.</p>
-                                    <div class="iftar-details">
-                                        <div class="iftar-detail-item">
-                                            <i class="fas fa-calendar-alt"></i>
-                                            <div>
-                                                <strong>الزمان</strong>
-                                                <span>الجمعة (ليلة السبت)، ٢٠ فبراير ٢٠٢٦</span>
-                                            </div>
-                                        </div>
-                                        <div class="iftar-detail-item">
-                                            <i class="fas fa-location-dot"></i>
-                                            <div>
-                                                <strong>المكان</strong>
-                                                <span>حسينية المطر</span>
-                                            </div>
-                                        </div>
+                                    <p>يتشرف أبناء العم بدعوتكم لحضور لقائنا السنوي على مائدة الإفطار، لنرسم معاً أجمل ذكريات الإخاء.</p>
+                                    <div class="event-info-box">
+                                        <p><strong><i class="fas fa-clock"></i> الزمان:</strong> الجمعة (ليلة السبت)، ٢٠ فبراير ٢٠٢٦</p>
+                                        <p><strong><i class="fas fa-location-dot"></i> المكان:</strong> حسينية المطر</p>
                                     </div>
-                                    <p class="iftar-closing">حضوركم يكتمل به الأنس وتزدان به المائدة</p>
-                                    <div class="iftar-family-name">عائلة المطر</div>
+                                    <p class="event-closing">حضوركم يكتمل به الأنس وتزدان به المائدة 🌙</p>
                                 </div>
                             </div>
-                            <div class="evc-meta">
-                                <span><i class="fas fa-location-dot"></i> حسينية المطر</span>
-                                <span><i class="fas fa-users"></i> جميع أفراد الأسرة</span>
+                        </div>
+                    </div>
+
+                    <!-- Site Launch -->
+                    <div class="news-card reveal-up">
+                        <div class="news-badge news-badge-info">خبر</div>
+                        <div class="news-card-body">
+                            <h3><i class="fas fa-globe"></i> إطلاق الموقع الرسمي</h3>
+                            <div class="news-meta">
+                                <span><i class="fas fa-calendar"></i> ٢٠٢٥</span>
+                            </div>
+                            <p>بحمد الله تم إطلاق الموقع الرسمي لعائلة المطر ليكون مرجعاً شاملاً لتاريخ الأسرة وأخبارها.</p>
+                        </div>
+                    </div>
+
+                    <!-- Tree Update -->
+                    <div class="news-card reveal-up">
+                        <div class="news-badge news-badge-success">تحديث</div>
+                        <div class="news-card-body">
+                            <h3><i class="fas fa-code-branch"></i> تحديث شجرة العائلة</h3>
+                            <div class="news-meta">
+                                <span><i class="fas fa-calendar"></i> قريباً</span>
+                            </div>
+                            <p>يتم العمل حالياً على تحديث شجرة العائلة وإضافة الفروع والأسماء الجديدة. ترقبوا!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Navigation -->
+        <div class="home-section home-section-alt">
+            <div class="container">
+                <h2 class="section-title reveal-up">
+                    <span class="title-icon"><i class="fas fa-compass"></i></span>
+                    استكشف الموقع
+                </h2>
+                <div class="quick-nav reveal-up">
+                    <button class="quick-nav-card" onclick="navigateTo('about')">
+                        <div class="qnav-hex"><i class="fas fa-book-open"></i></div>
+                        <h3>عن العائلة</h3>
+                        <p>تاريخ وأصول الأسرة</p>
+                    </button>
+                    <button class="quick-nav-card" onclick="navigateTo('tree')">
+                        <div class="qnav-hex"><i class="fas fa-sitemap"></i></div>
+                        <h3>شجرة العائلة</h3>
+                        <p>الفروع والأنساب</p>
+                    </button>
+                    <button class="quick-nav-card" onclick="navigateTo('notable')">
+                        <div class="qnav-hex"><i class="fas fa-star"></i></div>
+                        <h3>ذكراهم</h3>
+                        <p>شخصيات بارزة</p>
+                    </button>
+                    <button class="quick-nav-card" onclick="navigateTo('gallery')">
+                        <div class="qnav-hex"><i class="fas fa-images"></i></div>
+                        <h3>ألبوم الصور</h3>
+                        <p>ذكريات عائلية</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT ==================== -->
+    <section class="page" id="page-about">
+        <div class="page-header">
+            <div class="page-header-bg"></div>
+            <div class="container">
+                <div class="breadcrumb reveal-up">
+                    <a href="#" onclick="navigateTo('home')">الرئيسية</a>
+                    <i class="fas fa-chevron-left"></i>
+                    <span>عن العائلة</span>
+                </div>
+                <h1 class="page-title reveal-up">عن العائلة</h1>
+                <p class="page-subtitle reveal-up">تاريخ وأصول أسرة المطر في بلدة الفضول</p>
+            </div>
+        </div>
+        <div class="container page-content">
+            <div class="content-sections">
+                <div class="content-block reveal-up">
+                    <div class="content-block-header">
+                        <div class="block-icon"><i class="fas fa-scroll"></i></div>
+                        <h2>التعريف والنسب</h2>
+                    </div>
+                    <div class="coming-soon-block">
+                        <i class="fas fa-hourglass-half"></i>
+                        <p>سيُضاف لاحقاً بإذن الله</p>
+                    </div>
+                </div>
+                <div class="content-block reveal-up">
+                    <div class="content-block-header">
+                        <div class="block-icon"><i class="fas fa-landmark"></i></div>
+                        <h2>بلدة الفضول - الجذور</h2>
+                    </div>
+                    <div class="coming-soon-block">
+                        <i class="fas fa-hourglass-half"></i>
+                        <p>سيُضاف لاحقاً بإذن الله</p>
+                    </div>
+                </div>
+                <div class="content-block reveal-up">
+                    <div class="content-block-header">
+                        <div class="block-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h2>المكانة العلمية والدينية</h2>
+                    </div>
+                    <div class="coming-soon-block">
+                        <i class="fas fa-hourglass-half"></i>
+                        <p>سيُضاف لاحقاً بإذن الله</p>
+                    </div>
+                </div>
+                <div class="content-block reveal-up">
+                    <div class="content-block-header">
+                        <div class="block-icon"><i class="fas fa-handshake"></i></div>
+                        <h2>الوجاهة الاجتماعية</h2>
+                    </div>
+                    <div class="coming-soon-block">
+                        <i class="fas fa-hourglass-half"></i>
+                        <p>سيُضاف لاحقاً بإذن الله</p>
+                    </div>
+                </div>
+                <div class="content-block reveal-up">
+                    <div class="content-block-header">
+                        <div class="block-icon"><i class="fas fa-seedling"></i></div>
+                        <h2>البنية الاقتصادية</h2>
+                    </div>
+                    <div class="coming-soon-block">
+                        <i class="fas fa-hourglass-half"></i>
+                        <p>سيُضاف لاحقاً بإذن الله</p>
+                    </div>
+                </div>
+                <div class="content-block reveal-up">
+                    <div class="content-block-header">
+                        <div class="block-icon"><i class="fas fa-map-marked-alt"></i></div>
+                        <h2>التوزع الجغرافي</h2>
+                    </div>
+                    <div class="coming-soon-block">
+                        <i class="fas fa-hourglass-half"></i>
+                        <p>سيُضاف لاحقاً بإذن الله</p>
+                    </div>
+                </div>
+                <div class="content-block reveal-up">
+                    <div class="content-block-header">
+                        <div class="block-icon"><i class="fas fa-book"></i></div>
+                        <h2>المراجع والمصادر التوثيقية</h2>
+                    </div>
+                    <div class="coming-soon-block">
+                        <i class="fas fa-hourglass-half"></i>
+                        <p>سيُضاف لاحقاً بإذن الله</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TREE ==================== -->
+    <section class="page" id="page-tree">
+        <div class="page-header">
+            <div class="page-header-bg"></div>
+            <div class="container">
+                <div class="breadcrumb reveal-up">
+                    <a href="#" onclick="navigateTo('home')">الرئيسية</a>
+                    <i class="fas fa-chevron-left"></i>
+                    <span>شجرة العائلة</span>
+                </div>
+                <h1 class="page-title reveal-up">شجرة العائلة</h1>
+                <p class="page-subtitle reveal-up">أغصان وجذور أسرة المطر</p>
+            </div>
+        </div>
+        <div class="container page-content">
+            <!-- Ancestry Chain -->
+            <div class="content-block reveal-up">
+                <div class="content-block-header">
+                    <div class="block-icon"><i class="fas fa-link"></i></div>
+                    <h2>تسلسل نسب عائلة المطر</h2>
+                </div>
+                <div class="coming-soon-block">
+                    <i class="fas fa-hourglass-half"></i>
+                    <p>سيُضاف لاحقاً بإذن الله</p>
+                </div>
+            </div>
+
+            <!-- Family Tree -->
+            <div class="content-block reveal-up">
+                <div class="content-block-header">
+                    <div class="block-icon"><i class="fas fa-project-diagram"></i></div>
+                    <h2>الشجرة التفصيلية</h2>
+                </div>
+                <div class="tree-controls">
+                    <button class="tree-ctrl-btn" onclick="zoomTree(0.1)" title="تكبير"><i class="fas fa-search-plus"></i></button>
+                    <button class="tree-ctrl-btn" onclick="zoomTree(-0.1)" title="تصغير"><i class="fas fa-search-minus"></i></button>
+                    <button class="tree-ctrl-btn" onclick="resetTree()" title="إعادة تعيين"><i class="fas fa-undo"></i></button>
+                </div>
+                <div class="tree-viewport" id="treeViewport">
+                    <div class="tree-canvas" id="treeCanvas">
+                        <div class="tree-root">
+                            <div class="tree-node tree-node-root">
+                                <span>عائلة المَطَر</span>
+                            </div>
+                            <div class="tree-branches">
+                                <div class="tree-branch">
+                                    <div class="tree-node tree-node-empty"><span>سيُضاف</span></div>
+                                    <div class="tree-children">
+                                        <div class="tree-node tree-node-empty"><span>سيُضاف</span></div>
+                                        <div class="tree-node tree-node-empty"><span>سيُضاف</span></div>
+                                        <div class="tree-node tree-node-empty"><span>سيُضاف</span></div>
+                                    </div>
+                                </div>
+                                <div class="tree-branch">
+                                    <div class="tree-node tree-node-empty"><span>سيُضاف</span></div>
+                                    <div class="tree-children">
+                                        <div class="tree-node tree-node-empty"><span>سيُضاف</span></div>
+                                        <div class="tree-node tree-node-empty"><span>سيُضاف</span></div>
+                                    </div>
+                                </div>
+                                <div class="tree-branch">
+                                    <div class="tree-node tree-node-empty"><span>سيُضاف</span></div>
+                                    <div class="tree-children">
+                                        <div class="tree-node tree-node-empty"><span>سيُضاف</span></div>
+                                        <div class="tree-node tree-node-empty"><span>سيُضاف</span></div>
+                                        <div class="tree-node tree-node-empty"><span>سيُضاف</span></div>
+                                    </div>
+                                </div>
+                                <div class="tree-branch">
+                                    <div class="tree-node tree-node-empty"><span>سيُضاف</span></div>
+                                    <div class="tree-children">
+                                        <div class="tree-node tree-node-empty"><span>سيُضاف</span></div>
+                                        <div class="tree-node tree-node-empty"><span>سيُضاف</span></div>
+                                    </div>
+                                </div>
+                                <div class="tree-branch">
+                                    <div class="tree-node tree-node-empty"><span>سيُضاف</span></div>
+                                    <div class="tree-children">
+                                        <div class="tree-node tree-node-empty"><span>سيُضاف</span></div>
+                                        <div class="tree-node tree-node-empty"><span>سيُضاف</span></div>
+                                        <div class="tree-node tree-node-empty"><span>سيُضاف</span></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="ev-card" data-type="events">
-                        <div class="evc-badge evc-event"><i class="fas fa-calendar-check"></i> مناسبة</div>
-                        <div class="evc-side"><div class="evc-icon"><i class="fas fa-mosque"></i></div><span>شوال</span></div>
-                        <div class="evc-body">
-                            <h3>معايدة عيد الفطر المبارك</h3>
-                            <p>تجمع الأسرة الكبير في أول أيام عيد الفطر المبارك للمعايدة والتهنئة، حيث يجتمع الكبار والصغار في أجواء مليئة بالفرح.</p>
-                            <div class="evc-meta"><span><i class="fas fa-location-dot"></i> الأحساء</span><span><i class="fas fa-calendar"></i> أول أيام العيد</span></div>
-                        </div>
-                    </div>
-
-                    <div class="ev-card" data-type="events">
-                        <div class="evc-badge evc-event"><i class="fas fa-calendar-check"></i> مناسبة</div>
-                        <div class="evc-side"><div class="evc-icon"><i class="fas fa-kaaba"></i></div><span>ذو الحجة</span></div>
-                        <div class="evc-body">
-                            <h3>معايدة عيد الأضحى المبارك</h3>
-                            <p>تجمع مبارك بمناسبة عيد الأضحى، مع إقامة الأضاحي وتوزيعها على الفقراء والمحتاجين كعادة الأسرة في البذل والعطاء.</p>
-                            <div class="evc-meta"><span><i class="fas fa-location-dot"></i> الأحساء</span><span><i class="fas fa-heart"></i> بذل وعطاء</span></div>
-                        </div>
-                    </div>
-
-                    <div class="ev-card" data-type="events">
-                        <div class="evc-badge evc-event"><i class="fas fa-calendar-check"></i> مناسبة</div>
-                        <div class="evc-side"><div class="evc-icon"><i class="fas fa-people-group"></i></div><span>سنوي</span></div>
-                        <div class="evc-body">
-                            <h3>اللقاء العائلي السنوي الكبير</h3>
-                            <p>اللقاء السنوي الكبير لأسرة المطر يجمع جميع أفراد الأسرة من مختلف المناطق، يتضمن عشاء جماعي وجلسات حوارية لتعزيز الروابط العائلية.</p>
-                            <div class="evc-meta"><span><i class="fas fa-location-dot"></i> الأحساء</span><span><i class="fas fa-users"></i> جميع الأفراد</span></div>
-                        </div>
-                    </div>
-
-                    <div class="ev-card" data-type="news">
-                        <div class="evc-badge evc-news"><i class="fas fa-newspaper"></i> خبر</div>
-                        <div class="evc-side"><div class="evc-icon evc-icon-news"><i class="fas fa-globe"></i></div><span>جديد</span></div>
-                        <div class="evc-body">
-                            <h3>إطلاق الموقع الرسمي لأسرة المطر</h3>
-                            <p>تم بحمد الله إطلاق الموقع الرسمي لأسرة المطر، ليكون منصة رقمية تجمع أخبار ومناسبات وتاريخ الأسرة في مكان واحد.</p>
-                            <div class="evc-meta"><span><i class="fas fa-clock"></i> ٢٠٢٥</span></div>
-                        </div>
-                    </div>
-
-                    <div class="ev-card" data-type="announce">
-                        <div class="evc-badge evc-announce"><i class="fas fa-bullhorn"></i> إعلان</div>
-                        <div class="evc-side"><div class="evc-icon evc-icon-announce"><i class="fas fa-bell"></i></div><span>هام</span></div>
-                        <div class="evc-body">
-                            <h3>تحديث شجرة العائلة</h3>
-                            <p>نعمل حالياً على تحديث شجرة العائلة وإضافة جميع الأسماء. نرجو من أفراد الأسرة التواصل معنا لإضافة أسمائهم وأسماء أبنائهم.</p>
-                            <div class="evc-meta"><span><i class="fas fa-envelope"></i> تواصلوا معنا</span></div>
-                        </div>
-                    </div>
-
-                    <div class="ev-card ev-placeholder" data-type="all">
-                        <div class="evc-side"><div class="evc-icon evc-icon-placeholder"><i class="fas fa-plus"></i></div><span>قريباً</span></div>
-                        <div class="evc-body">
-                            <h3>مناسبات وأخبار قادمة</h3>
-                            <p>سيتم نشر المناسبات والأخبار الجديدة هنا أولاً بأول بإذن الله</p>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- ======================== PAGE: GALLERY ======================== -->
-    <div class="page" id="page-gallery">
-        <div class="section-page">
-            <div class="section-container">
-                <div class="page-header fade-in">
-                    <div class="page-icon"><i class="fas fa-images"></i></div>
-                    <h1>أَلْبُومُ الصُّوَرِ</h1>
-                    <p>لحظات جميلة ومناسبات عائلية نعتز بها</p>
-                    <div class="header-ornament"><span></span><span></span><span></span></div>
+    <!-- ==================== NOTABLE ==================== -->
+    <section class="page" id="page-notable">
+        <div class="page-header">
+            <div class="page-header-bg"></div>
+            <div class="container">
+                <div class="breadcrumb reveal-up">
+                    <a href="#" onclick="navigateTo('home')">الرئيسية</a>
+                    <i class="fas fa-chevron-left"></i>
+                    <span>أشخاص حقٌّ علينا ذكرهم</span>
                 </div>
-
-                <div class="gallery-tabs fade-in">
-                    <button class="gt-tab active" onclick="filterGallery('all',this)">الكل</button>
-                    <button class="gt-tab" onclick="filterGallery('events',this)">مناسبات</button>
-                    <button class="gt-tab" onclick="filterGallery('gatherings',this)">تجمعات</button>
-                    <button class="gt-tab" onclick="filterGallery('celebrations',this)">احتفالات</button>
-                    <button class="gt-tab" onclick="filterGallery('memories',this)">ذكريات</button>
+                <h1 class="page-title reveal-up">أشخاص حقٌّ علينا ذكرهم</h1>
+                <p class="page-subtitle reveal-up">شخصيات خلّدها التاريخ من أسرة المطر</p>
+            </div>
+        </div>
+        <div class="container page-content">
+            <!-- Current Notables -->
+            <div class="content-block reveal-up">
+                <div class="content-block-header">
+                    <div class="block-icon"><i class="fas fa-users"></i></div>
+                    <h2>الأعلام الحاليون</h2>
                 </div>
-
-                <div class="gallery-grid fade-in" id="galleryGrid">
-                    <div class="g-card" data-cat="gatherings"><div class="g-thumb" style="background:linear-gradient(135deg,#1e40af,#1e3a5f);"><i class="fas fa-users"></i></div><div class="g-info"><h4>اللقاء العائلي السنوي</h4><p>تجمع أسرة المطر الكبير</p></div></div>
-                    <div class="g-card" data-cat="celebrations"><div class="g-thumb" style="background:linear-gradient(135deg,#1d4ed8,#0f2d6e);"><i class="fas fa-ring"></i></div><div class="g-info"><h4>أفراح الأسرة</h4><p>حفل زواج مبارك</p></div></div>
-                    <div class="g-card" data-cat="events"><div class="g-thumb" style="background:linear-gradient(135deg,#2563eb,#1e3a8a);"><i class="fas fa-moon"></i></div><div class="g-info"><h4>إفطار رمضان</h4><p>إفطار جماعي - الأحساء</p></div></div>
-                    <div class="g-card" data-cat="celebrations"><div class="g-thumb" style="background:linear-gradient(135deg,#1e3a5f,#0c1d36);"><i class="fas fa-graduation-cap"></i></div><div class="g-info"><h4>تخرج الأبناء</h4><p>فخرنا بإنجازات أبنائنا</p></div></div>
-                    <div class="g-card" data-cat="gatherings"><div class="g-thumb" style="background:linear-gradient(135deg,#1e3a8a,#0f172a);"><i class="fas fa-utensils"></i></div><div class="g-info"><h4>ولائم الضيافة</h4><p>كرم الضيافة الأحسائي</p></div></div>
-                    <div class="g-card" data-cat="memories"><div class="g-thumb" style="background:linear-gradient(135deg,#3b82f6,#1e40af);"><i class="fas fa-palm-tree"></i></div><div class="g-info"><h4>واحة الأحساء</h4><p>ذكريات من بلدة الفضول</p></div></div>
-                    <div class="g-card" data-cat="events"><div class="g-thumb" style="background:linear-gradient(135deg,#60a5fa,#2563eb);"><i class="fas fa-mosque"></i></div><div class="g-info"><h4>معايدة العيد</h4><p>تجمع الأسرة في العيد</p></div></div>
-                    <div class="g-card" data-cat="memories"><div class="g-thumb" style="background:linear-gradient(135deg,#0f172a,#1e3a5f);"><i class="fas fa-landmark"></i></div><div class="g-info"><h4>معالم الأحساء</h4><p>تراث وتاريخ المنطقة</p></div></div>
+                <div class="coming-soon-block">
+                    <i class="fas fa-hourglass-half"></i>
+                    <p>سيُضاف لاحقاً بإذن الله</p>
+                </div>
+            </div>
+            <!-- Past Notables -->
+            <div class="content-block reveal-up">
+                <div class="content-block-header">
+                    <div class="block-icon"><i class="fas fa-mosque"></i></div>
+                    <h2>الأعلام السابقون</h2>
+                </div>
+                <div class="coming-soon-block">
+                    <i class="fas fa-hourglass-half"></i>
+                    <p>سيُضاف لاحقاً بإذن الله</p>
+                </div>
+            </div>
+            <!-- Deceased -->
+            <div class="content-block reveal-up">
+                <div class="content-block-header">
+                    <div class="block-icon"><i class="fas fa-dove"></i></div>
+                    <h2>الراحلون رحمهم الله</h2>
+                </div>
+                <div class="quran-verse-block">
+                    <p>﴿ يَا أَيَّتُهَا النَّفْسُ الْمُطْمَئِنَّةُ ارْجِعِي إِلَى رَبِّكِ رَاضِيَةً مَّرْضِيَّةً ﴾</p>
+                </div>
+                <div class="coming-soon-block">
+                    <i class="fas fa-hourglass-half"></i>
+                    <p>سيُضاف لاحقاً بإذن الله</p>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- ======================== PAGE: CONTACT ======================== -->
-    <div class="page" id="page-contact">
-        <div class="section-page">
-            <div class="section-container">
-                <div class="page-header fade-in">
-                    <div class="page-icon"><i class="fas fa-envelope"></i></div>
-                    <h1>تَوَاصَلْ مَعَنَا</h1>
-                    <p>نسعد بتواصلكم واستفساراتكم</p>
-                    <div class="header-ornament"><span></span><span></span><span></span></div>
+    <!-- ==================== EVENTS ==================== -->
+    <section class="page" id="page-events">
+        <div class="page-header">
+            <div class="page-header-bg"></div>
+            <div class="container">
+                <div class="breadcrumb reveal-up">
+                    <a href="#" onclick="navigateTo('home')">الرئيسية</a>
+                    <i class="fas fa-chevron-left"></i>
+                    <span>المناسبات والأخبار</span>
+                </div>
+                <h1 class="page-title reveal-up">المناسبات والأخبار</h1>
+                <p class="page-subtitle reveal-up">آخر الأخبار والمناسبات العائلية</p>
+            </div>
+        </div>
+        <div class="container page-content">
+            <!-- Filters -->
+            <div class="filter-tabs reveal-up">
+                <button class="filter-tab active" onclick="filterEvents('all')">الكل</button>
+                <button class="filter-tab" onclick="filterEvents('event')">المناسبات</button>
+                <button class="filter-tab" onclick="filterEvents('news')">الأخبار</button>
+                <button class="filter-tab" onclick="filterEvents('announcement')">الإعلانات</button>
+            </div>
+
+            <div class="events-feed">
+                <!-- Iftar Event -->
+                <div class="event-card reveal-up" data-type="event">
+                    <div class="event-card-status status-upcoming">قادمة</div>
+                    <div class="event-card-img">
+                        <img src="images/iftar-banner.jpg" alt="إفطار عائلة المطر" loading="lazy" onclick="openLightbox(this.src)">
+                    </div>
+                    <div class="event-card-body">
+                        <div class="event-card-date">
+                            <i class="fas fa-calendar-alt"></i> ٢٠ فبراير ٢٠٢٦
+                        </div>
+                        <h3>إفطار العائلة الجماعي</h3>
+                        <p>إفطار جماعي يجمع أفراد أسرة المطر في شهر رمضان المبارك.</p>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i> حسينية المطر
+                        </div>
+                        <button class="btn btn-sm" onclick="toggleEventDetail('iftarDetail2')">
+                            <i class="fas fa-eye"></i> عرض الدعوة كاملة
+                        </button>
+                        <div class="event-detail" id="iftarDetail2">
+                            <div class="event-detail-content">
+                                <p class="event-poetry">"وعلى صلة الرحم تجتمعُ القلوب .."</p>
+                                <p>انطلاقاً من قول نبينا الكريم ﷺ</p>
+                                <p class="event-hadith">«ومن وصل فيه رحمه وصله الله يوم يلقاه»</p>
+                                <p>وفي رحاب شهر الجود والإحسان، يسعدنا أن نجدد معكم أواصر المحبة والوفاء.</p>
+                                <div class="event-info-box">
+                                    <p><strong><i class="fas fa-clock"></i> الزمان:</strong> الجمعة (ليلة السبت)، ٢٠ فبراير ٢٠٢٦</p>
+                                    <p><strong><i class="fas fa-location-dot"></i> المكان:</strong> حسينية المطر</p>
+                                </div>
+                                <p class="event-closing">حضوركم يكتمل به الأنس وتزدان به المائدة 🌙</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="contact-grid fade-in">
-                    <form class="contact-form" onsubmit="handleSubmit(event)">
-                        <div class="cf-group"><label><i class="fas fa-user"></i> الاسم الكامل</label><input type="text" placeholder="أدخل اسمك الكامل" required></div>
-                        <div class="cf-group"><label><i class="fas fa-envelope"></i> البريد الإلكتروني</label><input type="email" placeholder="example@email.com" required></div>
-                        <div class="cf-group"><label><i class="fas fa-tag"></i> الموضوع</label><input type="text" placeholder="موضوع الرسالة" required></div>
-                        <div class="cf-group"><label><i class="fas fa-message"></i> الرسالة</label><textarea placeholder="اكتب رسالتك هنا..." required></textarea></div>
-                        <button type="submit" class="cf-submit" id="submitBtn"><i class="fas fa-paper-plane"></i> إرسال الرسالة</button>
+                <!-- Site Launch -->
+                <div class="event-card reveal-up" data-type="news">
+                    <div class="event-card-status status-done">تم</div>
+                    <div class="event-card-body">
+                        <div class="event-card-date">
+                            <i class="fas fa-calendar-alt"></i> ٢٠٢٥
+                        </div>
+                        <h3><i class="fas fa-globe"></i> إطلاق الموقع الرسمي لأسرة المطر</h3>
+                        <p>بحمد الله تم إطلاق الموقع الرسمي لعائلة المطر ليكون منصة تجمع أفراد الأسرة وتوثق تاريخها العريق.</p>
+                    </div>
+                </div>
+
+                <!-- Tree Update -->
+                <div class="event-card reveal-up" data-type="announcement">
+                    <div class="event-card-status status-progress">جارٍ</div>
+                    <div class="event-card-body">
+                        <div class="event-card-date">
+                            <i class="fas fa-calendar-alt"></i> قريباً
+                        </div>
+                        <h3><i class="fas fa-code-branch"></i> تحديث شجرة العائلة</h3>
+                        <p>يتم العمل حالياً على تحديث وتوسعة شجرة العائلة وإضافة الفروع والأسماء. ترقبوا!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== GALLERY ==================== -->
+    <section class="page" id="page-gallery">
+        <div class="page-header">
+            <div class="page-header-bg"></div>
+            <div class="container">
+                <div class="breadcrumb reveal-up">
+                    <a href="#" onclick="navigateTo('home')">الرئيسية</a>
+                    <i class="fas fa-chevron-left"></i>
+                    <span>ألبوم الصور</span>
+                </div>
+                <h1 class="page-title reveal-up">ألبوم الصور</h1>
+                <p class="page-subtitle reveal-up">ذكريات ولحظات عائلية</p>
+            </div>
+        </div>
+        <div class="container page-content">
+            <div class="content-block reveal-up">
+                <div class="coming-soon-block large">
+                    <i class="fas fa-camera-retro"></i>
+                    <h3>ألبوم الصور</h3>
+                    <p>سيُضاف لاحقاً بإذن الله</p>
+                    <span class="coming-soon-sub">يمكنكم التواصل لإرسال صوركم العائلية</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT ==================== -->
+    <section class="page" id="page-contact">
+        <div class="page-header">
+            <div class="page-header-bg"></div>
+            <div class="container">
+                <div class="breadcrumb reveal-up">
+                    <a href="#" onclick="navigateTo('home')">الرئيسية</a>
+                    <i class="fas fa-chevron-left"></i>
+                    <span>تواصل معنا</span>
+                </div>
+                <h1 class="page-title reveal-up">تواصل معنا</h1>
+                <p class="page-subtitle reveal-up">نرحب بتواصلكم واقتراحاتكم</p>
+            </div>
+        </div>
+        <div class="container page-content">
+            <div class="contact-grid">
+                <div class="content-block reveal-up">
+                    <div class="content-block-header">
+                        <div class="block-icon"><i class="fas fa-paper-plane"></i></div>
+                        <h2>أرسل رسالة</h2>
+                    </div>
+                    <form class="contact-form" id="contactForm" onsubmit="handleContact(event)">
+                        <div class="form-group">
+                            <label for="contactName">الاسم الكامل</label>
+                            <input type="text" id="contactName" required placeholder="أدخل اسمك الكامل">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactPhone">رقم الجوال</label>
+                            <input type="tel" id="contactPhone" placeholder="05xxxxxxxx">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactMsg">الرسالة</label>
+                            <textarea id="contactMsg" rows="5" required placeholder="اكتب رسالتك هنا..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <i class="fas fa-paper-plane"></i> إرسال الرسالة
+                        </button>
                     </form>
-
-                    <div class="contact-info-list">
-                        <div class="ci-item"><div class="ci-icon"><i class="fas fa-location-dot"></i></div><div><h4>الموقع</h4><p>بلدة الفضول - الأحساء - المنطقة الشرقية</p></div></div>
-                        <div class="ci-item"><div class="ci-icon"><i class="fas fa-phone"></i></div><div><h4>الهاتف</h4><p dir="ltr">+966 5X XXX XXXX</p></div></div>
-                        <div class="ci-item"><div class="ci-icon"><i class="fas fa-envelope"></i></div><div><h4>البريد الإلكتروني</h4><p>info@almatar-family.sa</p></div></div>
+                </div>
+                <div class="contact-info-side reveal-up">
+                    <div class="content-block">
+                        <div class="content-block-header">
+                            <div class="block-icon"><i class="fas fa-info-circle"></i></div>
+                            <h2>معلومات التواصل</h2>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-item-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <strong>الموقع</strong>
+                                <p>بلدة الفضول - محافظة الأحساء</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-item-icon"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <strong>البريد الإلكتروني</strong>
+                                <p>سيُضاف لاحقاً</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- FOOTER -->
-    <footer class="footer" id="siteFooter">
-        <div class="footer-islamic-pattern"></div>
-        <div class="footer-hex-row">
-            <span class="footer-hex">⬡</span>
-            <span class="footer-hex">⬡</span>
-            <span class="footer-hex">⬡</span>
-            <span class="footer-hex">⬡</span>
-            <span class="footer-hex">⬡</span>
-            <span class="footer-hex">⬡</span>
-            <span class="footer-hex">⬡</span>
-            <span class="footer-hex">⬡</span>
-            <span class="footer-hex">⬡</span>
-        </div>
-        <div class="footer-content">
-            <div class="footer-brand">
-                <span class="footer-thuluth">المَطَرِ</span>
-                <div>
-                    <span class="footer-name">عائلة المَطَرِ</span>
-                    <span class="footer-sub">الأحساء - بلدة الفضول</span>
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+        <div class="footer-pattern"></div>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="images/familylogo.png" alt="شعار عائلة المطر" class="footer-logo">
+                    <div class="footer-brand-text">عائلة المَطَرِ</div>
+                    <p>الأحساء - بلدة الفضول</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#" onclick="navigateTo('home')">الرئيسية</a>
+                    <a href="#" onclick="navigateTo('about')">عن العائلة</a>
+                    <a href="#" onclick="navigateTo('tree')">شجرة العائلة</a>
+                    <a href="#" onclick="navigateTo('events')">المناسبات</a>
                 </div>
             </div>
-        </div>
-        <div class="footer-bottom">
-            <div class="footer-ornament">✦ ✦ ✦</div>
-            <p>© ٢٠٢٥ | جميع الحقوق محفوظة لأسرة المطر</p>
+            <div class="footer-bottom">
+                <p>© ٢٠٢٥ | جميع الحقوق محفوظة لأسرة المطر</p>
+            </div>
         </div>
     </footer>
 
-    <!-- BACK TO TOP -->
-    <button class="btt" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="العودة للأعلى">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 
-    <!-- MODAL -->
-    <div class="modal-bg" id="personModal">
-        <div class="modal-card">
-            <div class="modal-av"><i class="fas fa-user"></i></div>
-            <div class="modal-name" id="modalName"></div>
-            <div class="modal-desc" id="modalDesc"></div>
-            <button class="modal-close" onclick="closeModal()">إغلاق</button>
-        </div>
+    <!-- Font Size Controls -->
+    <div class="font-controls" id="fontControls">
+        <button onclick="changeFontSize(1)" title="تكبير الخط" aria-label="تكبير"><i class="fas fa-plus"></i></button>
+        <button onclick="changeFontSize(-1)" title="تصغير الخط" aria-label="تصغير"><i class="fas fa-minus"></i></button>
     </div>
 
     <script src="script.js"></script>
