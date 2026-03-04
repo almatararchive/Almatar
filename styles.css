@@ -103,8 +103,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 .preloader-content { text-align: center; }
 .preloader-logo {
-    width: 200px;
-    height: 200px;
+    width: 240px;
+    height: 240px;
     object-fit: contain;
     margin: 0 auto 24px;
     animation: pulse 1.5s ease-in-out infinite;
@@ -202,14 +202,14 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     left: 0;
     right: 0;
     height: var(--nav-height);
-    background: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.95);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border-light);
     z-index: 9999;
     transition: all var(--transition);
 }
-[data-theme="dark"] .navbar { background: rgba(12,25,41,0.92); }
+[data-theme="dark"] .navbar { background: rgba(12,25,41,0.95); }
 .navbar.scrolled { box-shadow: var(--shadow); }
 
 .nav-container {
@@ -219,31 +219,82 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    flex-direction: row;
-    position: relative;
     gap: 0;
 }
 
-/* Theme Toggle - Far LEFT */
-.theme-toggle {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
+/* 1. الشعار - أقصى اليمين (في RTL يكون أول عنصر) */
+.nav-brand {
     display: flex;
+    align-items: center;
+    z-index: 100;
+    height: 100%;
+    padding: 4px 0;
+    flex-shrink: 0;
+}
+.nav-logo {
+    height: calc(var(--nav-height) - 10px);
+    width: auto;
+    min-width: 180px;
+    max-width: 280px;
+    object-fit: contain;
+    transition: var(--transition);
+    filter: drop-shadow(0 3px 12px rgba(0,0,0,0.15));
+}
+.nav-brand:hover .nav-logo { transform: scale(1.03); }
+
+/* 2. القائمة - بعد الشعار */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-right: 20px;
+    margin-left: 0;
+}
+.nav-link {
+    padding: 8px 14px;
+    border-radius: var(--radius-xs);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #000;
+    transition: all var(--transition);
+    position: relative;
+    white-space: nowrap;
+}
+[data-theme="dark"] .nav-link { color: #e8edf4; }
+.nav-link i { margin-left: 4px; font-size: 0.75rem; }
+.nav-link:hover, .nav-link.active {
+    color: var(--accent);
+    background: rgba(59,130,246,0.08);
+}
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    right: 14px;
+    left: 14px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+}
+
+/* 3. زر الوضع الداكن - أقصى اليسار */
+.theme-toggle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex !important;
     align-items: center;
     justify-content: center;
     color: var(--text-secondary);
     background: var(--bg-alt);
     border: 2px solid var(--border);
     transition: all var(--transition);
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     cursor: pointer;
     z-index: 101;
-    margin-right: 0;
-    margin-left: auto;
     flex-shrink: 0;
-    order: 3;
+    margin-right: auto;
+    margin-left: 0;
 }
 .theme-toggle:hover {
     background: var(--accent);
@@ -261,89 +312,30 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     color: var(--primary-dark);
 }
 
-/* الشعار - أقصى اليمين */
-.nav-brand {
-    display: flex;
-    align-items: center;
-    z-index: 100;
-    height: 100%;
-    padding: 4px 0;
-    flex-shrink: 0;
-    order: 1;
-}
-.nav-logo {
-    height: calc(var(--nav-height) - 8px);
-    width: auto;
-    min-width: 140px;
-    max-width: 220px;
-    object-fit: contain;
-    transition: var(--transition);
-    filter: drop-shadow(0 3px 12px rgba(0,0,0,0.15));
-}
-.nav-brand:hover .nav-logo { transform: scale(1.05); }
-
-/* القائمة - بعد الشعار */
-.nav-menu {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-right: 24px;
-    margin-left: 0;
-    flex-grow: 1;
-    order: 2;
-}
-.nav-link {
-    padding: 8px 16px;
-    border-radius: var(--radius-xs);
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #000;
-    transition: all var(--transition);
-    position: relative;
-    white-space: nowrap;
-}
-[data-theme="dark"] .nav-link { color: #e8edf4; }
-.nav-link i { margin-left: 4px; font-size: 0.8rem; }
-.nav-link:hover, .nav-link.active {
-    color: var(--accent);
-    background: rgba(59,130,246,0.08);
-}
-.nav-link.active::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 16px;
-    left: 16px;
-    height: 2px;
-    background: var(--accent);
-    border-radius: 2px;
-}
-
-/* زر الهامبرغر للجوال */
+/* 4. زر الهامبرغر للجوال */
 .nav-toggle {
     display: none;
     flex-direction: column;
     gap: 6px;
-    width: 26px;
+    width: 28px;
     padding: 4px 0;
     z-index: 100;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
-    margin-right: 0;
-    margin-left: 16px;
-    order: 4;
+    margin-right: 16px;
+    margin-left: 0;
 }
 .nav-toggle span {
     width: 100%;
-    height: 2px;
+    height: 2.5px;
     background: var(--text);
     border-radius: 2px;
     transition: var(--transition);
 }
-.nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
 .nav-toggle.active span:nth-child(2) { opacity: 0; }
-.nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+.nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
 
 /* --- Pages --- */
 .page { display: none; min-height: 100vh; }
@@ -525,8 +517,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .hero-logo-wrapper {
     position: relative;
-    width: 240px;
-    height: 240px;
+    width: 280px;
+    height: 280px;
     margin: 0 auto 28px;
     display: flex;
     align-items: center;
@@ -544,8 +536,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     50% { transform: scale(1.15); opacity: 1; }
 }
 .hero-logo {
-    width: 220px;
-    height: 220px;
+    width: 260px;
+    height: 260px;
     object-fit: contain;
     position: relative;
     z-index: 2;
@@ -1154,8 +1146,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     flex-wrap: wrap;
 }
 .footer-logo {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     object-fit: contain;
     filter: brightness(0) invert(1) drop-shadow(0 2px 15px rgba(255,255,255,0.2));
     transition: var(--transition);
@@ -1286,13 +1278,14 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     :root { --nav-height: 64px; }
 
     .nav-container {
-        justify-content: flex-start;
         flex-direction: row;
+        gap: 0;
     }
-    .nav-brand { order: 1; flex-shrink: 0; }
-    .nav-toggle { display: flex; order: 3; margin-right: 0; margin-left: 10px; }
-    .theme-toggle { order: 4; width: 42px; height: 42px; font-size: 1.1rem; margin-right: 0; margin-left: auto; }
-    .nav-logo { height: calc(var(--nav-height) - 14px); width: auto; min-width: 100px; max-width: 160px; }
+    /* ترتيب الجوال: شعار - فراغ - هامبرغر - هلال */
+    .nav-brand { flex-shrink: 0; }
+    .nav-toggle { display: flex; margin-right: auto; margin-left: 12px; }
+    .theme-toggle { width: 40px; height: 40px; font-size: 1rem; margin-right: 0; margin-left: 12px; }
+    .nav-logo { height: calc(var(--nav-height) - 14px); width: auto; min-width: 120px; max-width: 180px; }
     .nav-menu {
         position: fixed;
         top: 0;
@@ -1416,12 +1409,14 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 /* Large screens */
 @media (min-width: 1400px) {
-    :root { --nav-height: 80px; }
+    :root { --nav-height: 84px; }
     .container { max-width: 1300px; }
     .hero-title { font-size: 7rem; }
-    .hero-logo { width: 260px; height: 260px; }
-    .hero-logo-wrapper { width: 280px; height: 280px; }
-    .nav-logo { min-width: 160px; max-width: 240px; }
+    .hero-logo { width: 300px; height: 300px; }
+    .hero-logo-wrapper { width: 320px; height: 320px; }
+    .nav-logo { min-width: 200px; max-width: 300px; }
+    .preloader-logo { width: 260px; height: 260px; }
+    .footer-logo { width: 140px; height: 140px; }
 }
 
 /* Touch devices - better tap targets */
