@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" data-theme="light">
 <head>
-                   <meta name="google-site-verification" content="rUh8ykv_vIzU685Or2IQuoZ0yGBAgkvGj_S1K0MEL9k" />
+                <meta name="google-site-verification" content="rUh8ykv_vIzU685Or2IQuoZ0yGBAgkvGj_S1K0MEL9k" />
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
@@ -48,12 +48,12 @@
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <!-- Theme Toggle - Far Left -->
-            <button class="theme-toggle" id="themeToggle" title="تبديل الوضع الليلي" aria-label="تبديل الوضع الليلي">
-                <i class="fas fa-moon"></i>
-            </button>
+            <!-- 1. الشعار - أقصى اليمين -->
+            <a class="nav-brand" href="#" onclick="navigateTo('home')">
+                <img src="images/familylogo.png" alt="شعار عائلة المطر" class="nav-logo">
+            </a>
             
-            <!-- Navigation Menu -->
+            <!-- 2. قائمة التنقل - بعد الشعار -->
             <div class="nav-menu" id="navMenu">
                 <a href="#" class="nav-link active" data-page="home" onclick="navigateTo('home')">
                     <i class="fas fa-home"></i> الرئيسية
@@ -81,12 +81,12 @@
                 </a>
             </div>
             
-            <!-- Logo - Far Right -->
-            <a class="nav-brand" href="#" onclick="navigateTo('home')">
-                <img src="images/familylogo.png" alt="شعار عائلة المطر" class="nav-logo">
-            </a>
+            <!-- 3. زر الوضع الليلي - أقصى اليسار -->
+            <button class="theme-toggle" id="themeToggle" title="تبديل الوضع الليلي" aria-label="تبديل الوضع الليلي">
+                <i class="fas fa-moon"></i>
+            </button>
             
-            <!-- Mobile Toggle -->
+            <!-- زر الهامبرغر للجوال -->
             <button class="nav-toggle" id="navToggle" aria-label="القائمة">
                 <span></span><span></span><span></span>
             </button>
