@@ -11,9 +11,7 @@ let fontSizeLevel = 0;
 window.addEventListener('load', () => {
     setTimeout(() => {
         const preloader = document.getElementById('preloader');
-        if (preloader) {
-            preloader.classList.add('hidden');
-        }
+        if (preloader) preloader.classList.add('hidden');
         initReveal();
         showToast('أهلاً بكم في موقع عائلة المطر');
     }, 1800);
@@ -46,35 +44,50 @@ function navigateTo(pageId) {
     document.body.style.overflow = '';
     
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    
     currentPage = pageId;
     localStorage.setItem('lastPage', pageId);
-    
     setTimeout(initReveal, 100);
 }
 
 // ── Mobile Menu ──
-const navToggleBtn = document.getElementById('navToggle');
-if (navToggleBtn) {
-    navToggleBtn.addEventListener('click', () => {
-        const menu = document.getElementById('navMenu');
-        const toggle = document.getElementById('navToggle');
-        if (menu && toggle) {
-            menu.classList.toggle('active');
-            toggle.classList.toggle('active');
-            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
-        }
-    });
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const navToggleBtn = document.getElementById('navToggle');
+    if (navToggleBtn) {
+        navToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const menu = document.getElementById('navMenu');
+            if (menu) {
+                menu.classList.toggle('active');
+                navToggleBtn.classList.toggle('active');
+                document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+            }
+        });
+    }
+
+    // ── Dark Mode Toggle ── (FIXED)
+    const themeBtn = document.getElementById('themeToggle');
+    if (themeBtn) {
+        themeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleTheme();
+        });
+    }
+
+    // Apply saved theme
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+
+    initReveal();
+    revealElements();
+});
 
 // Close menu on outside click
 document.addEventListener('click', (e) => {
     const menu = document.getElementById('navMenu');
     const toggle = document.getElementById('navToggle');
-    const mobileActions = document.querySelector('.nav-actions-mobile');
     if (menu && toggle && menu.classList.contains('active')) {
-        if (!menu.contains(e.target) && !toggle.contains(e.target) && 
-            (!mobileActions || !mobileActions.contains(e.target))) {
+        if (!menu.contains(e.target) && !toggle.contains(e.target)) {
             menu.classList.remove('active');
             toggle.classList.remove('active');
             document.body.style.overflow = '';
@@ -111,9 +124,7 @@ if (backToTopBtn) {
 
 // ── Scroll Reveal ──
 function initReveal() {
-    document.querySelectorAll('.reveal-up').forEach(el => {
-        el.classList.remove('revealed');
-    });
+    document.querySelectorAll('.reveal-up').forEach(el => el.classList.remove('revealed'));
     setTimeout(revealElements, 50);
 }
 
@@ -126,34 +137,24 @@ function revealElements() {
     });
 }
 
-// ── Dark Mode ── (FIXED: using correct ID)
-const themeToggleMobile = document.getElementById('themeToggleMobile');
-const savedTheme = localStorage.getItem('theme') || 'light';
-document.documentElement.setAttribute('data-theme', savedTheme);
-updateAllThemeIcons(savedTheme);
-
+// ── Dark Mode ──
 function toggleTheme() {
     const current = document.documentElement.getAttribute('data-theme');
     const next = current === 'light' ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
-    updateAllThemeIcons(next);
+    updateThemeIcon(next);
     showToast(next === 'dark' ? 'تم تفعيل الوضع الليلي 🌙' : 'تم تفعيل الوضع النهاري ☀️');
 }
 
-function updateAllThemeIcons(theme) {
-    // Update all theme toggle buttons
-    document.querySelectorAll('#themeToggleMobile, #themeToggle, .theme-toggle, .theme-toggle-mobile').forEach(btn => {
+function updateThemeIcon(theme) {
+    const btn = document.getElementById('themeToggle');
+    if (btn) {
         const icon = btn.querySelector('i');
         if (icon) {
             icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
         }
-    });
-}
-
-// Attach click event to theme toggle
-if (themeToggleMobile) {
-    themeToggleMobile.addEventListener('click', toggleTheme);
+    }
 }
 
 // ── Toast Notifications ──
@@ -164,7 +165,6 @@ function showToast(message, duration = 3000) {
     toast.className = 'toast';
     toast.textContent = message;
     container.appendChild(toast);
-    
     setTimeout(() => {
         toast.classList.add('toast-out');
         setTimeout(() => toast.remove(), 300);
@@ -190,12 +190,10 @@ function closeLightbox() {
     }
 }
 
-const lightboxEl = document.getElementById('lightbox');
-if (lightboxEl) {
-    lightboxEl.addEventListener('click', (e) => {
-        if (e.target === e.currentTarget) closeLightbox();
-    });
-}
+document.addEventListener('click', (e) => {
+    const lb = document.getElementById('lightbox');
+    if (lb && e.target === lb) closeLightbox();
+});
 
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeLightbox();
@@ -206,19 +204,6 @@ function toggleEventDetail(id) {
     const detail = document.getElementById(id);
     if (detail) {
         detail.classList.toggle('active');
-        const btn = detail.previousElementSibling;
-        if (btn && btn.tagName === 'BUTTON') {
-            const icon = btn.querySelector('i');
-            if (icon) {
-                if (detail.classList.contains('active')) {
-                    icon.className = 'fas fa-eye-slash';
-                    btn.innerHTML = '<i class="fas fa-eye-slash"></i> إخفاء الدعوة';
-                } else {
-                    icon.className = 'fas fa-eye';
-                    btn.innerHTML = '<i class="fas fa-eye"></i> عرض الدعوة كاملة';
-                }
-            }
-        }
     }
 }
 
@@ -305,7 +290,6 @@ if (treeViewport) {
     
     document.addEventListener('mouseup', () => { isDragging = false; });
     
-    // Touch support
     treeViewport.addEventListener('touchstart', (e) => {
         isDragging = true;
         startX = e.touches[0].pageX - treeViewport.offsetLeft;
@@ -356,10 +340,4 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'd' || e.key === 'D' || e.key === 'ي') {
         toggleTheme();
     }
-});
-
-// ── Initialize ──
-document.addEventListener('DOMContentLoaded', () => {
-    initReveal();
-    revealElements();
 });
