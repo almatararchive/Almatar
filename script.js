@@ -1,5 +1,5 @@
 /* ============================================
-   AL MATAR FAMILY - PREMIUM JAVASCRIPT
+   AL MATAR FAMILY - JAVASCRIPT
    ============================================ */
 
 // ── State ──
@@ -36,24 +36,28 @@ function navigateTo(pageId) {
     const activeLink = document.querySelector(`.nav-link[data-page="${pageId}"]`);
     if (activeLink) activeLink.classList.add('active');
     
-    // Close mobile menu
-    const navMenu = document.getElementById('navMenu');
-    const navToggle = document.getElementById('navToggle');
-    if (navMenu) navMenu.classList.remove('active');
-    if (navToggle) navToggle.classList.remove('active');
-    document.body.style.overflow = '';
-    
+    closeMenu();
     window.scrollTo({ top: 0, behavior: 'smooth' });
     currentPage = pageId;
     localStorage.setItem('lastPage', pageId);
     setTimeout(initReveal, 100);
 }
 
-// ── Mobile Menu ──
+// ── Close Mobile Menu ──
+function closeMenu() {
+    const navMenu = document.getElementById('navMenu');
+    const navToggle = document.getElementById('navToggle');
+    if (navMenu) navMenu.classList.remove('active');
+    if (navToggle) navToggle.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// ── Mobile Menu Toggle ──
 document.addEventListener('DOMContentLoaded', () => {
     const navToggleBtn = document.getElementById('navToggle');
     if (navToggleBtn) {
         navToggleBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             e.stopPropagation();
             const menu = document.getElementById('navMenu');
             if (menu) {
@@ -64,16 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ── Dark Mode Toggle ── (FIXED)
-    const themeBtn = document.getElementById('themeToggle');
-    if (themeBtn) {
-        themeBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleTheme();
-        });
-    }
-
-    // Apply saved theme
+    // Apply saved theme on load
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
     updateThemeIcon(savedTheme);
@@ -88,12 +83,31 @@ document.addEventListener('click', (e) => {
     const toggle = document.getElementById('navToggle');
     if (menu && toggle && menu.classList.contains('active')) {
         if (!menu.contains(e.target) && !toggle.contains(e.target)) {
-            menu.classList.remove('active');
-            toggle.classList.remove('active');
-            document.body.style.overflow = '';
+            closeMenu();
         }
     }
 });
+
+// ── DARK MODE TOGGLE ──
+// This function is called directly from onclick in HTML
+function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    updateThemeIcon(next);
+    showToast(next === 'dark' ? 'تم تفعيل الوضع الليلي 🌙' : 'تم تفعيل الوضع النهاري ☀️');
+}
+
+function updateThemeIcon(theme) {
+    const btn = document.getElementById('themeToggle');
+    if (btn) {
+        const icon = btn.querySelector('i');
+        if (icon) {
+            icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        }
+    }
+}
 
 // ── Scroll Effects ──
 window.addEventListener('scroll', () => {
@@ -135,26 +149,6 @@ function revealElements() {
             el.classList.add('revealed');
         }
     });
-}
-
-// ── Dark Mode ──
-function toggleTheme() {
-    const current = document.documentElement.getAttribute('data-theme');
-    const next = current === 'light' ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
-    updateThemeIcon(next);
-    showToast(next === 'dark' ? 'تم تفعيل الوضع الليلي 🌙' : 'تم تفعيل الوضع النهاري ☀️');
-}
-
-function updateThemeIcon(theme) {
-    const btn = document.getElementById('themeToggle');
-    if (btn) {
-        const icon = btn.querySelector('i');
-        if (icon) {
-            icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-        }
-    }
 }
 
 // ── Toast Notifications ──
