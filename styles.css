@@ -103,8 +103,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 .preloader-content { text-align: center; }
 .preloader-logo {
-    width: 300px;
-    height: 300px;
+    width: 280px;
+    height: 280px;
     object-fit: contain;
     margin: 0 auto 24px;
     animation: pulse 1.5s ease-in-out infinite;
@@ -195,7 +195,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     cursor: default;
 }
 
-/* --- Navbar --- */
+/* ============================================
+   NAVBAR
+   ============================================ */
 .navbar {
     position: fixed;
     top: 0;
@@ -219,10 +221,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     height: 100%;
     display: flex;
     align-items: center;
-    gap: 0;
 }
 
-/* 1. الشعار - أقصى اليمين (في RTL يكون أول عنصر) */
+/* الشعار */
 .nav-brand {
     display: flex;
     align-items: center;
@@ -234,21 +235,21 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .nav-logo {
     height: calc(var(--nav-height) - 8px);
     width: auto;
-    min-width: 220px;
-    max-width: 350px;
+    min-width: 200px;
+    max-width: 320px;
     object-fit: contain;
     transition: var(--transition);
     filter: drop-shadow(0 3px 12px rgba(0,0,0,0.15));
 }
 .nav-brand:hover .nav-logo { transform: scale(1.03); }
 
-/* 2. القائمة - بعد الشعار */
+/* القائمة */
 .nav-menu {
     display: flex;
     align-items: center;
     gap: 4px;
     margin-right: 20px;
-    margin-left: 0;
+    margin-left: auto;
 }
 .nav-link {
     padding: 8px 14px;
@@ -277,14 +278,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     border-radius: 2px;
 }
 
-/* 3. زر الوضع الداكن - أقصى اليسار */
+/* زر الوضع الداكن */
 .theme-toggle {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
+    display: flex;
     align-items: center;
     justify-content: center;
     color: var(--text-secondary);
@@ -293,12 +292,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     transition: all var(--transition);
     font-size: 1.3rem;
     cursor: pointer;
-    z-index: 9998;
+    z-index: 10000;
     flex-shrink: 0;
-    margin-right: auto;
-    margin-left: 0;
-    pointer-events: auto !important;
-    position: relative;
+    margin-right: 0;
+    margin-left: 16px;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
 }
@@ -307,6 +304,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     color: #fff;
     border-color: var(--accent);
     transform: scale(1.1);
+}
+.theme-toggle:active {
+    transform: scale(0.95);
 }
 [data-theme="dark"] .theme-toggle {
     background: var(--bg-card);
@@ -318,19 +318,18 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     color: var(--primary-dark);
 }
 
-/* 4. زر الهامبرغر للجوال */
+/* هامبرغر */
 .nav-toggle {
     display: none;
     flex-direction: column;
     gap: 6px;
     width: 28px;
     padding: 4px 0;
-    z-index: 100;
+    z-index: 10000;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
     margin-right: 16px;
-    margin-left: 0;
 }
 .nav-toggle span {
     width: 100%;
@@ -471,7 +470,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 [data-theme="dark"] .quran-verse-block p { color: var(--gold); }
 
-/* --- Hero Section --- */
+/* ============================================
+   HERO SECTION
+   ============================================ */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -485,13 +486,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     overflow: hidden;
 }
 
-.hero-bg-elements {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-}
+.hero-bg-elements { position: absolute; inset: 0; overflow: hidden; }
 
-/* Hex Grid Background */
 .hex-grid { position: absolute; inset: 0; }
 .hex {
     position: absolute;
@@ -517,14 +513,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     75% { transform: translateY(-20px) rotate(1deg); opacity: 0.6; }
 }
 
-.hero-content {
-    position: relative;
-    z-index: 2;
-}
+.hero-content { position: relative; z-index: 2; }
 .hero-logo-wrapper {
     position: relative;
-    width: 340px;
-    height: 340px;
+    width: 380px;
+    height: 380px;
     margin: 0 auto 28px;
     display: flex;
     align-items: center;
@@ -542,8 +535,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     50% { transform: scale(1.15); opacity: 1; }
 }
 .hero-logo {
-    width: 320px;
-    height: 320px;
+    width: 360px;
+    height: 360px;
     object-fit: contain;
     position: relative;
     z-index: 2;
@@ -688,11 +681,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     color: var(--gold);
 }
 .countdown-text { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 4px; display: block; }
-.countdown-sep {
-    font-size: 2rem;
-    color: rgba(255,255,255,0.3);
-    margin-top: -10px;
-}
+.countdown-sep { font-size: 2rem; color: rgba(255,255,255,0.3); margin-top: -10px; }
 
 /* --- Home Sections --- */
 .home-section {
@@ -1152,8 +1141,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     flex-wrap: wrap;
 }
 .footer-logo {
-    width: 150px;
-    height: 150px;
+    width: 160px;
+    height: 160px;
     object-fit: contain;
     filter: brightness(0) invert(1) drop-shadow(0 2px 15px rgba(255,255,255,0.2));
     transition: var(--transition);
@@ -1209,11 +1198,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     transition: all var(--transition);
     z-index: 999;
 }
-.back-to-top.visible {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
+.back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
 .back-to-top:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 
 /* --- Font Controls --- */
@@ -1251,48 +1236,62 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     border-color: var(--accent);
 }
 
-/* --- Reveal Animation --- */
+/* --- Animations --- */
 .reveal-up {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.7s ease, transform 0.7s ease;
 }
-.reveal-up.revealed {
-    opacity: 1;
-    transform: translateY(0);
-}
+.reveal-up.revealed { opacity: 1; transform: translateY(0); }
 
-/* --- Fade In Animation --- */
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 /* ============================================
-   RESPONSIVE DESIGN
+   RESPONSIVE - ALL DEVICES
    ============================================ */
+
+/* Tablet & below - show hamburger */
 @media (max-width: 1024px) {
     .news-grid { grid-template-columns: 1fr; }
     .quick-nav { grid-template-columns: repeat(2, 1fr); }
     .contact-grid { grid-template-columns: 1fr; }
 }
 
-/* Desktop: show theme toggle, hide hamburger */
+/* Desktop only */
 @media (min-width: 769px) {
     .nav-toggle { display: none !important; }
-    .theme-toggle { display: flex !important; }
 }
 
+/* Mobile */
 @media (max-width: 768px) {
     :root { --nav-height: 64px; }
 
     .nav-container {
-        flex-direction: row;
-        gap: 0;
+        position: relative;
     }
-    /* ترتيب الجوال: شعار - فراغ - هامبرغر - هلال */
+
     .nav-brand { flex-shrink: 0; }
-    .nav-toggle { display: flex; margin-right: auto; margin-left: 12px; }
-    .theme-toggle { width: 40px; height: 40px; font-size: 1rem; margin-right: 0; margin-left: 12px; }
-    .nav-logo { height: calc(var(--nav-height) - 10px); width: auto; min-width: 150px; max-width: 220px; }
-    .theme-toggle { width: 44px; height: 44px; font-size: 1.1rem; }
+    .nav-logo { height: calc(var(--nav-height) - 10px); min-width: 140px; max-width: 200px; }
+
+    /* هامبرغر يظهر */
+    .nav-toggle {
+        display: flex !important;
+        order: 2;
+        margin-right: auto;
+        margin-left: 8px;
+    }
+
+    /* هلال يظهر */
+    .theme-toggle {
+        order: 3;
+        width: 44px;
+        height: 44px;
+        font-size: 1.1rem;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    /* القائمة المنسدلة */
     .nav-menu {
         position: fixed;
         top: 0;
@@ -1307,22 +1306,22 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         gap: 4px;
         align-items: stretch;
         overflow-y: auto;
+        margin-right: 0;
+        margin-left: 0;
+        z-index: 9998;
     }
     .nav-menu.active { right: 0; }
     .nav-link {
         padding: 12px 16px;
         font-size: 1rem;
-        font-weight: 700;
-        color: #000;
         border-radius: var(--radius-xs);
     }
-    [data-theme="dark"] .nav-link { color: #e8edf4; }
     .nav-link.active::after { display: none; }
 
     .hero { padding: 80px 20px 50px; min-height: 90vh; }
     .hero-title { font-size: clamp(2.5rem, 10vw, 4rem); }
-    .hero-logo-wrapper { width: 200px; height: 200px; }
-    .hero-logo { width: 180px; height: 180px; }
+    .hero-logo-wrapper { width: 240px; height: 240px; }
+    .hero-logo { width: 220px; height: 220px; }
     .hero-verse { font-size: 1rem; padding: 16px 20px; }
 
     .page-header { padding: 100px 0 40px; }
@@ -1340,6 +1339,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
     .footer-content { flex-direction: column; text-align: center; }
     .footer-links { justify-content: center; }
+    .footer-logo { width: 100px; height: 100px; }
 }
 
 @media (max-width: 480px) {
@@ -1347,6 +1347,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     .hero-title { font-size: 2.2rem; }
     .hero-buttons { flex-direction: column; align-items: center; }
     .hero-buttons .btn { width: 100%; max-width: 250px; justify-content: center; }
+    .hero-logo-wrapper { width: 200px; height: 200px; }
+    .hero-logo { width: 180px; height: 180px; }
 
     .quick-nav { grid-template-columns: 1fr 1fr; gap: 10px; }
     .quick-nav-card { padding: 20px 12px; }
@@ -1366,19 +1368,21 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
     .back-to-top { bottom: 20px; left: 20px; width: 40px; height: 40px; }
     .font-controls { bottom: 70px; left: 20px; }
+
+    .nav-logo { height: calc(var(--nav-height) - 14px); min-width: 120px; max-width: 160px; }
+    .theme-toggle { width: 40px; height: 40px; font-size: 1rem; }
 }
 
 @media (max-width: 360px) {
     .hero-title { font-size: 1.9rem; }
-    .nav-brand-text { font-size: 1.3rem; }
     .page-title { font-size: 1.7rem; }
+    .nav-logo { min-width: 100px; max-width: 130px; }
 }
 
-/* Very small phones */
 @media (max-width: 320px) {
     .hero-title { font-size: 1.7rem; }
-    .hero-logo-wrapper { width: 120px; height: 120px; }
-    .hero-logo { width: 100px; height: 100px; }
+    .hero-logo-wrapper { width: 150px; height: 150px; }
+    .hero-logo { width: 130px; height: 130px; }
     .hero-location { font-size: 0.9rem; }
     .hero-verse { font-size: 0.85rem; padding: 12px; }
     .countdown-number { font-size: 1.2rem; }
@@ -1388,21 +1392,21 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     .section-title { font-size: 1.2rem; }
     .content-block { padding: 16px 12px; }
     .page-title { font-size: 1.5rem; }
-    .nav-logo { height: calc(var(--nav-height) - 16px); width: auto; min-width: 80px; max-width: 120px; }
-    .theme-toggle-mobile { width: 36px; height: 36px; font-size: 0.9rem; left: 12px; }
-    .footer-logo { width: 60px; height: 60px; }
-    .preloader-logo { width: 120px; height: 120px; }
+    .nav-logo { min-width: 80px; max-width: 110px; }
+    .theme-toggle { width: 36px; height: 36px; font-size: 0.9rem; }
+    .footer-logo { width: 70px; height: 70px; }
+    .preloader-logo { width: 150px; height: 150px; }
     .preloader-text { font-size: 1.5rem; }
 }
 
-/* Landscape on phones */
+/* Landscape phones */
 @media (max-height: 500px) and (orientation: landscape) {
     .hero { min-height: auto; padding: 80px 24px 40px; }
-    .hero-logo-wrapper { width: 100px; height: 100px; }
-    .hero-logo { width: 80px; height: 80px; }
+    .hero-logo-wrapper { width: 120px; height: 120px; }
+    .hero-logo { width: 100px; height: 100px; }
     .hero-title { font-size: 2rem; }
     .hero-verse { display: none; }
-    .preloader-logo { width: 80px; height: 80px; }
+    .preloader-logo { width: 100px; height: 100px; }
 }
 
 /* Tablet Portrait */
@@ -1410,8 +1414,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     .quick-nav { grid-template-columns: repeat(2, 1fr); }
     .news-grid { grid-template-columns: 1fr; }
     .contact-grid { grid-template-columns: 1fr; }
-    .hero-logo { width: 180px; height: 180px; }
-    .hero-logo-wrapper { width: 200px; height: 200px; }
+    .nav-link { padding: 8px 10px; font-size: 0.8rem; }
 }
 
 /* Large screens */
@@ -1419,28 +1422,26 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     :root { --nav-height: 84px; }
     .container { max-width: 1300px; }
     .hero-title { font-size: 7rem; }
-    .hero-logo { width: 300px; height: 300px; }
-    .hero-logo-wrapper { width: 320px; height: 320px; }
-    .nav-logo { min-width: 200px; max-width: 300px; }
-    .preloader-logo { width: 260px; height: 260px; }
-    .footer-logo { width: 140px; height: 140px; }
+    .hero-logo { width: 400px; height: 400px; }
+    .hero-logo-wrapper { width: 420px; height: 420px; }
+    .nav-logo { min-width: 240px; max-width: 350px; }
+    .preloader-logo { width: 300px; height: 300px; }
+    .footer-logo { width: 180px; height: 180px; }
 }
 
-/* Touch devices - better tap targets */
+/* Touch devices */
 @media (hover: none) and (pointer: coarse) {
     .btn { min-height: 44px; }
     .nav-link { min-height: 44px; display: flex; align-items: center; }
     .filter-tab { min-height: 40px; }
     .tree-ctrl-btn { width: 44px; height: 44px; }
     .quick-nav-card { min-height: 100px; }
-    .theme-toggle-mobile { width: 44px; height: 44px; }
+    .theme-toggle { min-width: 44px; min-height: 44px; }
 }
 
-/* High DPI screens */
+/* High DPI */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .hero-logo { image-rendering: -webkit-optimize-contrast; }
-    .nav-logo { image-rendering: -webkit-optimize-contrast; }
-    .footer-logo { image-rendering: -webkit-optimize-contrast; }
+    .hero-logo, .nav-logo, .footer-logo { image-rendering: -webkit-optimize-contrast; }
 }
 
 /* Print */
