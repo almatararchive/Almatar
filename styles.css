@@ -1110,53 +1110,49 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .contact-item strong { display: block; font-size: 0.85rem; margin-bottom: 2px; }
 .contact-item p { font-size: 0.9rem; color: var(--text-secondary); }
 
-/* --- Footer Islamic Decoration --- */
+/* --- Islamic Decoration Banner --- */
 .footer-decoration {
-    width: 100% !important;
-    overflow: hidden !important;
-    line-height: 0 !important;
-    background: var(--bg) !important;
-    position: relative !important;
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    min-height: 40px !important;
+    width: 100%;
+    display: block;
+    line-height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
 }
-.footer-decoration::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 30px;
-    background: linear-gradient(to bottom, transparent, var(--primary-dark));
-    z-index: 2;
-    pointer-events: none;
-}
+
 .footer-decoration-img {
-    width: 100% !important;
-    height: auto !important;
-    display: block !important;
-    object-fit: cover !important;
-    object-position: center !important;
-    max-height: 80px !important;
-    min-height: 40px !important;
-    opacity: 0.85 !important;
-    visibility: visible !important;
-    transition: opacity var(--transition);
+    width: 100%;
+    height: 65px;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    /* لا يوجد أي filter - الصورة بألوانها الأصلية تماماً */
+    filter: none;
+    -webkit-filter: none;
+    opacity: 1;
 }
-.footer-decoration:hover .footer-decoration-img {
-    opacity: 1 !important;
-}
+
 [data-theme="dark"] .footer-decoration {
-    background: var(--bg) !important;
+    background: var(--bg);
 }
+
 [data-theme="dark"] .footer-decoration-img {
-    opacity: 0.6 !important;
-    filter: brightness(0.7) contrast(1.1);
+    opacity: 0.8;
+    filter: none;
+    -webkit-filter: none;
 }
-[data-theme="dark"] .footer-decoration:hover .footer-decoration-img {
-    opacity: 0.8 !important;
+
+@media (max-width: 768px) {
+    .footer-decoration-img { height: 48px; }
+}
+
+@media (max-width: 480px) {
+    .footer-decoration-img { height: 38px; }
+}
+
+@media (max-width: 360px) {
+    .footer-decoration-img { height: 30px; }
 }
 
 /* --- Footer --- */
