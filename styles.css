@@ -1110,6 +1110,47 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .contact-item strong { display: block; font-size: 0.85rem; margin-bottom: 2px; }
 .contact-item p { font-size: 0.9rem; color: var(--text-secondary); }
 
+/* --- Footer Islamic Decoration --- */
+.footer-decoration {
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    background: var(--bg);
+    position: relative;
+}
+.footer-decoration::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: linear-gradient(to bottom, transparent, var(--primary-dark));
+    z-index: 2;
+}
+.footer-decoration-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    max-height: 200px;
+    opacity: 0.85;
+    transition: opacity var(--transition);
+}
+.footer-decoration:hover .footer-decoration-img {
+    opacity: 1;
+}
+[data-theme="dark"] .footer-decoration {
+    background: var(--bg);
+}
+[data-theme="dark"] .footer-decoration-img {
+    opacity: 0.6;
+    filter: brightness(0.7) contrast(1.1);
+}
+[data-theme="dark"] .footer-decoration:hover .footer-decoration-img {
+    opacity: 0.8;
+}
+
 /* --- Footer --- */
 .footer {
     background: var(--primary-dark);
@@ -1341,6 +1382,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     .footer-content { flex-direction: column; text-align: center; }
     .footer-links { justify-content: center; }
     .footer-logo { width: 100px; height: 100px; }
+    .footer-decoration-img { max-height: 120px; }
 }
 
 @media (max-width: 480px) {
@@ -1396,6 +1438,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     .nav-logo { min-width: 80px; max-width: 110px; }
     .theme-toggle { width: 36px; height: 36px; font-size: 0.9rem; }
     .footer-logo { width: 70px; height: 70px; }
+    .footer-decoration-img { max-height: 80px; }
     .preloader-logo { width: 150px; height: 150px; }
     .preloader-text { font-size: 1.5rem; }
 }
