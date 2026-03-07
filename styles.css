@@ -1115,27 +1115,44 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     width: 100%;
     overflow: hidden;
     line-height: 0;
-    margin-top: 10px;
-    opacity: 0.85;
+    margin-top: 16px;
+    opacity: 1;
+    display: block !important;
+    visibility: visible !important;
 }
 
 .footer-sor-img {
     width: 100%;
-    height: 55px;
-    object-fit: cover;
+    height: auto;
+    max-height: 70px;
+    min-height: 35px;
+    object-fit: fill;
     object-position: center;
-    display: block;
-    filter: none;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    filter: none !important;
+    -webkit-filter: none !important;
+}
+
+@media (min-width: 1400px) {
+    .footer-sor-img { max-height: 90px; }
+}
+
+@media (max-width: 1024px) {
+    .footer-sor-img { max-height: 60px; min-height: 30px; }
 }
 
 @media (max-width: 768px) {
-    .footer-sor-img { height: 40px; }
+    .footer-sor-img { max-height: 50px; min-height: 25px; }
 }
+
 @media (max-width: 480px) {
-    .footer-sor-img { height: 32px; }
+    .footer-sor-img { max-height: 40px; min-height: 20px; }
 }
+
 @media (max-width: 360px) {
-    .footer-sor-img { height: 26px; }
+    .footer-sor-img { max-height: 32px; min-height: 18px; }
 }
 
 /* --- Footer --- */
