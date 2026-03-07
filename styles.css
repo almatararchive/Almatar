@@ -1110,36 +1110,32 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .contact-item strong { display: block; font-size: 0.85rem; margin-bottom: 2px; }
 .contact-item p { font-size: 0.9rem; color: var(--text-secondary); }
 
-/* --- Islamic Decoration Inside Footer --- */
-.footer-decoration-inner {
+/* ===== ISLAMIC DECORATION - BOTTOM OF FOOTER ===== */
+.footer-islamic-decoration {
     width: 100%;
-    line-height: 0;
     overflow: hidden;
-    margin-bottom: 8px;
+    line-height: 0;
+    margin-top: 10px;
+    opacity: 0.85;
 }
 
-.footer-decoration-img {
+.footer-sor-img {
     width: 100%;
     height: 55px;
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
     object-fit: cover;
     object-position: center;
-    filter: none !important;
-    -webkit-filter: none !important;
+    display: block;
+    filter: none;
 }
 
 @media (max-width: 768px) {
-    .footer-decoration-img { height: 40px !important; }
+    .footer-sor-img { height: 40px; }
 }
-
 @media (max-width: 480px) {
-    .footer-decoration-img { height: 32px !important; }
+    .footer-sor-img { height: 32px; }
 }
-
 @media (max-width: 360px) {
-    .footer-decoration-img { height: 26px !important; }
+    .footer-sor-img { height: 26px; }
 }
 
 /* --- Footer --- */
