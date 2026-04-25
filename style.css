@@ -416,21 +416,16 @@ body {
 }
 
 .footer-orn-img {
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
-    margin: 0 0 1rem;
-    opacity: 1;
-    text-align: center;
+    width: 100%;
+    margin: 1.5rem 0;
     overflow: hidden;
-    max-height: 150px;
+    position: relative;
+    z-index: 1;
 }
 
 .footer-orn-img img {
     width: 100%;
-    height: 150px;
+    height: 160px;
     display: block;
     object-fit: cover;
     object-position: center;
