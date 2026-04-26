@@ -8,7 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;800&family=Tajawal:wght@300;400;500;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <meta name="google-site-verification" content="rUh8ykv_vIzU685Or2IQuoZ0yGBAgkvGj_S1K0MEL9k" />
+        <meta name="google-site-verification" content="rUh8ykv_vIzU685Or2IQuoZ0yGBAgkvGj_S1K0MEL9k" />
+
 </head>
 <body>
 
@@ -68,6 +69,97 @@
                 <div class="quran-box">
                     <p class="quran-text">يَا أَيُّهَا النَّاسُ إِنَّا خَلَقْنَاكُم مِّن ذَكَرٍ وَأُنثَىٰ وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا ۚ إِنَّ أَكْرَمَكُمْ عِندَ اللَّهِ أَتْقَاكُمْ</p>
                     <p class="quran-ref">سورة الحجرات - آية ١٣</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- آخر الأخبار والمناسبات -->
+        <section class="news-section">
+            <div class="container">
+                <h2 class="section-title">آخر الأخبار والمناسبات</h2>
+                <div class="envelopes-grid">
+                    <div class="envelope-card" onclick="toggleEnvelope(this)">
+                        <div class="envelope-flap">
+                            <div class="envelope-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                            </div>
+                            <span class="envelope-title">الإفطار الجماعي السنوي</span>
+                            <span class="envelope-badge">جديد</span>
+                            <span class="envelope-arrow">▼</span>
+                        </div>
+                        <div class="envelope-body">
+                            <div class="envelope-content">
+                                <img src="images/pic5.png" alt="الإفطار الجماعي" onerror="this.style.display='none'">
+                                <p>وعلى صلة الرحم تجتمعُ القلوب ..</p>
+                                <p>انطلاقاً من قول النبي الأكرم صلى الله عليه وآله</p>
+                                <p class="hadith">((ومن وصل فيه رحمه وصله الله يوم يلقاه))</p>
+                                <p>وفي رحاب شهر الجود والإحسان،</p>
+                                <p>يسعدنا أن نجدد معكم أواصر المحبة والوفاء.</p>
+                                <p>يتشرف أبناء العم بدعوتكم لحضور لقائنا السنوي على مائدة الإفطار،</p>
+                                <p>لنرسم معاً أجمل ذكريات الإخاء.</p>
+                                <div class="envelope-footer">
+                                    <p><span>الزمان:</span> الجمعة (ليلة السبت)، ٢٠ فبراير ٢٠٢٦</p>
+                                    <p>حضوركم يكتمل به الأنس وتزدان به المائدة.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="envelope-card" onclick="toggleEnvelope(this)">
+                        <div class="envelope-flap">
+                            <div class="envelope-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            </div>
+                            <span class="envelope-title">لقاء العائلة السنوي</span>
+                            <span class="envelope-arrow">▼</span>
+                        </div>
+                        <div class="envelope-body">
+                            <div class="envelope-content">
+                                <p>سيضاف لاحقاً</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="envelope-card" onclick="toggleEnvelope(this)">
+                        <div class="envelope-flap">
+                            <div class="envelope-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            </div>
+                            <span class="envelope-title">الديوانية الأسبوعية</span>
+                            <span class="envelope-arrow">▼</span>
+                        </div>
+                        <div class="envelope-body">
+                            <div class="envelope-content">
+                                <p>سيضاف لاحقاً</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="envelope-card" onclick="toggleEnvelope(this)">
+                        <div class="envelope-flap">
+                            <div class="envelope-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                            </div>
+                            <span class="envelope-title">مناسبات الأفراح</span>
+                            <span class="envelope-arrow">▼</span>
+                        </div>
+                        <div class="envelope-body">
+                            <div class="envelope-content">
+                                <p>سيضاف لاحقاً</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="envelope-card" onclick="toggleEnvelope(this)">
+                        <div class="envelope-flap">
+                            <div class="envelope-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                            </div>
+                            <span class="envelope-title">أخبار العائلة</span>
+                            <span class="envelope-arrow">▼</span>
+                        </div>
+                        <div class="envelope-body">
+                            <div class="envelope-content">
+                                <p>سيضاف لاحقاً</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
