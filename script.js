@@ -26,21 +26,19 @@ setInterval(function () {
     slide(1);
 }, 5000);
 
+// ========== TOGGLE ENVELOPE ==========
+function toggleEnvelope(el) {
+    el.classList.toggle('open');
+}
+
 // ========== PAGE NAVIGATION ==========
 function go(id) {
-    // Hide all pages
     var pages = document.querySelectorAll('.page');
     for (var i = 0; i < pages.length; i++) {
         pages[i].classList.remove('active');
     }
-
-    // Show target page
     document.getElementById(id).classList.add('active');
-
-    // Close mobile menu
     document.getElementById('menu').classList.remove('open');
-
-    // Update active link
     var links = document.querySelectorAll('.menu a');
     for (var i = 0; i < links.length; i++) {
         links[i].classList.remove('on');
@@ -48,9 +46,6 @@ function go(id) {
     if (event && event.target) {
         event.target.classList.add('on');
     }
-
-    // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
-
     return false;
 }
