@@ -15,7 +15,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-    font-family: 'IBM Plex Sans Arabic', 'Cairo', sans-serif;
+    font-family: 'Ahlan', 'Cairo', sans-serif;
     background: var(--white);
     color: var(--dark);
     line-height: 1.8;
@@ -80,7 +80,7 @@ body {
     padding: 0.6rem 1.2rem;
     border-radius: 8px;
     font-weight: 600;
-    font-family: 'Tajawal', sans-serif;
+    font-family: 'Ahlan', 'Cairo', sans-serif;
     font-size: 0.95rem;
     transition: 0.3s;
     position: relative;
@@ -147,7 +147,7 @@ body {
 .hero-logo:hover { transform: scale(1.03); }
 
 .hero-sub {
-    font-family: 'Tajawal', sans-serif;
+    font-family: 'Ahlan', 'Cairo', sans-serif;
     font-size: clamp(1.3rem, 2.8vw, 2.2rem);
     color: var(--dblue);
     margin-top: 1.5rem;
@@ -277,7 +277,7 @@ body {
 }
 
 .quran-ref {
-    font-family: 'Cairo', sans-serif;
+    font-family: 'Ahlan', 'Cairo', sans-serif;
     font-size: 1rem;
     color: var(--blue);
     font-weight: 600;
@@ -295,7 +295,7 @@ body {
 }
 
 .section-title {
-    font-family: 'Cairo', sans-serif;
+    font-family: 'Ahlan', 'Cairo', sans-serif;
     font-size: clamp(2rem, 4vw, 2.8rem);
     color: var(--dblue);
     font-weight: 800;
@@ -362,7 +362,7 @@ body {
     border-radius: 6px;
     font-size: 0.85rem;
     font-weight: 700;
-    font-family: 'Cairo', sans-serif;
+    font-family: 'Ahlan', 'Cairo', sans-serif;
 }
 
 .news-tag.small {
@@ -378,7 +378,7 @@ body {
 }
 
 .news-featured-body h3 {
-    font-family: 'Cairo', sans-serif;
+    font-family: 'Ahlan', 'Cairo', sans-serif;
     font-size: 1.8rem;
     font-weight: 800;
     color: var(--dblue);
@@ -389,7 +389,7 @@ body {
     font-size: 0.9rem;
     color: var(--gray);
     margin-bottom: 1rem;
-    font-family: 'Tajawal', sans-serif;
+    font-family: 'Ahlan', 'Cairo', sans-serif;
 }
 
 .news-expand-content {
@@ -489,7 +489,7 @@ body {
 }
 
 .news-small-body h4 {
-    font-family: 'Cairo', sans-serif;
+    font-family: 'Ahlan', 'Cairo', sans-serif;
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--dblue);
@@ -571,7 +571,7 @@ body {
 }
 
 .page-head p {
-    font-family: 'Tajawal', sans-serif;
+    font-family: 'Ahlan', 'Cairo', sans-serif;
     font-size: 1.2rem;
     color: var(--lblue);
     font-weight: 500;
@@ -621,7 +621,7 @@ body {
 .empty-ic svg { width: 42px; height: 42px; color: var(--white); }
 
 .empty p {
-    font-family: 'Cairo', sans-serif;
+    font-family: 'Ahlan', 'Cairo', sans-serif;
     font-size: 1.3rem;
     color: var(--dblue);
     font-weight: 600;
@@ -659,7 +659,7 @@ body {
 }
 
 .footer-loc {
-    font-family: 'Tajawal', sans-serif;
+    font-family: 'Ahlan', 'Cairo', sans-serif;
     font-size: 1.15rem;
     color: var(--lblue);
     margin-bottom: 1rem;
