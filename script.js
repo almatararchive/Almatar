@@ -26,8 +26,8 @@ setInterval(function () {
     slide(1);
 }, 5000);
 
-// ========== TOGGLE ENVELOPE ==========
-function toggleEnvelope(el) {
+// ========== TOGGLE NEWS CARD ==========
+function toggleNewsCard(el) {
     el.classList.toggle('open');
 }
 
