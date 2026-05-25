@@ -1,10 +1,90 @@
+// ========== LOADING SCREEN ==========
+(function () {
+    var loader = document.getElementById('loader');
+    if (loader) {
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                loader.classList.add('hidden');
+            }, 600);
+        });
+        // Fallback: hide after 5s even if not loaded
+        setTimeout(function () {
+            if (!loader.classList.contains('hidden')) {
+                loader.classList.add('hidden');
+            }
+        }, 5000);
+    }
+})();
+
+// ========== THEME TOGGLE ==========
+(function () {
+    var toggle = document.getElementById('themeToggle');
+    var html = document.documentElement;
+    var saved = localStorage.getItem('almatar-theme');
+    if (saved === 'dark') {
+        html.setAttribute('data-theme', 'dark');
+    }
+    if (toggle) {
+        toggle.addEventListener('click', function () {
+            var isDark = html.getAttribute('data-theme') === 'dark';
+            if (isDark) {
+                html.removeAttribute('data-theme');
+                localStorage.setItem('almatar-theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('almatar-theme', 'dark');
+            }
+        });
+    }
+})();
+
+// ========== CURSOR GLOW ==========
+(function () {
+    var glow = document.getElementById('cursorGlow');
+    if (!glow) return;
+    var isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouch) { glow.style.display = 'none'; return; }
+    var ticking = false;
+    document.addEventListener('mousemove', function (e) {
+        if (!ticking) {
+            window.requestAnimationFrame(function () {
+                glow.style.left = e.clientX + 'px';
+                glow.style.top = e.clientY + 'px';
+                if (glow.style.opacity === '0') glow.style.opacity = '1';
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+    document.addEventListener('mouseleave', function () {
+        glow.style.opacity = '0';
+    });
+    document.addEventListener('mouseenter', function () {
+        glow.style.opacity = '1';
+    });
+})();
+
+// ========== SCROLL PROGRESS BAR ==========
+(function () {
+    var bar = document.getElementById('scrollProgress');
+    if (!bar) return;
+    window.addEventListener('scroll', function () {
+        var scrollTop = window.scrollY;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (docHeight > 0) {
+            var percent = (scrollTop / docHeight) * 100;
+            bar.style.width = percent + '%';
+        }
+    });
+})();
+
 // ========== CAROUSEL ==========
-let idx = 0;
-let autoSlideInterval;
+var idx = 0;
+var autoSlideInterval;
 
 function slide(dir) {
-    const s = document.querySelectorAll('.car-slide');
-    const d = document.querySelectorAll('.dot');
+    var s = document.querySelectorAll('.car-slide');
+    var d = document.querySelectorAll('.dot');
     if (!s.length) return;
     s[idx].classList.remove('active');
     d[idx].classList.remove('active');
@@ -15,8 +95,8 @@ function slide(dir) {
 }
 
 function dotGo(i) {
-    const s = document.querySelectorAll('.car-slide');
-    const d = document.querySelectorAll('.dot');
+    var s = document.querySelectorAll('.car-slide');
+    var d = document.querySelectorAll('.dot');
     if (!s.length) return;
     s[idx].classList.remove('active');
     d[idx].classList.remove('active');
@@ -37,12 +117,11 @@ autoSlideInterval = setInterval(function () {
     slide(1);
 }, 5000);
 
-// Keyboard navigation for carousel
 document.addEventListener('keydown', function (e) {
-    const carousel = document.querySelector('.carousel');
+    var carousel = document.querySelector('.carousel');
     if (!carousel) return;
-    const rect = carousel.getBoundingClientRect();
-    const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+    var rect = carousel.getBoundingClientRect();
+    var isVisible = rect.top < window.innerHeight && rect.bottom > 0;
     if (!isVisible) return;
     if (e.key === 'ArrowRight') { slide(1); }
     if (e.key === 'ArrowLeft') { slide(-1); }
@@ -50,8 +129,7 @@ document.addEventListener('keydown', function (e) {
 
 // ========== TOGGLE NEWS CARD ==========
 function toggleNewsCard(el) {
-    const isOpen = el.classList.contains('open');
-    // Close all other open cards
+    var isOpen = el.classList.contains('open');
     document.querySelectorAll('.news-featured.open, .news-small-card.open').forEach(function (c) {
         if (c !== el) c.classList.remove('open');
     });
@@ -77,8 +155,9 @@ function go(id) {
         }
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    // Re-run scroll reveal for new page
     setTimeout(initScrollReveal, 100);
+    // Re-trigger counter animation on stats page
+    setTimeout(animateCounters, 200);
     return false;
 }
 
@@ -91,7 +170,6 @@ document.addEventListener('DOMContentLoaded', function () {
             menu.classList.toggle('open');
             menuBtn.classList.toggle('active');
         });
-        // Close menu when clicking outside
         document.addEventListener('click', function (e) {
             if (!menu.contains(e.target) && !menuBtn.contains(e.target)) {
                 menu.classList.remove('open');
@@ -99,9 +177,57 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+
+    // Init counters on load
+    setTimeout(animateCounters, 500);
 });
 
-// ========== SCROLL REVEAL (Intersection Observer) ==========
+// ========== ANIMATED COUNTERS ==========
+function animateCounters() {
+    var counters = document.querySelectorAll('.stat-num');
+    counters.forEach(function (counter) {
+        var target = parseInt(counter.getAttribute('data-target'));
+        var current = parseInt(counter.textContent.replace(/,/g, ''));
+        if (current >= target) return;
+        var isVisible = function () {
+            var rect = counter.getBoundingClientRect();
+            return rect.top < window.innerHeight && rect.bottom > 0;
+        };
+        if (!isVisible()) return;
+
+        var duration = 2000;
+        var step = Math.ceil(target / 60);
+        var start = 0;
+
+        function update() {
+            start += step;
+            if (start >= target) {
+                counter.textContent = target.toLocaleString();
+                return;
+            }
+            counter.textContent = start.toLocaleString();
+            requestAnimationFrame(update);
+        }
+        update();
+    });
+}
+
+// Counter observer
+(function () {
+    var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                animateCounters();
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    var statsSection = document.querySelector('.stats');
+    if (statsSection) observer.observe(statsSection);
+})();
+
+// ========== SCROLL REVEAL ==========
 function initScrollReveal() {
     var revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
     if (!revealElements.length) return;
@@ -196,3 +322,37 @@ initScrollReveal();
         });
     });
 })();
+
+// ========== 3D TILT EFFECT ==========
+(function () {
+    var isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouch) return;
+
+    var cards = document.querySelectorAll('.tilt-card');
+    cards.forEach(function (card) {
+        card.addEventListener('mousemove', function (e) {
+            var rect = card.getBoundingClientRect();
+            var x = e.clientX - rect.left;
+            var y = e.clientY - rect.top;
+            var centerX = rect.width / 2;
+            var centerY = rect.height / 2;
+            var rotateX = (y - centerY) / centerY * -8;
+            var rotateY = (x - centerX) / centerX * 8;
+            card.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale3d(1.02,1.02,1.02)';
+        });
+        card.addEventListener('mouseleave', function () {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1,1,1)';
+        });
+    });
+})();
+
+// ========== LAZY LOAD POLYFILL ==========
+if ('loading' in HTMLImageElement.prototype) {
+    // Native lazy loading supported
+} else {
+    // Simple fallback: load all images
+    var imgs = document.querySelectorAll('img[loading="lazy"]');
+    imgs.forEach(function (img) {
+        img.src = img.src;
+    });
+}

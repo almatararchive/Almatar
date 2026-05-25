@@ -11,6 +11,9 @@
     <meta property="og:description" content="الموقع الرسمي لعائلة المطر - التعارف ونشر أخبار العائلة والمناسبات">
     <meta property="og:type" content="website">
     <meta property="og:image" content="images/logo.png">
+    <meta name="theme-color" content="#002244">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>عائلة المَطَر | الأحساء - بلدة الفضول</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,11 +21,59 @@
     <link href="https://fonts.cdnfonts.com/css/ahlan-arabic" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "عائلة المطر",
+        "alternateName": "Al-Matar Family",
+        "url": "https://www.almatar-family.com",
+        "description": "الموقع الرسمي لعائلة المطر من بلدة الفضول بالأحساء",
+        "inLanguage": "ar-SA",
+        "familyName": "المطر",
+        "location": {
+            "@type": "Place",
+            "name": "بلدة الفضول",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "الأحساء",
+                "addressRegion": "المنطقة الشرقية",
+                "addressCountry": "SA"
+            }
+        }
+    }
+    </script>
 </head>
 <body>
 
+    <!-- ========== LOADING SCREEN ========== -->
+    <div class="loader" id="loader" role="status" aria-label="جاري تحميل الموقع">
+        <div class="loader-geo"></div>
+        <div class="loader-inner">
+            <div class="loader-ring"></div>
+            <img src="images/logo.png" alt="شعار عائلة المطر" class="loader-logo">
+        </div>
+        <p class="loader-text">عَائِلَةُ المَطَرِ</p>
+    </div>
+
+    <!-- ========== FLOATING DECORATIONS ========== -->
+    <div class="floating-decor" aria-hidden="true">
+        <div class="float-shape shape-1"></div>
+        <div class="float-shape shape-2"></div>
+        <div class="float-shape shape-3"></div>
+        <div class="float-shape shape-4"></div>
+        <div class="float-shape shape-5"></div>
+    </div>
+
+    <!-- ========== CUSTOM CURSOR ========== -->
+    <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
     <header class="header">
         <div class="container">
+            <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع المظلم">
+                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
             <a href="#" class="logo" onclick="go('home')">
                 <img src="images/logo.png" alt="شعار عائلة المطر">
             </a>
@@ -49,9 +100,19 @@
 
         <section class="hero reveal">
             <div class="hero-pattern"></div>
+            <div class="hero-geo" aria-hidden="true">
+                <div class="geo-shape geo-1"></div>
+                <div class="geo-shape geo-2"></div>
+                <div class="geo-shape geo-3"></div>
+            </div>
             <div class="container">
+                <div class="hero-badge">الموقع الرسمي</div>
                 <img src="images/logo.png" alt="شعار عائلة المطر" class="hero-logo">
+                <h1 class="hero-title">عَائِلَةُ المَطَرِ</h1>
                 <p class="hero-sub">الأحساء - بلدة الفضول</p>
+                <div class="hero-ornament">
+                    <span></span><span></span><span></span>
+                </div>
             </div>
         </section>
 
@@ -60,8 +121,8 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
             <div class="car-slides">
-                <div class="car-slide active"><img src="images/pic1.png" alt="صورة 1"></div>
-                <div class="car-slide"><img src="images/pic2.png" alt="صورة 2"></div>
+                <div class="car-slide active"><img src="images/pic1.png" alt="صورة 1" loading="lazy"></div>
+                <div class="car-slide"><img src="images/pic2.png" alt="صورة 2" loading="lazy"></div>
             </div>
             <button class="car-btn car-next" onclick="slide(1)">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
@@ -69,6 +130,42 @@
             <div class="car-dots">
                 <span class="dot active" onclick="dotGo(0)"></span>
                 <span class="dot" onclick="dotGo(1)"></span>
+            </div>
+        </section>
+
+        <!-- إحصائيات -->
+        <section class="stats reveal">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
+                        <span class="stat-num" data-target="500">0</span>
+                        <span class="stat-label">عدد أبناء العائلة</span>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                        <span class="stat-num" data-target="25">0</span>
+                        <span class="stat-label">علم من أعلام العائلة</span>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        </div>
+                        <span class="stat-num" data-target="100">0</span>
+                        <span class="stat-label">فعالية ومناسبة</span>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        </div>
+                        <span class="stat-num" data-target="200">0</span>
+                        <span class="stat-label">صورة في الألبوم</span>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -90,10 +187,9 @@
                 </div>
                 
                 <div class="news-magazine-grid">
-                    <!-- Featured Article -->
-                    <div class="news-featured reveal" onclick="toggleNewsCard(this)">
+                    <div class="news-featured tilt-card" onclick="toggleNewsCard(this)">
                         <div class="news-featured-img">
-                            <img src="images/pic5.png" alt="الإفطار الجماعي" onerror="this.style.background='linear-gradient(135deg, #00386e, #002244)'">
+                            <img src="images/pic5.png" alt="الإفطار الجماعي" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #00386e, #002244)'">
                             <span class="news-tag">مناسبة</span>
                         </div>
                         <div class="news-featured-body">
@@ -112,9 +208,8 @@
                         </div>
                     </div>
 
-                    <!-- Side Articles -->
                     <div class="news-side">
-                        <div class="news-small-card reveal stagger-1" onclick="toggleNewsCard(this)">
+                        <div class="news-small-card tilt-card reveal stagger-1" onclick="toggleNewsCard(this)">
                             <div class="news-small-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                             </div>
@@ -128,7 +223,7 @@
                             </div>
                         </div>
 
-                        <div class="news-small-card reveal stagger-2" onclick="toggleNewsCard(this)">
+                        <div class="news-small-card tilt-card reveal stagger-2" onclick="toggleNewsCard(this)">
                             <div class="news-small-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                             </div>
@@ -142,7 +237,7 @@
                             </div>
                         </div>
 
-                        <div class="news-small-card reveal stagger-3" onclick="toggleNewsCard(this)">
+                        <div class="news-small-card tilt-card reveal stagger-3" onclick="toggleNewsCard(this)">
                             <div class="news-small-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                             </div>
@@ -156,7 +251,7 @@
                             </div>
                         </div>
 
-                        <div class="news-small-card reveal stagger-4" onclick="toggleNewsCard(this)">
+                        <div class="news-small-card tilt-card reveal stagger-4" onclick="toggleNewsCard(this)">
                             <div class="news-small-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
                             </div>
@@ -302,6 +397,9 @@
         </section>
     </div>
 
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
     <footer class="footer">
         <div class="footer-pattern"></div>
         <div class="container">
@@ -311,10 +409,10 @@
             <div class="footer-content">
                 <div class="footer-col">
                     <h4>روابط سريعة</h4>
-                    <p><a href="#" onclick="go('home')" style="color:var(--lblue);text-decoration:none;">الرئيسية</a></p>
-                    <p><a href="#" onclick="go('about')" style="color:var(--lblue);text-decoration:none;">عن العائلة</a></p>
-                    <p><a href="#" onclick="go('tree')" style="color:var(--lblue);text-decoration:none;">شجرة العائلة</a></p>
-                    <p><a href="#" onclick="go('figures')" style="color:var(--lblue);text-decoration:none;">أعلام العائلة</a></p>
+                    <p><a href="#" onclick="go('home')">الرئيسية</a></p>
+                    <p><a href="#" onclick="go('about')">عن العائلة</a></p>
+                    <p><a href="#" onclick="go('tree')">شجرة العائلة</a></p>
+                    <p><a href="#" onclick="go('figures')">أعلام العائلة</a></p>
                 </div>
                 <div class="footer-col">
                     <h4>تواصل معنا</h4>
@@ -336,7 +434,7 @@
             </div>
 
             <div class="footer-orn-img">
-                <img src="images/pic4.png" alt="زخرفة إسلامية">
+                <img src="images/pic4.png" alt="زخرفة إسلامية" loading="lazy">
             </div>
             <span class="footer-copy">© ١٤٤٦-١٤٤٧ هـ | جميع الحقوق محفوظة لعائلة المطر</span>
         </div>
