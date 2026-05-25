@@ -1,19 +1,36 @@
 // ========== LOADING SCREEN ==========
 (function () {
     var loader = document.getElementById('loader');
-    if (loader) {
-        window.addEventListener('load', function () {
+    var bar = document.getElementById('loaderBar');
+    if (!loader) return;
+
+    var progress = 0;
+    var interval = setInterval(function () {
+        progress += Math.random() * 15 + 5;
+        if (progress >= 90) {
+            progress = 90;
+            clearInterval(interval);
+        }
+        if (bar) bar.style.width = progress + '%';
+    }, 300);
+
+    window.addEventListener('load', function () {
+        if (bar) bar.style.width = '100%';
+        setTimeout(function () {
+            loader.classList.add('hidden');
+            clearInterval(interval);
+        }, 500);
+    });
+
+    setTimeout(function () {
+        if (!loader.classList.contains('hidden')) {
+            if (bar) bar.style.width = '100%';
             setTimeout(function () {
                 loader.classList.add('hidden');
-            }, 600);
-        });
-        // Fallback: hide after 5s even if not loaded
-        setTimeout(function () {
-            if (!loader.classList.contains('hidden')) {
-                loader.classList.add('hidden');
-            }
-        }, 5000);
-    }
+                clearInterval(interval);
+            }, 400);
+        }
+    }, 4000);
 })();
 
 // ========== THEME TOGGLE ==========
@@ -156,8 +173,6 @@ function go(id) {
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setTimeout(initScrollReveal, 100);
-    // Re-trigger counter animation on stats page
-    setTimeout(animateCounters, 200);
     return false;
 }
 
@@ -177,55 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-
-    // Init counters on load
-    setTimeout(animateCounters, 500);
 });
-
-// ========== ANIMATED COUNTERS ==========
-function animateCounters() {
-    var counters = document.querySelectorAll('.stat-num');
-    counters.forEach(function (counter) {
-        var target = parseInt(counter.getAttribute('data-target'));
-        var current = parseInt(counter.textContent.replace(/,/g, ''));
-        if (current >= target) return;
-        var isVisible = function () {
-            var rect = counter.getBoundingClientRect();
-            return rect.top < window.innerHeight && rect.bottom > 0;
-        };
-        if (!isVisible()) return;
-
-        var duration = 2000;
-        var step = Math.ceil(target / 60);
-        var start = 0;
-
-        function update() {
-            start += step;
-            if (start >= target) {
-                counter.textContent = target.toLocaleString();
-                return;
-            }
-            counter.textContent = start.toLocaleString();
-            requestAnimationFrame(update);
-        }
-        update();
-    });
-}
-
-// Counter observer
-(function () {
-    var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-                animateCounters();
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.3 });
-
-    var statsSection = document.querySelector('.stats');
-    if (statsSection) observer.observe(statsSection);
-})();
 
 // ========== SCROLL REVEAL ==========
 function initScrollReveal() {
@@ -309,6 +276,7 @@ initScrollReveal();
     window.addEventListener('scroll', function () {
         var current = '';
         sections.forEach(function (section) {
+            if (section.offsetParent === null) return;
             var top = section.offsetTop - 150;
             if (window.scrollY >= top) {
                 current = section.getAttribute('id');
@@ -345,6 +313,25 @@ initScrollReveal();
         });
     });
 })();
+
+// ========== IMAGE VIEWER ==========
+function openImgViewer(src) {
+    var modal = document.getElementById('imgModal');
+    var img = document.getElementById('imgModalContent');
+    if (!modal || !img) return;
+    img.src = src;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+function closeImgViewer() {
+    var modal = document.getElementById('imgModal');
+    if (!modal) return;
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeImgViewer();
+});
 
 // ========== LAZY LOAD POLYFILL ==========
 if ('loading' in HTMLImageElement.prototype) {
