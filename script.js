@@ -216,6 +216,7 @@ function initScrollReveal() {
     });
 }
 
+if (typeof initNews === 'function') initNews();
 initScrollReveal();
 
 // ========== HEADER SCROLL EFFECT ==========

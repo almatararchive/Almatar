@@ -100,13 +100,4 @@ function renderSmallCard(item, index) {
 function initNews() {
     renderSpotlight();
     renderNews();
-    if (typeof initScrollReveal === 'function') {
-        initScrollReveal();
-    }
-}
-
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initNews);
-} else {
-    initNews();
 }
