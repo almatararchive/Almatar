@@ -98,7 +98,7 @@
                     <li><a href="#" onclick="go('tree')">شجرة العائلة</a></li>
                     <li><a href="#" onclick="go('figures')">أعلام العائلة</a></li>
                     <li><a href="#" onclick="go('departed')">الراحلون</a></li>
-                    <li><a href="#" onclick="go('events')">المناسبات</a></li>
+                    <li><a href="#" onclick="go('events')">الأخبار والمناسبات</a></li>
                     <li><a href="#" onclick="go('gallery')">ألبوم الصور</a></li>
                 </ul>
             </nav>
@@ -132,8 +132,8 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
             <div class="car-slides">
-                <div class="car-slide active"><img src="images/pic1.png" alt="صورة 1" loading="lazy"></div>
-                <div class="car-slide"><img src="images/pic2.png" alt="صورة 2" loading="lazy"></div>
+                <div class="car-slide active"><img src="images/slide-1.png" alt="صورة 1" loading="lazy"></div>
+                <div class="car-slide"><img src="images/slide-2.png" alt="صورة 2" loading="lazy"></div>
             </div>
             <button class="car-btn car-next" onclick="slide(1)">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
@@ -153,79 +153,36 @@
             </div>
         </section>
 
-        <!-- آخر الأخبار والمناسبات -->
-        <section class="news-section reveal">
+        <!-- آخر الأخبار (معاينة سريعة) -->
+        <section class="news-spotlight reveal">
             <div class="container">
-                <div class="news-header-bar">
-                    <h2 class="section-title">آخر الأخبار والمناسبات</h2>
-                    <div class="news-line"></div>
+                <div class="spotlight-header">
+                    <h2 class="spotlight-title">آخر الأخبار</h2>
                 </div>
-                
-                <div class="news-magazine-grid">
-                    <div class="news-featured tilt-card" onclick="toggleNewsCard(this)">
-                        <div class="news-featured-img" onclick="event.stopPropagation();openImgViewer('images/pic5.png')">
-                            <img src="images/pic5.png" alt="الإفطار الجماعي" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #00386e, #002244)'">
-                            <span class="news-tag">مناسبة</span>
+                <div class="spotlight-cards">
+                    <div class="spot-card" onclick="go('events')">
+                        <div class="spot-card-img">
+                            <img src="images/bahaa-nesmo.png" alt="الطالب بهاء المطر" loading="lazy">
+                            <span class="spot-tag">تبريكات</span>
                         </div>
-                        <div class="news-featured-body">
+                        <div class="spot-card-body">
+                            <h3>الطالب بهاء بن عبدالهادي المطر يتأهل للتصفيات النهائية لمسابقة نسمو</h3>
+                            <span class="spot-date">٢٧ مايو ٢٠٢٦</span>
+                        </div>
+                    </div>
+                    <div class="spot-card" onclick="go('events')">
+                        <div class="spot-card-img">
+                            <img src="images/iftar-event.png" alt="الإفطار الجماعي" loading="lazy">
+                            <span class="spot-tag">مناسبة</span>
+                        </div>
+                        <div class="spot-card-body">
                             <h3>الإفطار الجماعي السنوي</h3>
-                            <p class="news-date">سيضاف التاريخ لاحقاً</p>
-                            <div class="news-expand-content">
-                                <p>وعلى صلة الرحم تجتمعُ القلوب .. انطلاقاً من قول النبي الأكرم صلى الله عليه وآله</p>
-                                <p class="hadith-text">((ومن وصل فيه رحمه وصله الله يوم يلقاه))</p>
-                                <p>وفي رحاب شهر الجود والإحسان، يسعدنا أن نجدد معكم أواصر المحبة والوفاء.</p>
-                                <p>يتشرف أبناء العم بدعوتكم لحضور لقائنا السنوي على مائدة الإفطار، لنرسم معاً أجمل ذكريات الإخاء.</p>
-                                <div class="news-meta">
-                                    <span>📅 الجمعة (ليلة السبت)، ٢٠ فبراير ٢٠٢٦</span>
-                                    <span>حضوركم يكتمل به الأنس وتزدان به المائدة</span>
-                                </div>
-                            </div>
+                            <span class="spot-date">٢٠ فبراير ٢٠٢٦</span>
                         </div>
                     </div>
-
-                    <div class="news-side">
-                        <div class="news-small-card tilt-card reveal stagger-1" onclick="toggleNewsCard(this)">
-                            <div class="news-small-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                            </div>
-                            <div class="news-small-body">
-                                <span class="news-tag small">لقاءات</span>
-                                <h4>لقاء العائلة السنوي</h4>
-                                <p class="news-date">سيضاف لاحقاً</p>
-                                <div class="news-expand-content">
-                                    <p>سيضاف لاحقاً</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="news-small-card tilt-card reveal stagger-2" onclick="toggleNewsCard(this)">
-                            <div class="news-small-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                            </div>
-                            <div class="news-small-body">
-                                <span class="news-tag small">أفراح</span>
-                                <h4>مناسبات الأفراح</h4>
-                                <p class="news-date">سيضاف لاحقاً</p>
-                                <div class="news-expand-content">
-                                    <p>سيضاف لاحقاً</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="news-small-card tilt-card reveal stagger-3" onclick="toggleNewsCard(this)">
-                            <div class="news-small-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                            </div>
-                            <div class="news-small-body">
-                                <span class="news-tag small">أخبار</span>
-                                <h4>أخبار العائلة</h4>
-                                <p class="news-date">سيضاف لاحقاً</p>
-                                <div class="news-expand-content">
-                                    <p>سيضاف لاحقاً</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                </div>
+                <div class="spotlight-footer">
+                    <a href="#" class="spotlight-link" onclick="go('events')">شاهد كل الأخبار والمناسبات ←</a>
                 </div>
             </div>
         </section>
@@ -316,22 +273,108 @@
         </section>
     </div>
 
-    <!-- المناسبات -->
+    <!-- الأخبار والمناسبات -->
     <div id="events" class="page">
         <section class="page-head">
             <div class="container">
-                <h1>المناسبات</h1>
-                <p>فعاليات ولقاءات العائلة</p>
+                <h1>الأخبار والمناسبات</h1>
+                <p>كل ما يخص عائلة المطر من أخبار وفعاليات</p>
             </div>
         </section>
-        <section class="section">
+        <section class="news-section">
             <div class="container">
-                <div class="empty reveal-scale">
-                    <div class="empty-ic">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <div class="news-header-bar">
+                    <h2 class="section-title">جميع الأخبار والمناسبات</h2>
+                    <div class="news-line"></div>
+                </div>
+                
+                <div class="news-magazine-grid">
+                    <div class="news-featured-list">
+                    <div class="news-featured tilt-card" onclick="toggleNewsCard(this)">
+                        <div class="news-featured-img" onclick="event.stopPropagation();openImgViewer('images/bahaa-nesmo.png')">
+                            <img src="images/bahaa-nesmo.png" alt="الطالب بهاء المطر" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #00386e, #002244)'">
+                            <span class="news-tag">تبريكات</span>
+                        </div>
+                        <div class="news-featured-body">
+                            <h3>الطالب بهاء بن عبدالهادي المطر يتأهل للتصفيات النهائية لمسابقة نسمو</h3>
+                            <p class="news-date">الأربعاء، ٢٧ مايو ٢٠٢٦</p>
+                            <div class="news-expand-content">
+                                <p>بسم الله الرحمن الرحيم، الحمد لله الذي بنعمته تتم الصالحات، والصلاة والسلام على خير خلقه محمد وآله الطيبين الطاهرين.</p>
+                                <p>يسرّ أسرة آل المطر كافة أن تزفّ أسمى آيات التهاني والتبريكات إلى ابننا الطالب المتميز <strong>بهاء بن عبدالهادي المطر</strong> بمناسبة وصوله إلى <strong>التصفيات النهائية لمسابقة نسمو</strong> على مستوى المحافظة، وذلك ضمن نخبة مكونة من <strong>6 طلاب</strong> فقط تأهلوا لهذه المرحلة المتقدمة.</p>
+                                <p>هذا الإنجاز المشرّف يعكس ما يتحلى به بهاء من جدّ واجتهاد وتميّز، ويرفع رأس عائلته ومدرسته ومحافظته. إنه ثمرة من ثمار الحرص على طلب العلم والتفوق، ونبراس يُحتذى به لأقرانه.</p>
+                                <p>نسأل الله العلي القدير أن يوفقه ويسدد خطاه، وأن يحقق مراتب متقدمة في التصفيات القادمة، وأن يجعله ذخراً لوطنه وأهله. كل الفخر والاعتزاز بك يا بهاء، فخورون بك وبإنجازك الكبير.</p>
+                                <div class="news-meta">
+                                    <span>مسابقة نسمو - التصفيات النهائية على مستوى المحافظة</span>
+                                    <span>الأربعاء، ٢٧ مايو ٢٠٢٦</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <p>قيد الإعداد</p>
-                    <p style="font-size:0.95rem;color:var(--gray);font-weight:400;margin-top:0.5rem;">سيُضاف المحتوى قريباً</p>
+                    <div class="news-featured tilt-card" onclick="toggleNewsCard(this)">
+                        <div class="news-featured-img" onclick="event.stopPropagation();openImgViewer('images/iftar-event.png')">
+                            <img src="images/iftar-event.png" alt="الإفطار الجماعي" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #00386e, #002244)'">
+                            <span class="news-tag">مناسبة</span>
+                        </div>
+                        <div class="news-featured-body">
+                            <h3>الإفطار الجماعي السنوي</h3>
+                            <p class="news-date">سيضاف التاريخ لاحقاً</p>
+                            <div class="news-expand-content">
+                                <p>وعلى صلة الرحم تجتمعُ القلوب .. انطلاقاً من قول النبي الأكرم صلى الله عليه وآله</p>
+                                <p class="hadith-text">((ومن وصل فيه رحمه وصله الله يوم يلقاه))</p>
+                                <p>وفي رحاب شهر الجود والإحسان، يسعدنا أن نجدد معكم أواصر المحبة والوفاء.</p>
+                                <p>يتشرف أبناء العم بدعوتكم لحضور لقائنا السنوي على مائدة الإفطار، لنرسم معاً أجمل ذكريات الإخاء.</p>
+                                <div class="news-meta">
+                                    <span>📅 الجمعة (ليلة السبت)، ٢٠ فبراير ٢٠٢٦</span>
+                                    <span>حضوركم يكتمل به الأنس وتزدان به المائدة</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="news-side">
+                        <div class="news-small-card tilt-card reveal stagger-1" onclick="toggleNewsCard(this)">
+                            <div class="news-small-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            </div>
+                            <div class="news-small-body">
+                                <span class="news-tag small">لقاءات</span>
+                                <h4>لقاء العائلة السنوي</h4>
+                                <p class="news-date">سيضاف لاحقاً</p>
+                                <div class="news-expand-content">
+                                    <p>سيضاف لاحقاً</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="news-small-card tilt-card reveal stagger-2" onclick="toggleNewsCard(this)">
+                            <div class="news-small-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                            </div>
+                            <div class="news-small-body">
+                                <span class="news-tag small">أفراح</span>
+                                <h4>مناسبات الأفراح</h4>
+                                <p class="news-date">سيضاف لاحقاً</p>
+                                <div class="news-expand-content">
+                                    <p>سيضاف لاحقاً</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="news-small-card tilt-card reveal stagger-3" onclick="toggleNewsCard(this)">
+                            <div class="news-small-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                            </div>
+                            <div class="news-small-body">
+                                <span class="news-tag small">أخبار</span>
+                                <h4>أخبار العائلة</h4>
+                                <p class="news-date">سيضاف لاحقاً</p>
+                                <div class="news-expand-content">
+                                    <p>سيضاف لاحقاً</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -393,7 +436,7 @@
             </div>
 
             <div class="footer-orn-img">
-                <img src="images/pic4.png" alt="زخرفة إسلامية" loading="lazy">
+                <img src="images/footer-deco.png" alt="زخرفة إسلامية" loading="lazy">
             </div>
             <span class="footer-copy">© ١٤٤٦-١٤٤٧ هـ | جميع الحقوق محفوظة لعائلة المطر</span>
         </div>
