@@ -2,8 +2,12 @@ function renderSpotlight() {
     var container = document.getElementById('spotlightCards');
     if (!container) return;
     var html = '';
-    for (var i = 0; i < Math.min(newsData.length, 2); i++) {
-        var item = newsData[i];
+    var visible = [];
+    for (var i = 0; i < newsData.length; i++) {
+        if (!newsData[i].hidden) visible.push(newsData[i]);
+    }
+    for (var i = 0; i < Math.min(visible.length, 2); i++) {
+        var item = visible[i];
         html += '<div class="spot-card" onclick="go(\'events\')">' +
             '<div class="spot-card-img">' +
             (item.image ? '<img src="' + item.image + '" alt="' + item.title + '" loading="lazy" onerror="this.style.display=\'none\'">' : '') +
@@ -28,6 +32,7 @@ function renderNews() {
 
     for (var i = 0; i < newsData.length; i++) {
         var item = newsData[i];
+        if (item.hidden) continue;
         if (item.image) {
             featuredHtml += renderFeatured(item);
         } else {

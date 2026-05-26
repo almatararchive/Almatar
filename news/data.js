@@ -1,6 +1,7 @@
 var newsData = [
     {
         id: "bahaa-nesmo",
+        hidden: true,
         title: "الطالب بهاء بن عبدالهادي المطر يتأهل للتصفيات النهائية لمسابقة نسمو",
         date: "الأربعاء، ٢٧ مايو ٢٠٢٦",
         image: "images/bahaa-nesmo.png",
