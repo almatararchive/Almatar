@@ -1246,6 +1246,19 @@ body {
     height: 180px;
     overflow: hidden;
     background: linear-gradient(135deg, var(--blue), var(--navy));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spot-card-img::before {
+    content: '\2726';
+    position: absolute;
+    font-size: 2.5rem;
+    color: rgba(255,255,255,0.08);
+    pointer-events: none;
+    z-index: 0;
+    line-height: 1;
 }
 
 .spot-card-img img {
@@ -1253,6 +1266,8 @@ body {
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
+    position: relative;
+    z-index: 1;
 }
 
 .spot-card:hover .spot-card-img img {
