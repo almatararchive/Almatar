@@ -3,9 +3,9 @@ var newsData = [
         id: "al-fudhool",
         title: "بلدة الفضول بين الرواية والدراية: بحث في التسمية والبداية",
         date: "الاثنين، ٢٢ يونيو ٢٠٢٦",
-        image: "images/غلاف المقالة.png",
+        image: "images/article-cover.png",
         tag: "بحث",
-        pdf: "pdf/بلدة الفضول.pdf",
+        pdf: "pdf/al-fudhool.pdf",
         paragraphs: [
             "بسم الله الرحمن الرحيم",
             "بحث في أصل تسمية بلدة الفضول بالأحساء، إعداد: بهاء بن عبد الهادي المطر."
