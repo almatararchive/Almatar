@@ -1646,11 +1646,13 @@ body {
     background-position: center;
     background-repeat: no-repeat;
 }
-.article-card-pdf-thumb {
+.article-card-pdf-thumb,
+.article-card-img {
     width: 100%;
     height: 100%;
     border: none;
     pointer-events: none;
+    object-fit: cover;
 }
 .article-card-overlay {
     position: absolute;

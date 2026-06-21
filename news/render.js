@@ -138,12 +138,16 @@ function renderArticles() {
         var item = newsData[i];
         if (!item.pdf) continue;
 
-        var thumbImg = item.image || '';
-        var thumbStyle = thumbImg ? 'style="background-image:url(\'' + thumbImg + '\')"' : '';
+        var thumbContent;
+        if (item.image) {
+            thumbContent = '<img src="' + item.image + '" alt="' + item.title + '" class="article-card-img" loading="lazy" onerror="this.style.display=\'none\'">';
+        } else {
+            thumbContent = '<iframe src="' + item.pdf + '#page=1&toolbar=0&navpanes=0&scrollbar=0&zoom=100" class="article-card-pdf-thumb" loading="lazy"></iframe>';
+        }
 
         html += '<div class="article-card tilt-card" onclick="openPdfFullpage(\'' + item.id + '\')">' +
-            '<div class="article-card-thumb" ' + thumbStyle + '>' +
-            (thumbImg ? '' : '<iframe src="' + item.pdf + '#page=1&toolbar=0&navpanes=0&scrollbar=0&zoom=100" class="article-card-pdf-thumb" loading="lazy"></iframe>') +
+            '<div class="article-card-thumb">' +
+            thumbContent +
             '<div class="article-card-overlay">' +
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>' +
             '<span>قراءة المقال</span>' +
