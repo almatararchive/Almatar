@@ -99,6 +99,7 @@
                     <li><a href="#" onclick="go('figures')">أعلام العائلة</a></li>
                     <li><a href="#" onclick="go('departed')">الراحلون</a></li>
                     <li><a href="#" onclick="go('events')">الأخبار والمناسبات</a></li>
+                    <li><a href="#" onclick="go('articles')">المقالات</a></li>
                     <li><a href="#" onclick="go('gallery')">ألبوم الصور</a></li>
                 </ul>
             </nav>
@@ -276,6 +277,32 @@
         </section>
     </div>
 
+    <!-- المقالات -->
+    <div id="articles" class="page">
+        <section class="page-head">
+            <div class="container">
+                <h1>المقالات</h1>
+                <p>أبحاث ومقالات تاريخية وثقافية</p>
+            </div>
+        </section>
+        <section class="articles-section">
+            <div class="container">
+                <div class="articles-grid" id="articlesGrid"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Full-page PDF Viewer -->
+    <div class="pdf-fullpage" id="pdfFullpage">
+        <button class="pdf-fullpage-close" onclick="closePdfFullpage()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="pdf-fullpage-toolbar">
+            <span class="pdf-fullpage-title" id="pdfFullpageTitle"></span>
+        </div>
+        <iframe class="pdf-fullpage-iframe" id="pdfFullpageIframe" frameborder="0"></iframe>
+    </div>
+
     <!-- ألبوم الصور -->
     <div id="gallery" class="page">
         <section class="page-head">
@@ -319,6 +346,7 @@
                     <p><a href="#" onclick="go('about')">عن العائلة</a></p>
                     <p><a href="#" onclick="go('tree')">شجرة العائلة</a></p>
                     <p><a href="#" onclick="go('figures')">أعلام العائلة</a></p>
+                    <p><a href="#" onclick="go('articles')">المقالات</a></p>
                 </div>
                 <div class="footer-col">
                     <h4>تواصل معنا</h4>

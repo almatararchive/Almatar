@@ -331,8 +331,19 @@ function closeImgViewer() {
     document.body.style.overflow = '';
 }
 document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeImgViewer();
+    if (e.key === 'Escape') { closeImgViewer(); closePdfFullpage(); }
 });
+
+// ========== FULL-PAGE PDF VIEWER ==========
+function closePdfFullpage() {
+    var modal = document.getElementById('pdfFullpage');
+    var iframe = document.getElementById('pdfFullpageIframe');
+    if (modal) {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+    if (iframe) iframe.src = '';
+}
 
 // ========== LAZY LOAD POLYFILL ==========
 if ('loading' in HTMLImageElement.prototype) {

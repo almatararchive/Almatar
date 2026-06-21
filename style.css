@@ -1085,6 +1085,37 @@ body {
     font-weight: 600;
 }
 
+.news-pdf-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--navy), #001122);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    min-height: 200px;
+}
+.news-pdf-icon-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.6;
+}
+.news-pdf-icon {
+    width: 80px;
+    height: 80px;
+    color: var(--gold);
+}
+.news-pdf-label {
+    font-family: 'Ahlan', 'Cairo', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 2px;
+}
+
 .news-side {
     display: flex;
     flex-direction: column;
@@ -1268,6 +1299,28 @@ body {
     transition: transform 0.5s ease;
     position: relative;
     z-index: 1;
+}
+
+.spot-pdf-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    opacity: 0.5;
+    position: relative;
+    z-index: 1;
+}
+.spot-pdf-icon svg {
+    width: 48px;
+    height: 48px;
+    color: var(--gold);
+}
+.spot-pdf-icon span {
+    font-family: 'Ahlan', 'Cairo', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 1px;
 }
 
 .spot-card:hover .spot-card-img img {
@@ -1556,6 +1609,155 @@ body {
     background: rgba(255,255,255,0.3);
 }
 
+/* ========== ARTICLES PAGE ========== */
+.articles-section {
+    padding: 4rem 0;
+    background: var(--bg-alt);
+    min-height: 60vh;
+    transition: background 0.4s ease;
+}
+.articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.article-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: all 0.4s ease;
+    border: 1px solid var(--border);
+}
+.article-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--gold);
+}
+.article-card-thumb {
+    position: relative;
+    height: 260px;
+    overflow: hidden;
+    background: var(--navy);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.article-card-pdf-thumb {
+    width: 100%;
+    height: 100%;
+    border: none;
+    pointer-events: none;
+}
+.article-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 34, 68, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    z-index: 2;
+}
+.article-card:hover .article-card-overlay {
+    opacity: 1;
+}
+.article-card-overlay svg {
+    width: 48px;
+    height: 48px;
+    color: var(--white);
+}
+.article-card-overlay span {
+    font-family: 'Ahlan', 'Cairo', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+}
+.article-card-body {
+    padding: 1.5rem;
+}
+.article-card-body h3 {
+    font-family: 'Ahlan', 'Cairo', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--dblue);
+    line-height: 1.6;
+    margin-bottom: 0.4rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.article-card-date {
+    font-size: 0.85rem;
+    color: var(--gray);
+    font-weight: 500;
+}
+
+/* ========== FULL-PAGE PDF VIEWER ========== */
+.pdf-fullpage {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: var(--bg);
+    flex-direction: column;
+}
+.pdf-fullpage.open {
+    display: flex;
+    animation: pageIn 0.4s ease;
+}
+.pdf-fullpage-toolbar {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 3rem 0.8rem 1.5rem;
+    background: var(--navy);
+    color: var(--white);
+    min-height: 56px;
+    border-bottom: 2px solid var(--gold);
+}
+.pdf-fullpage-title {
+    font-family: 'Ahlan', 'Cairo', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold);
+}
+.pdf-fullpage-close {
+    position: fixed;
+    top: 0.6rem;
+    left: 0.6rem;
+    z-index: 10;
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: var(--white);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+}
+.pdf-fullpage-close:hover {
+    background: rgba(255,255,255,0.3);
+}
+.pdf-fullpage-close svg {
+    width: 24px;
+    height: 24px;
+}
+.pdf-fullpage-iframe {
+    flex: 1;
+    width: 100%;
+    border: none;
+}
+
 /* ========== FOOTER ========== */
 .footer {
     background: linear-gradient(180deg, var(--navy) 0%, #001122 100%);
@@ -1787,6 +1989,11 @@ body {
     .container { padding: 0 1rem; }
     .quran-box { padding: 1.5rem; }
     .footer-orn-img img { height: 100px; max-width: 100%; }
+    .articles-grid { grid-template-columns: 1fr; }
+    .article-card-thumb { height: 200px; }
+    .pdf-fullpage-iframe { height: 70vh; min-height: 400px; }
+    .pdf-fullpage-toolbar { padding: 0.6rem 2.5rem 0.6rem 1rem; }
+    .pdf-fullpage-title { font-size: 0.95rem; }
     .envelopes-grid { grid-template-columns: 1fr; }
     .envelope-card.open { grid-column: auto; }
     .envelope-flap { padding: 1rem 1.2rem; gap: 0.8rem; }
