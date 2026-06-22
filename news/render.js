@@ -1,3 +1,11 @@
+var articlePageIds = ['al-fudhool', 'bahaa-nesmo', 'iftar-event'];
+
+function getArticleUrl(item) {
+    if (articlePageIds.indexOf(item.id) !== -1) return 'articles/' + item.id + '.html';
+    if (item.pdf) return 'articles/' + item.id + '.html';
+    return null;
+}
+
 function renderSpotlight() {
     var container = document.getElementById('spotlightCards');
     if (!container) return;
@@ -19,8 +27,9 @@ function renderSpotlight() {
         } else {
             imgHtml = '';
         }
-        var spotTarget = item.pdf ? 'articles' : 'events';
-        html += '<div class="spot-card" onclick="go(\'' + spotTarget + '\')">' +
+        var articleUrl = getArticleUrl(item);
+        var onClick = articleUrl ? 'location.href=\'' + articleUrl + '\'' : 'go(\'' + (item.pdf ? 'articles' : 'events') + '\')';
+        html += '<div class="spot-card" onclick="' + onClick + '">' +
             '<div class="spot-card-img">' +
             imgHtml +
             '<span class="spot-tag">' + item.tag + '</span>' +
@@ -94,12 +103,13 @@ function renderFeatured(item) {
             '</div>';
     }
 
-    var clickHandler = isPdf ? 'openPdfFullpage(\'' + item.id + '\')' : 'toggleNewsCard(this)';
+    var articleUrl = getArticleUrl(item);
+    var clickHandler = articleUrl ? 'location.href=\'' + articleUrl + '\'' : (isPdf ? 'openPdfFullpage(\'' + item.id + '\')' : 'toggleNewsCard(this)');
 
     var bodyHtml = '<h3>' + item.title + '</h3>' +
         '<p class="news-date">' + item.date + '</p>';
 
-    if (!isPdf) {
+    if (!isPdf && !articleUrl) {
         bodyHtml += '<div class="news-expand-content">' + paras + metaHtml + '</div>';
     }
 
@@ -145,7 +155,10 @@ function renderArticles() {
             thumbContent = '<iframe src="' + item.pdf + '#page=1&toolbar=0&navpanes=0&scrollbar=0&zoom=100" class="article-card-pdf-thumb" loading="lazy"></iframe>';
         }
 
-        html += '<div class="article-card tilt-card" onclick="openPdfFullpage(\'' + item.id + '\')">' +
+        var articleUrl = getArticleUrl(item);
+        var clickHandler = articleUrl ? 'location.href=\'' + articleUrl + '\'' : 'openPdfFullpage(\'' + item.id + '\')';
+
+        html += '<div class="article-card tilt-card" onclick="' + clickHandler + '">' +
             '<div class="article-card-thumb">' +
             thumbContent +
             '<div class="article-card-overlay">' +
