@@ -118,6 +118,64 @@ function toggleNewsCard(el) {
     el.classList.toggle('open');
 }
 
+// ========== ARTICLE / NEWS DETAIL NAVIGATION ==========
+function goToArticle(id) {
+    var item = null;
+    for (var i = 0; i < newsData.length; i++) {
+        if (newsData[i].id === id) {
+            item = newsData[i];
+            break;
+        }
+    }
+    if (!item) return;
+
+    var pages = document.querySelectorAll('.page');
+    for (var i = 0; i < pages.length; i++) {
+        pages[i].classList.remove('active');
+    }
+    document.getElementById('article-view').classList.add('active');
+
+    document.getElementById('menu').classList.remove('open');
+    var menuBtn = document.querySelector('.menu-btn');
+    if (menuBtn) menuBtn.classList.remove('active');
+
+    var links = document.querySelectorAll('.menu a');
+    for (var i = 0; i < links.length; i++) {
+        links[i].classList.remove('on');
+    }
+
+    document.title = item.title + ' | عائلة المَطَر | الأحساء - بلدة الفضول';
+
+    localStorage.setItem('almatar-page', 'article-' + id);
+    window.location.hash = 'article-' + id;
+
+    if (typeof renderArticleDetail === 'function') {
+        renderArticleDetail(id);
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(initScrollReveal, 100);
+}
+
+function goBackFromArticle() {
+    var hash = window.location.hash.replace('#', '');
+    var target;
+    if (hash.indexOf('article-') === 0) {
+        var id = hash.replace('article-', '');
+        target = 'articles';
+        for (var i = 0; i < newsData.length; i++) {
+            if (newsData[i].id === id && !newsData[i].pdf) {
+                target = 'events';
+                break;
+            }
+        }
+    } else {
+        target = 'articles';
+    }
+    go(target);
+    return false;
+}
+
 // ========== PAGE NAVIGATION ==========
 function go(id) {
     var pages = document.querySelectorAll('.page');
@@ -152,7 +210,17 @@ function go(id) {
     var saved = localStorage.getItem('almatar-page');
     var hash = window.location.hash.replace('#', '');
     var target = hash || saved;
-    if (target && target !== 'home') {
+    if (!target || target === 'home') return;
+
+    if (target.indexOf('article-') === 0) {
+        var articleId = target.replace('article-', '');
+        var waitFor = setInterval(function () {
+            if (document.getElementById('article-view') && typeof renderArticleDetail === 'function' && typeof initScrollReveal === 'function') {
+                clearInterval(waitFor);
+                goToArticle(articleId);
+            }
+        }, 50);
+    } else {
         var waitFor = setInterval(function () {
             if (document.getElementById(target) && typeof initScrollReveal === 'function') {
                 clearInterval(waitFor);
@@ -317,19 +385,8 @@ function closeImgViewer() {
     document.body.style.overflow = '';
 }
 document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') { closeImgViewer(); closePdfFullpage(); }
+    if (e.key === 'Escape') closeImgViewer();
 });
-
-// ========== FULL-PAGE PDF VIEWER ==========
-function closePdfFullpage() {
-    var modal = document.getElementById('pdfFullpage');
-    var iframe = document.getElementById('pdfFullpageIframe');
-    if (modal) {
-        modal.classList.remove('open');
-        document.body.style.overflow = '';
-    }
-    if (iframe) iframe.src = '';
-}
 
 // ========== ARTICLE JSON-LD SCHEMA ==========
 (function injectArticleSchemas() {

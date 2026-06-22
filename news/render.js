@@ -1,11 +1,3 @@
-var articlePageIds = ['al-fudhool', 'bahaa-nesmo', 'iftar-event'];
-
-function getArticleUrl(item) {
-    if (articlePageIds.indexOf(item.id) !== -1) return 'articles/' + item.id + '.html';
-    if (item.pdf) return 'articles/' + item.id + '.html';
-    return null;
-}
-
 function renderSpotlight() {
     var container = document.getElementById('spotlightCards');
     if (!container) return;
@@ -27,9 +19,7 @@ function renderSpotlight() {
         } else {
             imgHtml = '';
         }
-        var articleUrl = getArticleUrl(item);
-        var onClick = articleUrl ? 'location.href=\'' + articleUrl + '\'' : 'go(\'' + (item.pdf ? 'articles' : 'events') + '\')';
-        html += '<div class="spot-card" onclick="' + onClick + '">' +
+        html += '<div class="spot-card" onclick="goToArticle(\'' + item.id + '\')">' +
             '<div class="spot-card-img">' +
             imgHtml +
             '<span class="spot-tag">' + item.tag + '</span>' +
@@ -66,57 +56,24 @@ function renderNews() {
 }
 
 function renderFeatured(item) {
-    var isPdf = item.pdf;
-
     var headerHtml;
-    if (isPdf) {
-        var imgStyle = item.image ? 'style="background-image:url(\'' + item.image + '\')"' : '';
-        headerHtml = '<div class="news-featured-img news-pdf-header" ' + imgStyle + ' onclick="event.stopPropagation()">' +
-            (item.image ? '' : '<div class="news-pdf-icon-wrap">' +
-            '<svg class="news-pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>' +
-            '<span class="news-pdf-label">PDF</span>' +
-            '</div>') +
+    if (item.pdf) {
+        headerHtml = '<div class="news-featured-img news-pdf-header">' +
+            '<img src="' + item.image + '" alt="' + item.title + '" class="news-pdf-header-img" loading="lazy" onerror="this.style.display=\'none\'">' +
             '<span class="news-tag">' + item.tag + '</span>' +
             '</div>';
     } else {
-        var paras = '';
-        for (var p = 0; p < item.paragraphs.length; p++) {
-            if (item.isHadith && item.isHadith[p]) {
-                paras += '<p class="hadith-text">' + item.paragraphs[p] + '</p>';
-            } else {
-                paras += '<p>' + item.paragraphs[p] + '</p>';
-            }
-        }
-
-        var metaHtml = '';
-        if (item.meta) {
-            metaHtml = '<div class="news-meta">';
-            for (var m = 0; m < item.meta.length; m++) {
-                metaHtml += '<span>' + item.meta[m] + '</span>';
-            }
-            metaHtml += '</div>';
-        }
-
-        headerHtml = '<div class="news-featured-img" onclick="event.stopPropagation();openImgViewer(\'' + item.image + '\')">' +
+        headerHtml = '<div class="news-featured-img">' +
             '<img src="' + item.image + '" alt="' + item.title + '" loading="lazy" onerror="this.style.display=\'none\'">' +
             '<span class="news-tag">' + item.tag + '</span>' +
             '</div>';
     }
 
-    var articleUrl = getArticleUrl(item);
-    var clickHandler = articleUrl ? 'location.href=\'' + articleUrl + '\'' : (isPdf ? 'openPdfFullpage(\'' + item.id + '\')' : 'toggleNewsCard(this)');
-
-    var bodyHtml = '<h3>' + item.title + '</h3>' +
-        '<p class="news-date">' + item.date + '</p>';
-
-    if (!isPdf && !articleUrl) {
-        bodyHtml += '<div class="news-expand-content">' + paras + metaHtml + '</div>';
-    }
-
-    return '<div class="news-featured tilt-card" onclick="' + clickHandler + '">' +
+    return '<div class="news-featured" onclick="goToArticle(\'' + item.id + '\')">' +
         headerHtml +
         '<div class="news-featured-body">' +
-        bodyHtml +
+        '<h3>' + item.title + '</h3>' +
+        '<p class="news-date">' + item.date + '</p>' +
         '</div>' +
         '</div>';
 }
@@ -124,7 +81,7 @@ function renderFeatured(item) {
 function renderSmallCard(item, index) {
     var stagger = 'stagger-' + ((index % 3) + 1);
 
-    return '<div class="news-small-card tilt-card reveal ' + stagger + '" onclick="toggleNewsCard(this)">' +
+    return '<div class="news-small-card reveal ' + stagger + '" onclick="goToArticle(\'' + item.id + '\')">' +
         '<div class="news-small-icon">' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>' +
         '</div>' +
@@ -132,9 +89,6 @@ function renderSmallCard(item, index) {
         '<span class="news-tag small">' + item.tag + '</span>' +
         '<h4>' + item.title + '</h4>' +
         '<p class="news-date">' + item.date + '</p>' +
-        '<div class="news-expand-content">' +
-        '<p>' + item.paragraphs[0] + '</p>' +
-        '</div>' +
         '</div>' +
         '</div>';
 }
@@ -148,23 +102,9 @@ function renderArticles() {
         var item = newsData[i];
         if (!item.pdf) continue;
 
-        var thumbContent;
-        if (item.image) {
-            thumbContent = '<img src="' + item.image + '" alt="' + item.title + '" class="article-card-img" loading="lazy" onerror="this.style.display=\'none\'">';
-        } else {
-            thumbContent = '<iframe src="' + item.pdf + '#page=1&toolbar=0&navpanes=0&scrollbar=0&zoom=100" class="article-card-pdf-thumb" loading="lazy"></iframe>';
-        }
-
-        var articleUrl = getArticleUrl(item);
-        var clickHandler = articleUrl ? 'location.href=\'' + articleUrl + '\'' : 'openPdfFullpage(\'' + item.id + '\')';
-
-        html += '<div class="article-card tilt-card" onclick="' + clickHandler + '">' +
+        html += '<div class="article-card" onclick="goToArticle(\'' + item.id + '\')">' +
             '<div class="article-card-thumb">' +
-            thumbContent +
-            '<div class="article-card-overlay">' +
-            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>' +
-            '<span>قراءة المقال</span>' +
-            '</div>' +
+            '<img src="' + item.image + '" alt="' + item.title + '" class="article-card-img" loading="lazy" onerror="this.style.display=\'none\'">' +
             '<span class="news-tag">' + item.tag + '</span>' +
             '</div>' +
             '<div class="article-card-body">' +
@@ -177,7 +117,15 @@ function renderArticles() {
     container.innerHTML = html;
 }
 
-function openPdfFullpage(id) {
+function toggleArticle(el) {
+    var isOpen = el.classList.contains('open');
+    document.querySelectorAll('.article-card.open').forEach(function (c) {
+        if (c !== el) c.classList.remove('open');
+    });
+    el.classList.toggle('open');
+}
+
+function renderArticleDetail(id) {
     var item = null;
     for (var i = 0; i < newsData.length; i++) {
         if (newsData[i].id === id) {
@@ -185,24 +133,83 @@ function openPdfFullpage(id) {
             break;
         }
     }
-    if (!item || !item.pdf) return;
+    if (!item) return;
 
-    var isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 768;
+    var container = document.getElementById('articleViewContent');
+    if (!container) return;
 
-    if (isMobile) {
-        window.open(item.pdf, '_blank');
-    } else {
-        var modal = document.getElementById('pdfFullpage');
-        var iframe = document.getElementById('pdfFullpageIframe');
-        var titleEl = document.getElementById('pdfFullpageTitle');
+    var isPdf = !!item.pdf;
 
-        if (iframe) iframe.src = item.pdf;
-        if (titleEl) titleEl.textContent = item.title;
-        if (modal) {
-            modal.classList.add('open');
-            document.body.style.overflow = 'hidden';
+    var parasHtml = '';
+    for (var p = 0; p < item.paragraphs.length; p++) {
+        if (item.isHadith && item.isHadith[p]) {
+            parasHtml += '<p class="hadith-text">' + item.paragraphs[p] + '</p>';
+        } else {
+            parasHtml += '<p>' + item.paragraphs[p] + '</p>';
         }
     }
+
+    var metaHtml = '';
+    if (item.meta) {
+        metaHtml = '<div class="news-meta">';
+        for (var m = 0; m < item.meta.length; m++) {
+            metaHtml += '<span>' + item.meta[m] + '</span>';
+        }
+        metaHtml += '</div>';
+    }
+
+    var inlineImgHtml = '';
+    if (item.image) {
+        inlineImgHtml = '<div class="article-detail-inline-img reveal">' +
+            '<img src="' + item.image + '" alt="' + item.title + '" loading="lazy">' +
+            '</div>';
+    }
+
+    var imgHtml;
+    if (item.image) {
+        imgHtml = '<div class="article-detail-img reveal-scale">' +
+            '<img src="' + item.image + '" alt="' + item.title + '" loading="lazy" onerror="this.style.display=\'none\'">' +
+            '<span class="news-tag">' + item.tag + '</span>' +
+            '</div>';
+    } else {
+        imgHtml = '<div class="article-detail-img article-detail-noimg reveal-scale">' +
+            '<span class="news-tag">' + item.tag + '</span>' +
+            '</div>';
+    }
+
+    var pdfHtml = '';
+    if (isPdf) {
+        pdfHtml = '<div class="article-detail-pdf-section reveal">' +
+            '<h2 class="article-detail-pdf-title">قراءة المستند الأصلي (PDF)</h2>' +
+            '<div class="news-pdf-viewer">' +
+            '<iframe src="' + item.pdf + '" class="news-pdf-iframe" title="PDF viewer" loading="lazy"></iframe>' +
+            '</div>' +
+            '</div>';
+    }
+
+    var html = '<div class="article-detail">' +
+        '<div class="container">' +
+        '<a href="#" class="article-detail-back" onclick="goBackFromArticle()">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>' +
+        ' العودة' +
+        '</a>' +
+        '<article>' +
+        imgHtml +
+        pdfHtml +
+        '<div class="article-detail-body reveal">' +
+        '<h1 class="article-detail-title">' + item.title + '</h1>' +
+        '<p class="article-detail-date">' + item.date + '</p>' +
+        '<div class="article-detail-content">' +
+        parasHtml +
+        inlineImgHtml +
+        metaHtml +
+        '</div>' +
+        '</div>' +
+        '</article>' +
+        '</div>' +
+        '</div>';
+
+    container.innerHTML = html;
 }
 
 function initNews() {
