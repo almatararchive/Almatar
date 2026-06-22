@@ -50,7 +50,6 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html {
     scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
 }
 
 ::-webkit-scrollbar { width: 8px; }
@@ -67,6 +66,9 @@ body {
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     transition: background 0.4s ease, color 0.4s ease;
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+    touch-action: manipulation;
 }
 
 ::selection {
@@ -137,7 +139,7 @@ body {
     inset: 0;
     pointer-events: none;
     z-index: 0;
-    overflow: hidden;
+    overflow: clip;
 }
 .float-shape {
     position: absolute;
@@ -210,11 +212,14 @@ body {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     padding: 0.8rem 0 0;
+    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 20px rgba(0, 56, 110, 0.08);
     transition: box-shadow var(--transition), background 0.4s ease;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 [data-theme="dark"] .header {
     background: rgba(15, 23, 41, 0.95);
@@ -1730,6 +1735,52 @@ body {
     color: var(--dblue);
     margin-bottom: 1.5rem;
     font-weight: 700;
+}
+
+.article-detail-pdf-links {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.article-detail-pdf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1.5rem;
+    background: var(--blue);
+    color: var(--white);
+    border-radius: 8px;
+    font-family: 'Ahlan', 'Cairo', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 2px solid var(--blue);
+}
+
+.article-detail-pdf-btn:hover {
+    background: var(--navy);
+    border-color: var(--navy);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 56, 110, 0.25);
+}
+
+.article-detail-pdf-btn-dl {
+    background: transparent;
+    color: var(--blue);
+}
+
+.article-detail-pdf-btn-dl:hover {
+    background: var(--ice);
+    color: var(--navy);
+    border-color: var(--navy);
+    box-shadow: 0 6px 20px rgba(0, 56, 110, 0.15);
+}
+
+.article-detail-pdf-btn svg {
+    flex-shrink: 0;
 }
 
 @media (max-width: 768px) {
