@@ -365,7 +365,265 @@ if ('loading' in HTMLImageElement.prototype) {
 } else {
     // Simple fallback: load all images
     var imgs = document.querySelectorAll('img[loading="lazy"]');
-    imgs.forEach(function (img) {
+    imgs.forEach(function(img) {
         img.src = img.src;
     });
 }
+
+// ========== SEARCH FUNCTIONALITY ==========
+var searchIndex = [];
+var allContent = [];
+
+// Initialize search index
+(function() {
+    // Collect all searchable content
+    var contentItems = [];
+    
+    // Add news articles
+    if (typeof newsData !== 'undefined') {
+        for (var i = 0; i < newsData.length; i++) {
+            var item = newsData[i];
+            if (item.hidden) continue;
+            
+            contentItems.push({
+                type: item.pdf ? 'article' : 'news',
+                title: item.title,
+                description: item.paragraphs ? item.paragraphs.join(' ') : '',
+                date: item.date,
+                tag: item.tag,
+                url: item.pdf ? 'articles/' + item.id + '.html' : 'index.html#' + item.id,
+                image: item.image,
+                id: item.id
+            });
+        }
+    }
+    
+    // Add articles page content
+    var articles = document.querySelectorAll('.article-card');
+    articles.forEach(function(article) {
+        var title = article.querySelector('h3');
+        var date = article.querySelector('.article-card-date');
+        var tag = article.querySelector('.news-tag');
+        
+        if (title && date && tag) {
+            contentItems.push({
+                type: 'article',
+                title: title.textContent,
+                description: '',
+                date: date.textContent,
+                tag: tag.textContent,
+                url: article.href || '#',
+                image: null
+            });
+        }
+    });
+    
+    // Add home page spotlight content
+    var spotlightCards = document.querySelectorAll('.spot-card');
+    spotlightCards.forEach(function(card) {
+        var title = card.querySelector('h3');
+        var date = card.querySelector('.spot-date');
+        var tag = card.querySelector('.spot-tag');
+        
+        if (title && date && tag) {
+            contentItems.push({
+                type: 'spotlight',
+                title: title.textContent,
+                description: '',
+                date: date.textContent,
+                tag: tag.textContent,
+                url: card.href || '#',
+                image: null
+            });
+        }
+    });
+    
+    // Add family names and terms
+    var familyTerms = [
+        'عائلة المطر', 'آل المطر', 'المطر', 'الأحساء', 'الفضول', 'بلدة الفضول', 
+        'شجرة العائلة', 'أعلام العائلة', 'الراحلون', 'الأخبار', 'المناسبات', 
+        'المقالات', 'التعارف', 'نسب', 'قبائل', 'بحث', 'تاريخ', 'ثقافة'
+    ];
+    
+    familyTerms.forEach(function(term) {
+        contentItems.push({
+            type: 'term',
+            title: term,
+            description: 'مصطلح العائلة',
+            date: '',
+            tag: 'مصطلح',
+            url: '#',
+            image: null
+        });
+    });
+    
+    searchIndex = contentItems;
+    allContent = contentItems.map(function(item) {
+        return item.title + ' ' + item.description + ' ' + item.tag + ' ' + item.date;
+    });
+})();
+
+// Search toggle functions
+(function() {
+    var searchToggle = document.getElementById('searchToggle');
+    var searchBox = document.getElementById('searchBox');
+    var searchOverlay = document.getElementById('searchOverlay');
+    var searchClose = document.getElementById('searchClose');
+    var searchInput = document.getElementById('searchInput');
+    var searchInputOverlay = document.getElementById('searchInputOverlay');
+    var searchSubmit = document.getElementById('searchSubmit');
+    var searchSubmitOverlay = document.getElementById('searchSubmitOverlay');
+    
+    if (searchToggle && searchBox) {
+        searchToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            searchBox.classList.toggle('active');
+            if (searchBox.classList.contains('active')) {
+                searchInput.focus();
+            }
+        });
+    }
+    
+    if (searchOverlay && searchClose) {
+        searchClose.addEventListener('click', function() {
+            searchOverlay.classList.remove('active');
+            if (searchInputOverlay) searchInputOverlay.value = '';
+            if (document.getElementById('searchResultsContainer')) {
+                document.getElementById('searchResultsContainer').innerHTML = '';
+            }
+        });
+    }
+    
+    // Close search when clicking outside
+    document.addEventListener('click', function(e) {
+        if (searchBox && !searchBox.contains(e.target) && !searchToggle.contains(e.target)) {
+            searchBox.classList.remove('active');
+        }
+    });
+    
+    // Search functions
+    function performSearch(query) {
+        var resultsContainer = document.getElementById('searchResultsContainer');
+        var loading = document.getElementById('searchLoading');
+        var empty = document.getElementById('searchEmpty');
+        
+        if (!query.trim()) {
+            resultsContainer.innerHTML = '';
+            return;
+        }
+        
+        loading.style.display = 'block';
+        empty.style.display = 'none';
+        
+        setTimeout(function() {
+            loading.style.display = 'none';
+            
+            var searchTerm = query.toLowerCase();
+            var filtered = searchIndex.filter(function(item) {
+                var title = item.title.toLowerCase();
+                var description = item.description.toLowerCase();
+                var tag = item.tag.toLowerCase();
+                var date = item.date.toLowerCase();
+                
+                return title.includes(searchTerm) || 
+                       description.includes(searchTerm) || 
+                       tag.includes(searchTerm) || 
+                       date.includes(searchTerm) ||
+                       searchTerm.includes(title) ||
+                       searchTerm.includes(description) ||
+                       searchTerm.includes(tag) ||
+                       searchTerm.includes(date);
+            });
+            
+            if (filtered.length === 0) {
+                empty.style.display = 'block';
+                resultsContainer.innerHTML = '';
+            } else {
+                empty.style.display = 'none';
+                renderSearchResults(filtered, searchTerm);
+            }
+        }, 300);
+    }
+    
+    function renderSearchResults(results, searchTerm) {
+        var container = document.getElementById('searchResultsContainer');
+        var html = '';
+        
+        for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            
+            // Highlight search term
+            var highlightedTitle = item.title.replace(new RegExp(searchTerm, 'gi'), function(match) {
+                return '<span class="search-highlight">' + match + '</span>';
+            });
+            
+            var highlightedDesc = item.description ? item.description.replace(new RegExp(searchTerm, 'gi'), function(match) {
+                return '<span class="search-highlight">' + match + '</span>';
+            }) : '';
+            
+            var highlightedTag = item.tag ? item.tag.replace(new RegExp(searchTerm, 'gi'), function(match) {
+                return '<span class="search-highlight">' + match + '</span>';
+            }) : '';
+            
+            var imageHtml = item.image ? '<img src="' + item.image + '" alt="' + item.title + '" class="search-result-img" loading="lazy">' : '';
+            
+            html += '<a href="' + item.url + '" class="search-result-item">' +
+                imageHtml +
+                '<div class="search-result-content">' +
+                    '<h3 class="search-result-title">' + highlightedTitle + '</h3>' +
+                    (highlightedDesc ? '<p class="search-result-desc">' + highlightedDesc + '</p>' : '') +
+                    '<div class="search-result-meta">' +
+                        '<span class="search-result-tag">' + highlightedTag + '</span>' +
+                        (item.date ? '<span>' + item.date + '</span>' : '') +
+                        '<span>' + item.type + '</span>' +
+                    '</div>' +
+                '</div>' +
+            '</a>';
+        }
+        
+        container.innerHTML = html;
+    }
+    
+    // Event listeners for search
+    if (searchSubmit) {
+        searchSubmit.addEventListener('click', function() {
+            var query = searchInput.value;
+            if (query.trim()) {
+                searchOverlay.classList.add('active');
+                performSearch(query);
+            }
+        });
+    }
+    
+    if (searchSubmitOverlay) {
+        searchSubmitOverlay.addEventListener('click', function() {
+            var query = searchInputOverlay.value;
+            if (query.trim()) {
+                performSearch(query);
+            }
+        });
+    }
+    
+    if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                var query = searchInput.value;
+                if (query.trim()) {
+                    searchOverlay.classList.add('active');
+                    performSearch(query);
+                }
+            }
+        });
+    }
+    
+    if (searchInputOverlay) {
+        searchInputOverlay.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                var query = searchInputOverlay.value;
+                if (query.trim()) {
+                    performSearch(query);
+                }
+            }
+        });
+    }
+})();
