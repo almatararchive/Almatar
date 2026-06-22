@@ -192,9 +192,6 @@ function renderArticleDetail(id) {
             'تحميل PDF' +
             '</a>' +
             '</div>' +
-            '<div class="news-pdf-viewer">' +
-            '<embed src="' + pdfUrl + '" class="news-pdf-iframe" type="application/pdf">' +
-            '</div>' +
             '</div>';
     }
 
