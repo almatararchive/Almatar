@@ -174,15 +174,21 @@ function openPdfFullpage(id) {
     }
     if (!item || !item.pdf) return;
 
-    var modal = document.getElementById('pdfFullpage');
-    var iframe = document.getElementById('pdfFullpageIframe');
-    var titleEl = document.getElementById('pdfFullpageTitle');
+    var isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 768;
 
-    if (iframe) iframe.src = item.pdf;
-    if (titleEl) titleEl.textContent = item.title;
-    if (modal) {
-        modal.classList.add('open');
-        document.body.style.overflow = 'hidden';
+    if (isMobile) {
+        window.open(item.pdf, '_blank');
+    } else {
+        var modal = document.getElementById('pdfFullpage');
+        var iframe = document.getElementById('pdfFullpageIframe');
+        var titleEl = document.getElementById('pdfFullpageTitle');
+
+        if (iframe) iframe.src = item.pdf;
+        if (titleEl) titleEl.textContent = item.title;
+        if (modal) {
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
     }
 }
 

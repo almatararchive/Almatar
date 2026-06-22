@@ -48,7 +48,10 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
 
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--ice); }
@@ -61,6 +64,8 @@ body {
     color: var(--text);
     line-height: 1.8;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
     transition: background 0.4s ease, color 0.4s ease;
 }
 
@@ -70,6 +75,18 @@ body {
 }
 
 .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* ========== PERFORMANCE ========== */
+.hero-logo,
+.news-featured,
+.spot-card,
+.article-card,
+.tilt-card,
+.float-shape {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+}
 
 /* ========== SCROLL REVEAL ========== */
 .reveal {
@@ -1637,6 +1654,16 @@ body {
     flex: 1;
     width: 100%;
     border: none;
+}
+
+/* ========== iOS SAFARI FIXES ========== */
+@supports (-webkit-touch-callout: none) {
+    body {
+        height: -webkit-fill-available;
+    }
+    .pdf-fullpage {
+        height: -webkit-fill-available;
+    }
 }
 
 /* ========== FOOTER ========== */
