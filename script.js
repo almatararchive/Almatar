@@ -343,12 +343,12 @@ function closePdfFullpage() {
             "@type": item.pdf ? "Article" : "NewsArticle",
             "headline": item.title,
             "datePublished": item.date,
-            "image": item.image ? "https://www.almatar-family.com/" + item.image : "",
+            "image": item.image ? "https://almatararchive.github.io/Almatar/" + item.image : "",
             "author": { "@type": "Organization", "name": "عائلة المطر" },
             "description": (item.paragraphs && item.paragraphs.length) ? item.paragraphs[0].replace(/<[^>]*>/g, '') : "",
             "inLanguage": "ar-SA",
-            "url": "https://www.almatar-family.com/#" + (item.pdf ? "articles" : "events"),
-            "isPartOf": { "@type": "WebSite", "name": "عائلة المطر", "url": "https://www.almatar-family.com" }
+            "url": "https://almatararchive.github.io/Almatar/#" + (item.pdf ? "articles" : "events"),
+            "isPartOf": { "@type": "WebSite", "name": "عائلة المطر", "url": "https://almatararchive.github.io/Almatar" }
         });
     }
     if (schemas.length) {
