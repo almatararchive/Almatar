@@ -1,38 +1,3 @@
-// ========== LOADING SCREEN ==========
-(function () {
-    var loader = document.getElementById('loader');
-    var bar = document.getElementById('loaderBar');
-    if (!loader) return;
-
-    var progress = 0;
-    var interval = setInterval(function () {
-        progress += Math.random() * 15 + 5;
-        if (progress >= 90) {
-            progress = 90;
-            clearInterval(interval);
-        }
-        if (bar) bar.style.width = progress + '%';
-    }, 300);
-
-    window.addEventListener('load', function () {
-        if (bar) bar.style.width = '100%';
-        setTimeout(function () {
-            loader.classList.add('hidden');
-            clearInterval(interval);
-        }, 500);
-    });
-
-    setTimeout(function () {
-        if (!loader.classList.contains('hidden')) {
-            if (bar) bar.style.width = '100%';
-            setTimeout(function () {
-                loader.classList.add('hidden');
-                clearInterval(interval);
-            }, 400);
-        }
-    }, 4000);
-})();
-
 // ========== THEME TOGGLE ==========
 (function () {
     var toggle = document.getElementById('themeToggle');
@@ -171,10 +136,31 @@ function go(id) {
             links[i].classList.add('on');
         }
     }
+
+    var pageNames = { home: 'الرئيسية', about: 'عن العائلة', tree: 'شجرة العائلة', figures: 'أعلام العائلة', departed: 'الراحلون', events: 'الأخبار والمناسبات', articles: 'المقالات', gallery: 'ألبوم الصور' };
+    document.title = (id === 'home' ? '' : pageNames[id] + ' | ') + 'عائلة المَطَر | الأحساء - بلدة الفضول';
+
+    localStorage.setItem('almatar-page', id);
+    window.location.hash = id;
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setTimeout(initScrollReveal, 100);
     return false;
 }
+
+(function restorePage() {
+    var saved = localStorage.getItem('almatar-page');
+    var hash = window.location.hash.replace('#', '');
+    var target = hash || saved;
+    if (target && target !== 'home') {
+        var waitFor = setInterval(function () {
+            if (document.getElementById(target) && typeof initScrollReveal === 'function') {
+                clearInterval(waitFor);
+                go(target);
+            }
+        }, 50);
+    }
+})();
 
 // ========== MOBILE MENU ==========
 document.addEventListener('DOMContentLoaded', function () {
@@ -344,6 +330,34 @@ function closePdfFullpage() {
     }
     if (iframe) iframe.src = '';
 }
+
+// ========== ARTICLE JSON-LD SCHEMA ==========
+(function injectArticleSchemas() {
+    if (typeof newsData === 'undefined') return;
+    var schemas = [];
+    for (var i = 0; i < newsData.length; i++) {
+        var item = newsData[i];
+        if (item.hidden) continue;
+        schemas.push({
+            "@context": "https://schema.org",
+            "@type": item.pdf ? "Article" : "NewsArticle",
+            "headline": item.title,
+            "datePublished": item.date,
+            "image": item.image ? "https://www.almatar-family.com/" + item.image : "",
+            "author": { "@type": "Organization", "name": "عائلة المطر" },
+            "description": (item.paragraphs && item.paragraphs.length) ? item.paragraphs[0].replace(/<[^>]*>/g, '') : "",
+            "inLanguage": "ar-SA",
+            "url": "https://www.almatar-family.com/#" + (item.pdf ? "articles" : "events"),
+            "isPartOf": { "@type": "WebSite", "name": "عائلة المطر", "url": "https://www.almatar-family.com" }
+        });
+    }
+    if (schemas.length) {
+        var script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.textContent = JSON.stringify(schemas);
+        document.head.appendChild(script);
+    }
+})();
 
 // ========== LAZY LOAD POLYFILL ==========
 if ('loading' in HTMLImageElement.prototype) {
